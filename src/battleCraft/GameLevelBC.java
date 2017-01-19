@@ -17,6 +17,7 @@ import java.awt.Canvas;
 import java.awt.Point;
 
 import battlecraft.entity.EntityFactory;
+import battlecraft.entity.structure.IStructureFactory;
 import battlecraft.entity.tile.ITileFactory;
 import pacman.entity.Ghost;
 import pacman.entity.Pacman;
@@ -28,7 +29,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 
 	Canvas canvas;
 	private int NB_ROWS;
-	private int NB_COLUMNS;	
+	private int NB_COLUMNS;
 	private int SPRITE_SIZE;
 	public static final int NUMBER_OF_GHOSTS = 5;
 
@@ -42,14 +43,14 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		NB_ROWS = GameBC.NB_ROWS;
 		canvas = g.getCanvas();
 	}
-	
+
 	@Override
 	protected void init() {
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		moveBlockerChecker.setMoveBlockerRules(new PacmanMoveBlockers());
-		
+
 		PacmanOverlapRules overlapRules = new PacmanOverlapRules(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE),
 				new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE), life[0], score[0], endOfGame);
 		overlapProcessor.setOverlapRules(overlapRules);
@@ -59,12 +60,11 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
-		
+
 		placeTiles();
 		placeStructures();
 		overlapRules.setTotalNbGums(0);
-		
-		
+
 		// Pacman definition and inclusion in the universe
 		Pacman myPac = new Pacman(canvas);
 		GameMovableDriverDefaultImpl pacDriver = new GameMovableDriverDefaultImpl();
@@ -90,25 +90,34 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 			(overlapRules).addGhost(myGhost);
 		}
 	}
-	
-	public void placeTiles(){
+
+	public void placeTiles() {
 		ITileFactory tfactory = new EntityFactory();
 		for (int i = 0; i < NB_ROWS; ++i) {
 			for (int j = 0; j < NB_COLUMNS; ++j) {
-				if ((j==0) || (i==0) || (i==NB_ROWS-1) || (j==NB_COLUMNS-1))
-					universe.addGameEntity(tfactory.createForestTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 49));
-				else 
-					universe.addGameEntity(tfactory.createLandTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 58));
+				if ((j == 0) || (i == 0) || (i == NB_ROWS - 1) || (j == NB_COLUMNS - 1))
+					universe.addGameEntity(
+							tfactory.createForestTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 49));
+				else
+					universe.addGameEntity(
+							tfactory.createLandTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 58));
 			}
 		}
 	}
-	
-	public void placeStructures(){
-		//TODO
+
+	public void placeStructures() {
+		IStructureFactory sfactory = new EntityFactory();
+		for (int i = 0; i < NB_ROWS; ++i) {
+			for (int j = 0; j < NB_COLUMNS; ++j) {
+				if ((j == 5) && (i == 5))
+					universe.addGameEntity(
+							sfactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 17));
+			}
+		}
 	}
-	
-	public void placeRessources(){
-		//TODO
+
+	public void placeRessources() {
+		// TODO
 	}
 
 }
