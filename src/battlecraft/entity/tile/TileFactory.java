@@ -2,25 +2,28 @@ package battlecraft.entity.tile;
 
 import java.awt.Canvas;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.Arrays;
 
-import battlecraft.entity.Tile;
+import gameframework.core.GameEntity;
 
 public class TileFactory implements ITileFactory {
 	
-	private String path;
-	private String prefix = "Tile/";
-	private String suffix = ".png";
 	private int[] solid = {44,48,49,47};
 
-	public TileFactory(String path) {
-		this.path = path+"";
+	public TileFactory() {
 	}
 
-	@Override 
-	public Tile createTile(Canvas defaultCanvas, Point position, int number) {
-		boolean isSolid = Arrays.stream(solid).anyMatch(i -> i == number);
-		String sprite = path + prefix + number + suffix;
-		return new Tile(defaultCanvas, position, sprite, isSolid);
+	@Override
+	public GameEntity createForestTile(Canvas defaultCanvas, Point position, int number) {
+		Rectangle bb = new Rectangle(1,0,1,1);
+		String imagePath = "images/Medieval/Tile/49.png";
+		return new MoveBlockerTile(defaultCanvas, position, imagePath, bb);
+	}
+
+	@Override
+	public GameEntity createLandTile(Canvas defaultCanvas, Point position, int number) {
+		String imagePath = "images/Medieval/Tile/59.png";
+		return new Tile(defaultCanvas, position, imagePath);
 	}
 }

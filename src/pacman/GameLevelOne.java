@@ -17,9 +17,9 @@ import java.awt.Canvas;
 import java.awt.Point;
 import java.util.Arrays;
 
-import battlecraft.entity.MedievalFactory;
-import battlecraft.entity.Tile;
+import battlecraft.entity.EntityFactory;
 import battlecraft.entity.tile.ITileFactory;
+import battlecraft.entity.tile.Tile;
 import battlecraft.entity.tile.TileFactory;
 import pacman.entity.Ghost;
 import pacman.entity.Jail;
@@ -124,13 +124,13 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 		
-		ITileFactory tfactory = new MedievalFactory();
+		ITileFactory tfactory = new EntityFactory();
 
 		int totalNbGums = 0;
 		// Filling up the universe with basic non movable entities and inclusion in the universe
 		for (int i = 0; i < 31; ++i) {
 			for (int j = 0; j < 41; ++j) {
-				universe.addGameEntity(tfactory.createTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), landtiles[i][j]));
+				//universe.addGameEntity(tfactory.createLandTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), landtiles[i][j]));
 			}
 			
 		}

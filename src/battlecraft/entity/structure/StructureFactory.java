@@ -3,7 +3,7 @@ package battlecraft.entity.structure;
 import java.awt.Canvas;
 import java.awt.Point;
 
-import battlecraft.entity.Tile;
+import battlecraft.entity.tile.Tile;
 
 public class StructureFactory implements IStructureFactory {
 

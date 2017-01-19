@@ -1,6 +1,6 @@
 package pacman.rule;
 
-import battlecraft.entity.Tile;
+import battlecraft.entity.tile.Tile;
 import gameframework.moves_rules.IllegalMoveException;
 import gameframework.moves_rules.MoveBlockerRulesApplierDefaultImpl;
 import pacman.entity.Ghost;

@@ -3,10 +3,11 @@ package battlecraft.entity.tile;
 import java.awt.Canvas;
 import java.awt.Point;
 
-import battlecraft.entity.Tile;
+import gameframework.core.GameEntity;
 
 public interface ITileFactory {
 
-	Tile createTile(Canvas defaultCanvas, Point position, int number);
-
+	GameEntity createForestTile(Canvas defaultCanvas, Point position, int number);
+	GameEntity createLandTile(Canvas defaultCanvas, Point position, int number);
+	
 }

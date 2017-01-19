@@ -1,4 +1,4 @@
-package battlecraft.entity;
+package battlecraft.entity.tile;
 
 import gameframework.core.Drawable;
 import gameframework.core.DrawableImage;
@@ -10,16 +10,19 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-public class Tile implements Drawable, MoveBlocker, GameEntity {
+import battlecraft.entity.SpriteStore;
+import battlecraft.entity.Utils;
+
+public class MoveBlockerTile implements Drawable, MoveBlocker, GameEntity {
 	protected DrawableImage image;
 	protected Point position;
 	public int RENDERING_SIZE = 32;
-	boolean solid;
+	public Rectangle BOUNDING_BOX;
 
-	public Tile(Canvas defaultCanvas, Point position, String spritePath, boolean solid) {
+	public MoveBlockerTile(Canvas defaultCanvas, Point position, String spritePath, Rectangle BOUNDING_BOX) {
 		this.image = SpriteStore.getInstance().getSprite(spritePath, defaultCanvas);
 		this.position = position;
-		this.solid = solid;
+		this.BOUNDING_BOX = BOUNDING_BOX;
 	}
 
 	public void draw(Graphics g) {
@@ -32,9 +35,6 @@ public class Tile implements Drawable, MoveBlocker, GameEntity {
 	}
 
 	public Rectangle getBoundingBox() {
-		if (solid)
-			return (new Rectangle((int)position.getX(), (int)position.getY(), RENDERING_SIZE, RENDERING_SIZE));
-		else
-			return (new Rectangle(0, 0, 0, 0));
+		return Utils.computeBoundingBox(position ,BOUNDING_BOX, RENDERING_SIZE);
 	}
 }

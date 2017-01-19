@@ -15,7 +15,8 @@ import gameframework.moves_rules.OverlapProcessorDefaultImpl;
 
 import java.awt.Canvas;
 import java.awt.Point;
-import battlecraft.entity.MedievalFactory;
+
+import battlecraft.entity.EntityFactory;
 import battlecraft.entity.tile.ITileFactory;
 import pacman.entity.Ghost;
 import pacman.entity.Pacman;
@@ -91,13 +92,13 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 	}
 	
 	public void placeTiles(){
-		ITileFactory tfactory = new MedievalFactory();
+		ITileFactory tfactory = new EntityFactory();
 		for (int i = 0; i < NB_ROWS; ++i) {
 			for (int j = 0; j < NB_COLUMNS; ++j) {
 				if ((j==0) || (i==0) || (i==NB_ROWS-1) || (j==NB_COLUMNS-1))
-					universe.addGameEntity(tfactory.createTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 49));
+					universe.addGameEntity(tfactory.createForestTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 49));
 				else 
-					universe.addGameEntity(tfactory.createTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 58));
+					universe.addGameEntity(tfactory.createLandTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 58));
 			}
 		}
 	}
