@@ -8,5 +8,6 @@ import gameframework.core.GameEntity;
 public interface IStructureFactory {
 	
 	GameEntity createHouse(Canvas defaultCanvas, Point position, int number);
+	GameEntity createCastle(Canvas defaultCanvas, Point position, int number);
 
 }

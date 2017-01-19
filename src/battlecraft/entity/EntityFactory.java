@@ -12,7 +12,7 @@ import battlecraft.entity.unit.IUnitFactory;
 import battlecraft.entity.unit.UnitFactory;
 import gameframework.core.GameEntity;
 
-public class EntityFactory implements ITileFactory, IStructureFactory {
+public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFactory {
 	
 	TileFactory tfactory = new TileFactory();
 	StructureFactory sfactory = new StructureFactory();
@@ -42,6 +42,12 @@ public class EntityFactory implements ITileFactory, IStructureFactory {
 	public GameEntity createHouse(Canvas defaultCanvas, Point position, int number) {
 		// TODO Auto-generated method stub
 		return sfactory.createHouse(defaultCanvas, position, number);
+	}
+
+	@Override
+	public GameEntity createCastle(Canvas defaultCanvas, Point position, int number) {
+		// TODO Auto-generated method stub
+		return sfactory.createCastle(defaultCanvas, position, number);
 	}
 	
 

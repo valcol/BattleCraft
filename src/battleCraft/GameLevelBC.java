@@ -114,6 +114,12 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 				if ((j == 5) && (i == 5))
 					universe.addGameEntity(
 							efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 17));
+				if ((j == 4) && (i == 10))
+					universe.addGameEntity(
+							efactory.createCastle(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 6));
+				if ((j == 4) && (i == 9))
+					universe.addGameEntity(
+							efactory.createCastle(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 2));
 			}
 		}
 	}
