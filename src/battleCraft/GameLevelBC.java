@@ -67,6 +67,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 
 		placeTiles();
 		placeStructures();
+		placeRessources();
 		overlapRules.setTotalNbGums(0);
 
 		// Pacman definition and inclusion in the universe
@@ -111,9 +112,17 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 	public void placeStructures() {
 		for (int i = 0; i < NB_ROWS; ++i) {
 			for (int j = 0; j < NB_COLUMNS; ++j) {
-				if ((j == 5) && (i == 5))
+				//House
+				if ((j == 5) && (i == 5) )
 					universe.addGameEntity(
 							efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 17));
+				if ((j == 6) && (i == 5) )
+					universe.addGameEntity(
+							efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 20));
+				if ((j == 4) && (i == 5) )
+					universe.addGameEntity(
+							efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 19));
+				//Castle
 				if ((j == 4) && (i == 10))
 					universe.addGameEntity(
 							efactory.createCastle(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 6));
@@ -125,7 +134,19 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 	}
 
 	public void placeRessources() {
-		// TODO
+		
+		for (int i = 0; i < NB_ROWS; ++i) {
+			for (int j = 0; j < NB_COLUMNS; ++j) {
+				if ((j == 10) && (i == 12) )
+					universe.addGameEntity(efactory.createBigMineral(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+				if ((j == 12) && (i == 12) )
+					universe.addGameEntity(efactory.createBigRock(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+				if ((j == 12) && (i == 10) )
+					universe.addGameEntity(efactory.createNormalPineTree(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+				if ((j == 10) && (i == 10) )
+					universe.addGameEntity(efactory.createNormalTree(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+			}
+		}
 	}
 
 }
