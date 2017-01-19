@@ -7,7 +7,7 @@ import gameframework.core.GameEntity;
 
 public interface ITileFactory {
 
-	GameEntity createForestTile(Canvas defaultCanvas, Point position, int number);
-	GameEntity createLandTile(Canvas defaultCanvas, Point position, int number);
+	GameEntity createForestTile(Canvas defaultCanvas, Point position);
+	GameEntity createLandTile(Canvas defaultCanvas, Point position);
 	
 }

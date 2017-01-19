@@ -18,6 +18,7 @@ import java.awt.Point;
 
 import battlecraft.entity.EntityFactory;
 import battlecraft.entity.tile.ITileFactory;
+import battlecraft.entity.unit.Soldier;
 import pacman.entity.Ghost;
 import pacman.entity.Pacman;
 import pacman.rule.GhostMovableDriver;
@@ -27,6 +28,7 @@ import pacman.rule.PacmanOverlapRules;
 public class GameLevelBC extends GameLevelDefaultImpl {
 
 	Canvas canvas;
+	EntityFactory efactory;
 	private int NB_ROWS;
 	private int NB_COLUMNS;	
 	private int SPRITE_SIZE;
@@ -60,13 +62,15 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 		
+		efactory = new EntityFactory();
+		
 		placeTiles();
 		placeStructures();
 		overlapRules.setTotalNbGums(0);
 		
 		
 		// Pacman definition and inclusion in the universe
-		Pacman myPac = new Pacman(canvas);
+		Soldier myPac = (Soldier) efactory.createSoldier(canvas);
 		GameMovableDriverDefaultImpl pacDriver = new GameMovableDriverDefaultImpl();
 		MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
 		pacDriver.setStrategy(keyStr);
@@ -92,13 +96,12 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 	}
 	
 	public void placeTiles(){
-		ITileFactory tfactory = new EntityFactory();
 		for (int i = 0; i < NB_ROWS; ++i) {
 			for (int j = 0; j < NB_COLUMNS; ++j) {
 				if ((j==0) || (i==0) || (i==NB_ROWS-1) || (j==NB_COLUMNS-1))
-					universe.addGameEntity(tfactory.createForestTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 49));
+					universe.addGameEntity(efactory.createForestTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 				else 
-					universe.addGameEntity(tfactory.createLandTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 58));
+					universe.addGameEntity(efactory.createLandTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 			}
 		}
 	}
