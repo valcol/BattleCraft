@@ -17,6 +17,7 @@ import java.awt.Canvas;
 import java.awt.Point;
 
 import battlecraft.entity.EntityFactory;
+import battlecraft.entity.structure.IStructureFactory;
 import battlecraft.entity.tile.ITileFactory;
 import battlecraft.entity.unit.Soldier;
 import pacman.entity.Ghost;
@@ -30,7 +31,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 	Canvas canvas;
 	EntityFactory efactory;
 	private int NB_ROWS;
-	private int NB_COLUMNS;	
+	private int NB_COLUMNS;
 	private int SPRITE_SIZE;
 	public static final int NUMBER_OF_GHOSTS = 5;
 
@@ -44,14 +45,14 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		NB_ROWS = GameBC.NB_ROWS;
 		canvas = g.getCanvas();
 	}
-	
+
 	@Override
 	protected void init() {
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		moveBlockerChecker.setMoveBlockerRules(new PacmanMoveBlockers());
-		
+
 		PacmanOverlapRules overlapRules = new PacmanOverlapRules(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE),
 				new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE), life[0], score[0], endOfGame);
 		overlapProcessor.setOverlapRules(overlapRules);
@@ -61,14 +62,13 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
-		
+
 		efactory = new EntityFactory();
-		
+
 		placeTiles();
 		placeStructures();
 		overlapRules.setTotalNbGums(0);
-		
-		
+
 		// Pacman definition and inclusion in the universe
 		Soldier myPac = (Soldier) efactory.createSoldier(canvas);
 		GameMovableDriverDefaultImpl pacDriver = new GameMovableDriverDefaultImpl();
@@ -94,24 +94,38 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 			(overlapRules).addGhost(myGhost);
 		}
 	}
-	
-	public void placeTiles(){
+
+	public void placeTiles() {
 		for (int i = 0; i < NB_ROWS; ++i) {
 			for (int j = 0; j < NB_COLUMNS; ++j) {
-				if ((j==0) || (i==0) || (i==NB_ROWS-1) || (j==NB_COLUMNS-1))
-					universe.addGameEntity(efactory.createForestTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
-				else 
-					universe.addGameEntity(efactory.createLandTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+				if ((j == 0) || (i == 0) || (i == NB_ROWS - 1) || (j == NB_COLUMNS - 1))
+					universe.addGameEntity(
+							efactory.createForestTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+				else
+					universe.addGameEntity(
+							efactory.createLandTile(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 			}
 		}
 	}
-	
-	public void placeStructures(){
-		//TODO
+
+	public void placeStructures() {
+		for (int i = 0; i < NB_ROWS; ++i) {
+			for (int j = 0; j < NB_COLUMNS; ++j) {
+				if ((j == 5) && (i == 5))
+					universe.addGameEntity(
+							efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 17));
+				if ((j == 4) && (i == 10))
+					universe.addGameEntity(
+							efactory.createCastle(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 6));
+				if ((j == 4) && (i == 9))
+					universe.addGameEntity(
+							efactory.createCastle(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 2));
+			}
+		}
 	}
-	
-	public void placeRessources(){
-		//TODO
+
+	public void placeRessources() {
+		// TODO
 	}
 
 }

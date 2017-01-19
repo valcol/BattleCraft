@@ -3,10 +3,11 @@ package battlecraft.entity.structure;
 import java.awt.Canvas;
 import java.awt.Point;
 
-import battlecraft.entity.tile.Tile;
+import gameframework.core.GameEntity;
 
 public interface IStructureFactory {
 	
-	Tile createHouse(Canvas defaultCanvas, Point position, int number);
+	GameEntity createHouse(Canvas defaultCanvas, Point position, int number);
+	GameEntity createCastle(Canvas defaultCanvas, Point position, int number);
 
 }

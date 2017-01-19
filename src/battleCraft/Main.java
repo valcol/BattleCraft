@@ -3,7 +3,6 @@ package battlecraft;
 import java.util.ArrayList;
 
 import gameframework.core.GameLevel;
-import pacman.GameLevelOne;
 
 public class Main {
 
