@@ -16,9 +16,9 @@ public class TileFactory implements ITileFactory {
 
 	@Override
 	public GameEntity createForestTile(Canvas defaultCanvas, Point position, int number) {
-		Rectangle bb = new Rectangle(1,0,1,1);
+		Rectangle boundingBox = new Rectangle(0,0,1,1);
 		String imagePath = "images/Medieval/Tile/49.png";
-		return new MoveBlockerTile(defaultCanvas, position, imagePath, bb);
+		return new MoveBlockerTile(defaultCanvas, position, imagePath, boundingBox);
 	}
 
 	@Override
