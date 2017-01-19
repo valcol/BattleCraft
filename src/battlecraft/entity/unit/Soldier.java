@@ -9,11 +9,13 @@ import gameframework.core.SpriteManager;
 import gameframework.core.SpriteManagerDefaultImpl;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
 import battlecraft.entity.SpriteStore;
+import battlecraft.entity.Utils;
 
 public class Soldier extends GameMovable implements Drawable, GameEntity,
 		Overlappable {
@@ -22,9 +24,11 @@ public class Soldier extends GameMovable implements Drawable, GameEntity,
 	protected boolean movable = false;
 	protected boolean vulnerable = false;
 	protected int vulnerableTimer = 0;
+	public Rectangle BOUNDING_BOX;
 
-	public Soldier(Canvas defaultCanvas, String imagePath) {
+	public Soldier(Canvas defaultCanvas, String imagePath, Rectangle BOUNDING_BOX) {
 		this.image = SpriteStore.getInstance().getSprite(imagePath, defaultCanvas);
+		this.BOUNDING_BOX = BOUNDING_BOX;
 	}
 
 	public void setInvulnerable(int timer) {
@@ -54,10 +58,9 @@ public class Soldier extends GameMovable implements Drawable, GameEntity,
 		} else {
 			movable = false;
 		}
-		g.drawImage(image.getImage(), (int) getPosition().getX(),
-				(int) getPosition().getY(), RENDERING_SIZE, RENDERING_SIZE,
+		g.drawImage(image.getImage(), (int) getPosition().getX()-RENDERING_SIZE/4,
+				(int) getPosition().getY()-RENDERING_SIZE/4, RENDERING_SIZE, RENDERING_SIZE,
 				null);
-
 	}
 
 	@Override
@@ -70,6 +73,6 @@ public class Soldier extends GameMovable implements Drawable, GameEntity,
 	}
 
 	public Rectangle getBoundingBox() {
-		return (new Rectangle(0, 0, RENDERING_SIZE, RENDERING_SIZE));
+		return Utils.computeBoundingBox(new Point(0, 0), BOUNDING_BOX, 32);
 	}
 }
