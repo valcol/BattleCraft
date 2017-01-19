@@ -1,13 +1,13 @@
 package pacman.rule;
 
+import battlecraft.entity.Tile;
 import gameframework.moves_rules.IllegalMoveException;
 import gameframework.moves_rules.MoveBlockerRulesApplierDefaultImpl;
 import pacman.entity.Ghost;
-import pacman.entity.Wall;
 
 public class PacmanMoveBlockers extends MoveBlockerRulesApplierDefaultImpl {
 
-	public void moveBlockerRule(Ghost g, Wall w) throws IllegalMoveException {
+	public void moveBlockerRule(Ghost g, Tile w) throws IllegalMoveException {
 		// The default case is when a ghost is active and not able to cross a
 		// wall
 		if (g.isActive()) {

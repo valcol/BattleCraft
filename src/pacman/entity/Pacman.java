@@ -1,6 +1,7 @@
 package pacman.entity;
 
 import gameframework.core.Drawable;
+import gameframework.core.DrawableImage;
 import gameframework.core.GameEntity;
 import gameframework.core.GameMovable;
 import gameframework.core.Overlappable;
@@ -12,24 +13,18 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import battlecraft.entity.SpriteStore;
+
 public class Pacman extends GameMovable implements Drawable, GameEntity,
 		Overlappable {
-	protected final SpriteManager spriteManager;
-	public static final int RENDERING_SIZE = 16;
-	protected boolean movable = true;
+	public DrawableImage image;
+	public static final int RENDERING_SIZE = 32;
+	protected boolean movable = false;
 	protected boolean vulnerable = false;
 	protected int vulnerableTimer = 0;
 
 	public Pacman(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerDefaultImpl("images/pac1.gif",
-				defaultCanvas, RENDERING_SIZE, 6);
-		spriteManager.setTypes(
-				//
-				"right", "left", "up",
-				"down",//
-				"invulnerable-right", "invulnerable-left", "invulnerable-up",
-				"invulnerable-down", //
-				"unused", "static", "unused");
+		this.image = SpriteStore.getInstance().getSprite("images/Medieval/Unit/7.png", defaultCanvas);
 	}
 
 	public void setInvulnerable(int timer) {
@@ -57,19 +52,17 @@ public class Pacman extends GameMovable implements Drawable, GameEntity,
 		} else if (tmp.getY() == -1) {
 			spriteType += "up";
 		} else {
-			spriteType = "static";
-			spriteManager.reset();
 			movable = false;
 		}
-		spriteManager.setType(spriteType);
-		spriteManager.draw(g, getPosition());
+		g.drawImage(image.getImage(), (int) getPosition().getX(),
+				(int) getPosition().getY(), RENDERING_SIZE, RENDERING_SIZE,
+				null);
 
 	}
 
 	@Override
 	public void oneStepMoveAddedBehavior() {
 		if (movable) {
-			spriteManager.increment();
 			if (!isVulnerable()) {
 				vulnerableTimer--;
 			}
