@@ -2,13 +2,13 @@ package battlecraft;
 
 import java.util.ArrayList;
 
-import gameframework.core.GameDefaultImpl;
 import gameframework.core.GameLevel;
+import pacman.GameLevelOne;
 
 public class Main {
 
 	public static void main(String[] args) {
-		GameDefaultImpl g = new GameDefaultImpl();
+		GameBC g = new GameBC();
 		ArrayList<GameLevel> levels = new ArrayList<>();
 
 		levels.add(new GameLevelBC(g));

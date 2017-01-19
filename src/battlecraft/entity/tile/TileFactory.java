@@ -19,7 +19,7 @@ public class TileFactory implements ITileFactory {
 
 	@Override 
 	public Tile createTile(Canvas defaultCanvas, Point position, int number) {
-		boolean isSolid = Arrays.asList(solid).contains(number);
+		boolean isSolid = Arrays.stream(solid).anyMatch(i -> i == number);
 		String sprite = path + prefix + number + suffix;
 		return new Tile(defaultCanvas, position, sprite, isSolid);
 	}

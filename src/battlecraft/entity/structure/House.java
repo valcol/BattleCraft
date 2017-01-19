@@ -20,7 +20,6 @@ public class House implements Drawable, MoveBlocker, GameEntity {
 	public House(Canvas defaultCanvas, Point point) {
 		image = new DrawableImage("images/Medieval/Environment/8.png", defaultCanvas);
 		position = point;
-
 	}
 
 

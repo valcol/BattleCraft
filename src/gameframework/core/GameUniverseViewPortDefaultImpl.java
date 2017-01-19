@@ -21,7 +21,7 @@ public class GameUniverseViewPortDefaultImpl implements GameUniverseViewPort {
 	}
 
 	protected String backgroundImage() {
-		return "images/Medieval/background_medieval.png";
+		return "images/background_image.png";
 	}
 
 	public void setBackground(String filename) {
