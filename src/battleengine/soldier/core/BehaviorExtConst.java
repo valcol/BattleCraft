@@ -25,4 +25,10 @@ public class BehaviorExtConst extends BehaviorExtension {
 	public float strike() {
 		return strikeCst + super.strike();
 	}
+
+	@Override
+	public float getInitialHealth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

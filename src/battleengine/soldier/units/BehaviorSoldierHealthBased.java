@@ -13,6 +13,6 @@ public class BehaviorSoldierHealthBased extends BehaviorSoldierStd {
 
 	@Override
 	public float strike() {
-		return super.strike() * getHealthPoints() / initialHealth();
+		return super.strike() * getHealthPoints() / getInitialHealth();
 	}
 }

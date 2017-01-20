@@ -14,4 +14,6 @@ public interface BehaviorSoldier {
 	public float parry(float force);
 
 	public float strike();
+	
+	public float getInitialHealth();
 }

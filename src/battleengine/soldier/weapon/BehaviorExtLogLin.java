@@ -25,4 +25,10 @@ public class BehaviorExtLogLin extends BehaviorExtension {
 		float effectiveGivenForce = super.strike() + 1;
 		return effectiveGivenForce;
 	}
+
+	@Override
+	public float getInitialHealth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

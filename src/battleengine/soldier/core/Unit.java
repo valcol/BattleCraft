@@ -16,6 +16,7 @@ public interface Unit extends Observable<Unit> {
 	public float getHealthPoints();
 	public boolean alive();
 	public void heal();
+	public float getInitialHealth();
 	public float parry(float force); 
 	public float strike();
 

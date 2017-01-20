@@ -47,6 +47,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 
 	@Override
 	protected void init() {
+		
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
@@ -57,13 +58,14 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		overlapProcessor.setOverlapRules(overlapRules);
 
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
+		selectStr = new MoveStrategySelect();
 		overlapRules.setUniverse(universe);
+		overlapRules.setStrategy(selectStr);
 
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 
 		efactory = new EntityFactory();
-		selectStr = new MoveStrategySelect();
 		canvas.addMouseListener(selectStr);
 		canvas.addMouseMotionListener(selectStr);
 		selectStr.setCanvas(canvas);
@@ -71,7 +73,6 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		placeTiles();
 		placeStructures();
 		placeRessources();
-		overlapRules.setTotalNbGums(0);
 
 		// Pacman definition and inclusion in the universe
 		Soldier myPac = (Soldier) efactory.createSoldier(canvas);
@@ -91,21 +92,20 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		pacDriver2.setmoveBlockerChecker(moveBlockerChecker);
 		myPac2.setDriver(pacDriver2);
 		selectStr.addUnit(myPac2, stubStr2);
-		myPac2.setPosition(new Point(21 * SPRITE_SIZE, 5 * SPRITE_SIZE));
+		myPac2.setPosition(new Point(15 * SPRITE_SIZE, 10 * SPRITE_SIZE));
 		universe.addGameEntity(myPac2);
-
-		// Ghosts definition and inclusion in the universe
-		Ghost myGhost;
+		
 		for (int t = 0; t < NUMBER_OF_GHOSTS; ++t) {
 			GameMovableDriverDefaultImpl ghostDriv = new GhostMovableDriver();
 			MoveStrategyRandom ranStr = new MoveStrategyRandom();
+			Soldier myPac3 = (Soldier) efactory.createSoldier(canvas);
 			ghostDriv.setStrategy(ranStr);
 			ghostDriv.setmoveBlockerChecker(moveBlockerChecker);
-			myGhost = new Ghost(canvas);
-			myGhost.setDriver(ghostDriv);
-			myGhost.setPosition(new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE));
-			universe.addGameEntity(myGhost);
-			(overlapRules).addGhost(myGhost);
+			myPac3.setDriver(ghostDriv);
+			myPac3.setTeam(1);
+			myPac3.setPosition(new Point(21 * SPRITE_SIZE, 5 * SPRITE_SIZE));
+			universe.addGameEntity(myPac3);
+			(overlapRules).addSoldier(myPac3);
 		}
 	}
 
@@ -160,6 +160,10 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 					universe.addGameEntity(efactory.createNormalTree(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 			}
 		}
+	}
+	
+	public void remove(){
+		
 	}
 
 }

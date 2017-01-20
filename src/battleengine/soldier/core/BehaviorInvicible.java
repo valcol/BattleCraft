@@ -14,4 +14,10 @@ public class BehaviorInvicible extends BehaviorExtension {
 	public float parry(float force) {
 		return super.parry(0);
 	}
+
+	@Override
+	public float getInitialHealth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

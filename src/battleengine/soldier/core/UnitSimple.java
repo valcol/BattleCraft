@@ -39,6 +39,11 @@ public abstract class UnitSimple extends ObservableAbstract<Unit>
 	public void heal() {
 		behavior.heal();
 	}
+	
+	@Override
+	public float getInitialHealth() {
+		return behavior.getInitialHealth();
+	}
 
 	@Override
 	public float parry(float force) {

@@ -142,5 +142,13 @@ public class UnitGroup extends ObservableAbstract<Unit>
 				.removeEquipment(w)) {
 		}
 	}
+
+	@Override
+	public float getInitialHealth() {
+		float sum = 0.f;
+		for (Unit u : units)
+			sum += u.getInitialHealth();
+		return sum;
+	}
  
 }
