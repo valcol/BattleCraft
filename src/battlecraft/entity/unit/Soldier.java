@@ -20,12 +20,14 @@ public class Soldier extends GameMovable implements Drawable, GameEntity,
 	protected DrawableImage image;
 	public static final int RENDERING_SIZE = 32;
 	protected boolean movable = false;
-	protected int timer = 0;
+	protected int timerHeal = 0;
+	protected int timerCooldown = 0;
 	public Rectangle BOUNDING_BOX;
 	private boolean selected = false;
 	private boolean combat = false;
 	private int team = 0;
 	private int healPerSecond = 1;
+	private int cooldown = 2;
 	private Unit unit;
 
 	public Soldier(Canvas defaultCanvas, String imagePath, Rectangle BOUNDING_BOX) {
@@ -66,11 +68,14 @@ public class Soldier extends GameMovable implements Drawable, GameEntity,
 
 	@Override
 	public void oneStepMoveAddedBehavior() {
-		if (timer >= 10){
+		if (timerHeal >= 10){
 			heal(healPerSecond);
-			timer = 0;
+			timerHeal = 0;
 		}
-		timer++;
+		timerHeal++;
+		
+		timerCooldown = (timerCooldown > 0) ? timerCooldown-1 : 0;
+			
 	}
 
 	public Rectangle getBoundingBox() {
@@ -124,8 +129,12 @@ public class Soldier extends GameMovable implements Drawable, GameEntity,
 	}
 
 	public float strike() {
-		// TODO Auto-generated method stub
-		return unit.strike();
+		if (timerCooldown == 0){
+			timerCooldown = cooldown;
+			return unit.strike();
+		}
+		else
+			return 0;
 	}
 
 	
