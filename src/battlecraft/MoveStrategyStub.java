@@ -31,7 +31,6 @@ public class MoveStrategyStub implements MoveStrategy {
 	public void setupVectorToGo(Point e) {
 		if (e == null)
 			return;
-
 		Point unitPosition = unit.getPosition();
 		int x = 0, y = 0;
 

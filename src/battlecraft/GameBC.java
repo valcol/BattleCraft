@@ -3,12 +3,16 @@ package battlecraft;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Frame;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Label;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -81,6 +85,12 @@ public class GameBC implements Game, Observer {
 		f.add(c, BorderLayout.NORTH);
 		f.pack();
 		f.setVisible(true);
+		
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Image image = toolkit.getImage("images/cursor.gif");
+		Cursor cu = toolkit.createCustomCursor(image , new Point(f.getX(), 
+				f.getY()), "img");
+		f.setCursor (cu);
 
 		f.addWindowListener(new WindowAdapter() {
 			@Override

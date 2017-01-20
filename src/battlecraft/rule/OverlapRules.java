@@ -11,6 +11,7 @@ import gameframework.moves_rules.OverlapRulesApplierDefaultImpl;
 import java.awt.Point;
 import java.util.Vector;
 
+import battlecraft.entity.unit.Soldier;
 import pacman.entity.Ghost;
 import pacman.entity.Jail;
 import pacman.entity.Pacgum;
@@ -89,7 +90,11 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 
 	public void overlapRule(Ghost g, SuperPacgum spg) {
 	}
-
+	
+	public void overlapRule(Ghost g, Soldier spg) {
+		System.out.println("testover");
+	}
+	
 	public void overlapRule(Ghost g, Pacgum spg) {
 	}
 

@@ -17,6 +17,7 @@ import java.awt.Point;
 
 import battlecraft.entity.EntityFactory;
 import battlecraft.entity.unit.Soldier;
+import battlecraft.rule.OverlapRules;
 import pacman.entity.Ghost;
 import pacman.rule.GhostMovableDriver;
 import pacman.rule.PacmanMoveBlockers;
@@ -51,7 +52,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		moveBlockerChecker.setMoveBlockerRules(new PacmanMoveBlockers());
 
-		PacmanOverlapRules overlapRules = new PacmanOverlapRules(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE),
+		OverlapRules overlapRules = new OverlapRules(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE),
 				new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE), life[0], score[0], endOfGame);
 		overlapProcessor.setOverlapRules(overlapRules);
 
