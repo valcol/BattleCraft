@@ -26,9 +26,11 @@ public class MoveStrategySelect extends MouseAdapter implements MouseMotionListe
 	private Point endPoint;
 	private Canvas canvas;
 	private int numberOfSelected;
+	private boolean dragMouse; 
 
 	public MoveStrategySelect() {
 		numberOfSelected = 0;
+		dragMouse = true;
 	}
 
 	public void setupVectorToGo(Point point) {
@@ -60,6 +62,10 @@ public class MoveStrategySelect extends MouseAdapter implements MouseMotionListe
 	public void mousePressed(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			startPoint = e.getPoint();
+			dragMouse = true;
+		}
+		if (e.getButton() == MouseEvent.BUTTON3) {
+			dragMouse = false;
 		}
 		
 		System.out.println("click pressed");
@@ -86,12 +92,14 @@ public class MoveStrategySelect extends MouseAdapter implements MouseMotionListe
 	
 	@Override
 	public void mouseDragged(MouseEvent e){
-		System.out.println(e.getPoint());
-		Rectangle selection = new Rectangle();
-		selection.setFrameFromDiagonal(startPoint, e.getPoint());
-		 Graphics g = canvas.getGraphics();
-		 g.setColor(new Color(109,109,109));
-		 g.drawRect(selection.x, selection.y, selection.width, selection.height);
+		if (dragMouse){
+			System.out.println(e.getPoint());
+			Rectangle selection = new Rectangle();
+			selection.setFrameFromDiagonal(startPoint, e.getPoint());
+			 Graphics g = canvas.getGraphics();
+			 g.setColor(new Color(109,109,109));
+			 g.drawRect(selection.x, selection.y, selection.width, selection.height);
+		}
 	}
 
 
