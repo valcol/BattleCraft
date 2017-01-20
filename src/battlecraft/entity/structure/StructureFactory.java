@@ -9,16 +9,23 @@ import gameframework.core.GameEntity;
 public class StructureFactory implements IStructureFactory {
 
 	@Override
-	public GameEntity createHouse(Canvas defaultCanvas, Point position, int number) {
-		Rectangle boundingBox = new Rectangle(0, 0, 100, 100);
-		String imagePath = "images/Medieval/Structure/"+String.valueOf(number)+".png";
+	public GameEntity createHouse(Canvas defaultCanvas, Point position) {
+		Rectangle boundingBox = new Rectangle(0, 0, 100, 70);
+		String imagePath = "images/Medieval/Structure/9.png";
 		return new MoveBlockerStructure(defaultCanvas, position, imagePath, boundingBox);
 	}
 
 	@Override
-	public GameEntity createCastle(Canvas defaultCanvas, Point position, int number) {
+	public GameEntity createCastleTop(Canvas defaultCanvas, Point position) {
 		Rectangle boundingBox = new Rectangle(0, 0, 100, 100);
-		String imagePath = "images/Medieval/Structure/"+String.valueOf(number)+".png";
+		String imagePath = "images/Medieval/Structure/2.png";
+		return new MoveBlockerStructure(defaultCanvas, position, imagePath, boundingBox);
+	}
+	
+	@Override
+	public GameEntity createCastleBottom(Canvas defaultCanvas, Point position) {
+		Rectangle boundingBox = new Rectangle(0, 0, 100, 30);
+		String imagePath = "images/Medieval/Structure/6.png";
 		return new MoveBlockerStructure(defaultCanvas, position, imagePath, boundingBox);
 	}
 

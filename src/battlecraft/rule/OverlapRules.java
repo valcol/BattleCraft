@@ -43,6 +43,7 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 	}
 	
 	public void overlapRule(Soldier g, Soldier g2){
+		//TODO : random order
 		if (g.getTeam() != g2.getTeam()){
 			g.setCombat(true);
 			g2.setCombat(true);

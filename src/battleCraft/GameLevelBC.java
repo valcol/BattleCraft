@@ -17,6 +17,7 @@ import java.awt.Point;
 
 import battlecraft.entity.EntityFactory;
 import battlecraft.entity.unit.Soldier;
+import battlecraft.rule.MoveBlockers;
 import battlecraft.rule.OverlapRules;
 import pacman.entity.Ghost;
 import pacman.rule.GhostMovableDriver;
@@ -51,7 +52,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
-		moveBlockerChecker.setMoveBlockerRules(new PacmanMoveBlockers());
+		moveBlockerChecker.setMoveBlockerRules(new MoveBlockers());
 
 		OverlapRules overlapRules = new OverlapRules(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE),
 				new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE), life[0], score[0], endOfGame);
@@ -128,20 +129,20 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 				//House
 				if ((j == 5) && (i == 5) )
 					universe.addGameEntity(
-							efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 17));
+							efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 				if ((j == 6) && (i == 5) )
 					universe.addGameEntity(
-							efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 20));
+							efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 				if ((j == 4) && (i == 5) )
 					universe.addGameEntity(
-							efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 19));
+							efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 				//Castle
 				if ((j == 4) && (i == 10))
 					universe.addGameEntity(
-							efactory.createCastle(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 6));
+							efactory.createCastleBottom(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 				if ((j == 4) && (i == 9))
 					universe.addGameEntity(
-							efactory.createCastle(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 2));
+							efactory.createCastleTop(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 			}
 		}
 	}

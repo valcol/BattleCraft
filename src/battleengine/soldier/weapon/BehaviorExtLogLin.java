@@ -27,6 +27,12 @@ public class BehaviorExtLogLin extends BehaviorExtension {
 	}
 
 	@Override
+	public void heal(float points) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public float getInitialHealth() {
 		// TODO Auto-generated method stub
 		return 0;

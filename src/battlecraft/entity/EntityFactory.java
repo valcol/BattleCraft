@@ -42,15 +42,21 @@ public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFact
 	}
 
 	@Override
-	public GameEntity createHouse(Canvas defaultCanvas, Point position, int number) {
+	public GameEntity createHouse(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
-		return sfactory.createHouse(defaultCanvas, position, number);
+		return sfactory.createHouse(defaultCanvas, position);
 	}
 
 	@Override
-	public GameEntity createCastle(Canvas defaultCanvas, Point position, int number) {
+	public GameEntity createCastleBottom(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
-		return sfactory.createCastle(defaultCanvas, position, number);
+		return sfactory.createCastleBottom(defaultCanvas, position);
+	}
+	
+	@Override
+	public GameEntity createCastleTop(Canvas defaultCanvas, Point position) {
+		// TODO Auto-generated method stub
+		return sfactory.createCastleTop(defaultCanvas, position);
 	}
 
 	@Override

@@ -9,11 +9,12 @@ public interface BehaviorSoldier {
 
 	public boolean alive();
 
-	public void heal();
+	public void heal(float points);
 
 	public float parry(float force);
 
 	public float strike();
 	
 	public float getInitialHealth();
+
 }

@@ -25,6 +25,11 @@ public abstract class BehaviorExtension implements BehaviorSoldier {
 	public float getHealthPoints() {
 		return soldier.getHealthPoints();
 	}
+	
+	@Override
+	public float getInitialHealth() {
+		return soldier.getHealthPoints();
+	}
 
 	@Override
 	public boolean alive() {
@@ -32,8 +37,8 @@ public abstract class BehaviorExtension implements BehaviorSoldier {
 	}
 
 	@Override
-	public void heal() {
-		soldier.heal();
+	public void heal(float point) {
+		soldier.heal(point);
 	}
 
 	@Override

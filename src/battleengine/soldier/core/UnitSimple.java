@@ -36,8 +36,8 @@ public abstract class UnitSimple extends ObservableAbstract<Unit>
 	}
 
 	@Override
-	public void heal() {
-		behavior.heal();
+	public void heal(float point) {
+		behavior.heal(point);
 	}
 	
 	@Override

@@ -61,12 +61,6 @@ public class UnitGroup extends ObservableAbstract<Unit>
 	}
 
 	@Override
-	public void heal() {
-		for (Unit u : units)
-			u.heal();
-	}
-
-	@Override
 	public float parry(float force) {
 		float f = 0.f;
 		Iterator<Unit> it = subUnits();
@@ -149,6 +143,12 @@ public class UnitGroup extends ObservableAbstract<Unit>
 		for (Unit u : units)
 			sum += u.getInitialHealth();
 		return sum;
+	}
+
+	@Override
+	public void heal(float point) {
+		for (Unit u : units)
+			u.heal(point);
 	}
  
 }

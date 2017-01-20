@@ -38,8 +38,9 @@ public class BehaviorSoldierStd implements BehaviorSoldier {
 	}
 
 	@Override
-	public void heal() {
-		force = initialHealth;
+	public void heal(float points) {
+		healthPoints = (healthPoints+points > initialHealth)
+				? initialHealth : healthPoints+points ;
 	}
 
 	@Override
