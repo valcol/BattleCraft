@@ -14,17 +14,19 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import battlecraft.entity.Selectable;
 import battlecraft.entity.SpriteStore;
 import battlecraft.entity.Utils;
 
 public class Soldier extends GameMovable implements Drawable, GameEntity,
-		Overlappable {
-	public DrawableImage image;
+		Overlappable, Selectable {
+	protected DrawableImage image;
 	public static final int RENDERING_SIZE = 32;
 	protected boolean movable = false;
 	protected boolean vulnerable = false;
 	protected int vulnerableTimer = 0;
 	public Rectangle BOUNDING_BOX;
+	private boolean selected = false;
 
 	public Soldier(Canvas defaultCanvas, String imagePath, Rectangle BOUNDING_BOX) {
 		this.image = SpriteStore.getInstance().getSprite(imagePath, defaultCanvas);
@@ -73,6 +75,21 @@ public class Soldier extends GameMovable implements Drawable, GameEntity,
 	}
 
 	public Rectangle getBoundingBox() {
-		return Utils.computeBoundingBox(new Point(0, 0), BOUNDING_BOX, 32);
+		return Utils.computeBoundingBox(getPosition(), BOUNDING_BOX, 32);
+	}
+
+	@Override
+	public void select() {
+		this.selected = true;
+	}
+
+	@Override
+	public void deselect() {
+		this.selected = false;
+	}
+
+	@Override
+	public boolean isSelected() {
+		return selected;
 	}
 }

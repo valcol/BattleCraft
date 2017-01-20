@@ -8,7 +8,6 @@ import gameframework.core.GameUniverseDefaultImpl;
 import gameframework.core.GameUniverseViewPortDefaultImpl;
 import gameframework.moves_rules.MoveBlockerChecker;
 import gameframework.moves_rules.MoveBlockerCheckerDefaultImpl;
-import gameframework.moves_rules.MoveStrategyKeyboard;
 import gameframework.moves_rules.MoveStrategyRandom;
 import gameframework.moves_rules.OverlapProcessor;
 import gameframework.moves_rules.OverlapProcessorDefaultImpl;
@@ -17,11 +16,8 @@ import java.awt.Canvas;
 import java.awt.Point;
 
 import battlecraft.entity.EntityFactory;
-import battlecraft.entity.structure.IStructureFactory;
-import battlecraft.entity.tile.ITileFactory;
 import battlecraft.entity.unit.Soldier;
 import pacman.entity.Ghost;
-import pacman.entity.Pacman;
 import pacman.rule.GhostMovableDriver;
 import pacman.rule.PacmanMoveBlockers;
 import pacman.rule.PacmanOverlapRules;
@@ -30,6 +26,8 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 
 	Canvas canvas;
 	EntityFactory efactory;
+	MoveStrategySelect selectStr;
+	
 	private int NB_ROWS;
 	private int NB_COLUMNS;
 	private int SPRITE_SIZE;
@@ -64,7 +62,11 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 
 		efactory = new EntityFactory();
-
+		selectStr = new MoveStrategySelect();
+		canvas.addMouseListener(selectStr);
+		canvas.addMouseMotionListener(selectStr);
+		selectStr.setCanvas(canvas);
+		
 		placeTiles();
 		placeStructures();
 		overlapRules.setTotalNbGums(0);
@@ -72,13 +74,23 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		// Pacman definition and inclusion in the universe
 		Soldier myPac = (Soldier) efactory.createSoldier(canvas);
 		GameMovableDriverDefaultImpl pacDriver = new GameMovableDriverDefaultImpl();
-		MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
-		pacDriver.setStrategy(keyStr);
+		MoveStrategyStub stubStr = new MoveStrategyStub(myPac);
+		pacDriver.setStrategy(stubStr);
 		pacDriver.setmoveBlockerChecker(moveBlockerChecker);
-		canvas.addKeyListener(keyStr);
 		myPac.setDriver(pacDriver);
+		selectStr.addUnit(myPac, stubStr);
 		myPac.setPosition(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
 		universe.addGameEntity(myPac);
+		
+		Soldier myPac2 = (Soldier) efactory.createSoldier(canvas);
+		GameMovableDriverDefaultImpl pacDriver2 = new GameMovableDriverDefaultImpl();
+		MoveStrategyStub stubStr2 = new MoveStrategyStub(myPac2);
+		pacDriver2.setStrategy(stubStr2);
+		pacDriver2.setmoveBlockerChecker(moveBlockerChecker);
+		myPac2.setDriver(pacDriver2);
+		selectStr.addUnit(myPac2, stubStr2);
+		myPac2.setPosition(new Point(21 * SPRITE_SIZE, 5 * SPRITE_SIZE));
+		universe.addGameEntity(myPac2);
 
 		// Ghosts definition and inclusion in the universe
 		Ghost myGhost;
