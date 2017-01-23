@@ -12,7 +12,7 @@ public class StructureFactory implements IStructureFactory {
 	public GameEntity createHouse(Canvas defaultCanvas, Point position) {
 		Rectangle boundingBox = new Rectangle(0, 0, 100, 70);
 		String imagePath = "images/Medieval/Structure/9.png";
-		return new MoveBlockerStructure(defaultCanvas, position, imagePath, boundingBox);
+		return new House(defaultCanvas, position, imagePath, boundingBox);
 	}
 
 	@Override
