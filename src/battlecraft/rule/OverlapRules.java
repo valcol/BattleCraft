@@ -1,24 +1,14 @@
 package battlecraft.rule;
 
-import gameframework.core.GameMovableDriverDefaultImpl;
-import gameframework.core.GameUniverse;
-import gameframework.core.ObservableValue;
-import gameframework.moves_rules.MoveStrategyRandom;
-import gameframework.moves_rules.MoveStrategyStraightLine;
-import gameframework.moves_rules.Overlap;
-import gameframework.moves_rules.OverlapRulesApplierDefaultImpl;
-
 import java.awt.Point;
 import java.util.Vector;
 
+import battlecraft.HouseStrategySelect;
 import battlecraft.MoveStrategySelect;
 import battlecraft.entity.unit.Soldier;
-import pacman.entity.Ghost;
-import pacman.entity.Jail;
-import pacman.entity.Pacgum;
-import pacman.entity.Pacman;
-import pacman.entity.SuperPacgum;
-import pacman.entity.TeleportPairOfPoints;
+import gameframework.core.GameUniverse;
+import gameframework.core.ObservableValue;
+import gameframework.moves_rules.OverlapRulesApplierDefaultImpl;
 
 public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 	protected GameUniverse universe;
@@ -37,6 +27,7 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 	public void setStrategy(MoveStrategySelect strategy) {
 		this.strategy = strategy;
 	}
+
 
 	public void addSoldier(Soldier g) {
 		vSoldier.addElement(g);

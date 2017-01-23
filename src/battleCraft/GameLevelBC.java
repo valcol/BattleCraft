@@ -1,5 +1,13 @@
 package battlecraft;
 
+import java.awt.Canvas;
+import java.awt.Point;
+
+import battlecraft.entity.EntityFactory;
+import battlecraft.entity.structure.House;
+import battlecraft.entity.unit.Soldier;
+import battlecraft.rule.MoveBlockers;
+import battlecraft.rule.OverlapRules;
 import gameframework.core.CanvasDefaultImpl;
 import gameframework.core.Game;
 import gameframework.core.GameLevelDefaultImpl;
@@ -11,25 +19,15 @@ import gameframework.moves_rules.MoveBlockerCheckerDefaultImpl;
 import gameframework.moves_rules.MoveStrategyRandom;
 import gameframework.moves_rules.OverlapProcessor;
 import gameframework.moves_rules.OverlapProcessorDefaultImpl;
-
-import java.awt.Canvas;
-import java.awt.Point;
-
-import battlecraft.entity.EntityFactory;
-import battlecraft.entity.unit.Soldier;
-import battlecraft.rule.MoveBlockers;
-import battlecraft.rule.OverlapRules;
-import pacman.entity.Ghost;
 import pacman.rule.GhostMovableDriver;
-import pacman.rule.PacmanMoveBlockers;
-import pacman.rule.PacmanOverlapRules;
 
 public class GameLevelBC extends GameLevelDefaultImpl {
 
 	Canvas canvas;
 	EntityFactory efactory;
 	MoveStrategySelect selectStr;
-	
+	HouseStrategySelect selectHouse;
+
 	private int NB_ROWS;
 	private int NB_COLUMNS;
 	private int SPRITE_SIZE;
@@ -48,7 +46,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 
 	@Override
 	protected void init() {
-		
+
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
@@ -60,6 +58,8 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
 		selectStr = new MoveStrategySelect();
+		selectHouse = new HouseStrategySelect();
+
 		overlapRules.setUniverse(universe);
 		overlapRules.setStrategy(selectStr);
 
@@ -69,8 +69,11 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		efactory = new EntityFactory();
 		canvas.addMouseListener(selectStr);
 		canvas.addMouseMotionListener(selectStr);
+		canvas.addMouseListener(selectHouse);
+		canvas.addMouseMotionListener(selectHouse);
 		selectStr.setCanvas(canvas);
-		
+		selectHouse.setCanvas(canvas);
+
 		placeTiles();
 		placeStructures();
 		placeRessources();
@@ -85,7 +88,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		selectStr.addUnit(myPac, stubStr);
 		myPac.setPosition(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
 		universe.addGameEntity(myPac);
-		
+
 		Soldier myPac2 = (Soldier) efactory.createSoldier(canvas);
 		GameMovableDriverDefaultImpl pacDriver2 = new GameMovableDriverDefaultImpl();
 		MoveStrategyStub stubStr2 = new MoveStrategyStub(myPac2);
@@ -95,7 +98,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		selectStr.addUnit(myPac2, stubStr2);
 		myPac2.setPosition(new Point(15 * SPRITE_SIZE, 10 * SPRITE_SIZE));
 		universe.addGameEntity(myPac2);
-		
+
 		for (int t = 0; t < NUMBER_OF_GHOSTS; ++t) {
 			GameMovableDriverDefaultImpl ghostDriv = new GhostMovableDriver();
 			MoveStrategyRandom ranStr = new MoveStrategyRandom();
@@ -126,17 +129,17 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 	public void placeStructures() {
 		for (int i = 0; i < NB_ROWS; ++i) {
 			for (int j = 0; j < NB_COLUMNS; ++j) {
-				//House
-				if ((j == 5) && (i == 5) )
-					universe.addGameEntity(
-							efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
-				if ((j == 6) && (i == 5) )
-					universe.addGameEntity(
-							efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
-				if ((j == 4) && (i == 5) )
-					universe.addGameEntity(
-							efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
-				//Castle
+				// House
+				if ((j == 5) && (i == 5)){
+					House h = (House) efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					selectHouse.addUnit(h);
+					universe.addGameEntity(h);
+				}
+				if ((j == 6) && (i == 5))
+					universe.addGameEntity(efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+				if ((j == 4) && (i == 5))
+					universe.addGameEntity(efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+				// Castle
 				if ((j == 4) && (i == 10))
 					universe.addGameEntity(
 							efactory.createCastleBottom(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
@@ -148,23 +151,26 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 	}
 
 	public void placeRessources() {
-		
+
 		for (int i = 0; i < NB_ROWS; ++i) {
 			for (int j = 0; j < NB_COLUMNS; ++j) {
-				if ((j == 10) && (i == 12) )
-					universe.addGameEntity(efactory.createBigMineral(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
-				if ((j == 12) && (i == 12) )
+				if ((j == 10) && (i == 12))
+					universe.addGameEntity(
+							efactory.createBigMineral(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+				if ((j == 12) && (i == 12))
 					universe.addGameEntity(efactory.createBigRock(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
-				if ((j == 12) && (i == 10) )
-					universe.addGameEntity(efactory.createNormalPineTree(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
-				if ((j == 10) && (i == 10) )
-					universe.addGameEntity(efactory.createNormalTree(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+				if ((j == 12) && (i == 10))
+					universe.addGameEntity(
+							efactory.createNormalPineTree(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+				if ((j == 10) && (i == 10))
+					universe.addGameEntity(
+							efactory.createNormalTree(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 			}
 		}
 	}
-	
-	public void remove(){
-		
+
+	public void remove() {
+
 	}
 
 }

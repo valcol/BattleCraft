@@ -78,7 +78,8 @@ public class MoveStrategySelect extends MouseAdapter implements MouseMotionListe
 			if (numberOfSelected>0){
 				deselectUnits();
 			}
-			
+			System.out.println("select");
+
 			selectUnits();
 		}
 		
