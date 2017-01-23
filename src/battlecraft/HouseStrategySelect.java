@@ -1,6 +1,8 @@
 package battlecraft;
 
 import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
@@ -8,61 +10,74 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
-import battlecraft.entity.Selectable;
+import battlecraft.entity.SelectableHouse;
 import gameframework.moves_rules.ObjectWithBoundedBox;
 
 public class HouseStrategySelect extends MouseAdapter implements MouseMotionListener {
-	private Point point;
+	private Point startPoint, endPoint;
 	private Canvas canvas;
-	private ArrayList<Selectable> house = new ArrayList<Selectable>();
+	private boolean dragMouse;
+	private ArrayList<SelectableHouse> house = new ArrayList<SelectableHouse>();
 	private int numberOfSelected;
 
 	public HouseStrategySelect() {
 		numberOfSelected = 0;
-
+		dragMouse = true;
 	}
 
-	public void addUnit(Selectable h) {
+	public void addUnit(SelectableHouse h) {
 		house.add(h);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (e.getButton() == MouseEvent.BUTTON1)
-			point = e.getPoint();
-		System.out.println("click pressed");
+		if (e.getButton() == MouseEvent.BUTTON1) {
+			startPoint = e.getPoint();
+			dragMouse = true;
+		}
+		if (e.getButton() == MouseEvent.BUTTON3) {
+			dragMouse = false;
+		}
+
+		System.out.println("click pressed House");
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		if (e.getButton() == MouseEvent.BUTTON1) {
+			endPoint = e.getPoint();
+			if (numberOfSelected == 1)
+				deselectUnits();
+			else
+				selectUnits();
+		}
+		System.out.println("click released House");
+	}
 
-		if (numberOfSelected == 1)
-			deselectUnits();
-		else
-			selectUnits();
-
-		System.out.println("click released");
+	public void mouseDragged(MouseEvent e) {
+		if (dragMouse) {
+			System.out.println(e.getPoint());
+			Rectangle selection = new Rectangle();
+			selection.setFrameFromDiagonal(startPoint, e.getPoint());
+			Graphics g = canvas.getGraphics();
+			g.setColor(new Color(109, 109, 109));
+			g.drawRect(selection.x, selection.y, selection.width, selection.height);
+		}
 	}
 
 	private void selectUnits() {
 		Rectangle selection = new Rectangle();
-		Point end = point;
-		Point start = point;
-		end.x = (int) (end.getX() + 15);
-		end.y = (int) (end.getY() + 15);
-		start.x = (int) (start.getX() - 15);
-		start.y = (int) (start.getY() - 15);
-		selection.setFrameFromDiagonal(start, end);
-
+		selection.setFrameFromDiagonal(startPoint, endPoint);
 		if (selection.contains(((ObjectWithBoundedBox) house.get(0)).getBoundingBox())) {
-			house.get(0).select();
+			house.get(0).selectH();
 			System.out.println("select " + house.get(0).hashCode());
+			house.get(0).createSoldier(canvas);
 			numberOfSelected++;
 		}
 	}
 
 	private void deselectUnits() {
-		house.get(0).deselect();
+		house.get(0).deselectH();
 		numberOfSelected--;
 
 	}
