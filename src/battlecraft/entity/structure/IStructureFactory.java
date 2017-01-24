@@ -7,8 +7,9 @@ import gameframework.core.GameEntity;
 
 public interface IStructureFactory {
 	
-	GameEntity createHouse(Canvas defaultCanvas, Point position);
+	GameEntity createHouseWorker(Canvas defaultCanvas, Point position);
 	GameEntity createCastleTop(Canvas defaultCanvas, Point position);
 	GameEntity createCastleBottom(Canvas defaultCanvas, Point position);
+	GameEntity createHouseSoldier(Canvas defaultCanvas, Point position);
 
 }

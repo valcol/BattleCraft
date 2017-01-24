@@ -79,7 +79,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		selectHouse.setEntityFactory(efactory);
 		selectHouse.setMoveBlockerChecker(moveBlockerChecker);
 		selectHouse.setMoveStrategySelect(selectStr);
-		
+
 		placeTiles();
 		placeStructures();
 		placeRessources();
@@ -141,18 +141,25 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 	}
 
 	public void placeStructures() {
+		House h = null;
 		for (int i = 0; i < NB_ROWS; ++i) {
 			for (int j = 0; j < NB_COLUMNS; ++j) {
 				// House
 				if ((j == 5) && (i == 5)) {
-					House h = (House) efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					h = (House) efactory.createHouseSoldier(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					selectHouse.addUnit(h);
 					universe.addGameEntity(h);
 				}
-				if ((j == 6) && (i == 5))
-					universe.addGameEntity(efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
-				if ((j == 4) && (i == 5))
-					universe.addGameEntity(efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+				if ((j == 2) && (i == 5)) {
+					h = (House) efactory.createHouseSoldier(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					selectHouse.addUnit(h);
+					universe.addGameEntity(h);
+				}
+				if ((j == 7) && (i == 2)) {
+					h = (House) efactory.createHouseWorker(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					selectHouse.addUnit(h);
+					universe.addGameEntity(h);
+				}
 				// Castle
 				if ((j == 4) && (i == 10))
 					universe.addGameEntity(

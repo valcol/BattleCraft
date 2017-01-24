@@ -42,9 +42,21 @@ public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFact
 	}
 
 	@Override
-	public GameEntity createHouse(Canvas defaultCanvas, Point position) {
+	public GameEntity createWorker(Canvas defaultCanvas) {
 		// TODO Auto-generated method stub
-		return sfactory.createHouse(defaultCanvas, position);
+		return ufactory.createWorker(defaultCanvas);
+	}
+	
+	@Override
+	public GameEntity createHouseSoldier(Canvas defaultCanvas, Point position) {
+		// TODO Auto-generated method stub
+		return sfactory.createHouseSoldier(defaultCanvas, position);
+	}
+	
+	@Override
+	public GameEntity createHouseWorker(Canvas defaultCanvas, Point position) {
+		// TODO Auto-generated method stub
+		return sfactory.createHouseWorker(defaultCanvas, position);
 	}
 
 	@Override
@@ -119,11 +131,7 @@ public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFact
 		return efactory.createBigMineral(defaultCanvas, position);
 	}
 
-	@Override
-	public GameEntity createWorker(Canvas defaultCanvas) {
-		// TODO Auto-generated method stub
-		return ufactory.createWorker(defaultCanvas);
-	}
+
 	
 
 }

@@ -9,7 +9,7 @@ import battlecraft.entity.unit.IUnitFactory;
 import battlecraft.entity.unit.UnitFactory;
 import gameframework.core.GameEntity;
 
-public class House extends StructureAbstract implements SelectableHouse{
+public abstract class House extends StructureAbstract implements SelectableHouse{
 	private boolean selected = false;
 	private IUnitFactory unit= new UnitFactory();
 	public House(Canvas defaultCanvas, Point position, String spritePath, Rectangle BOUNDING_BOX) {
@@ -31,9 +31,11 @@ public class House extends StructureAbstract implements SelectableHouse{
 		return selected;
 	}
 
-	@Override
 	public GameEntity createSoldier(Canvas defaultCanvas) {
 		return unit.createSoldier(defaultCanvas);
 	}
-
+	
+	public GameEntity createWorker(Canvas defaultCanvas) {
+		return unit.createWorker(defaultCanvas);
+	}
 }
