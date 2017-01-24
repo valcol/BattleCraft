@@ -23,10 +23,10 @@ public class StructureFactory implements IStructureFactory {
 	}
 
 	@Override
-	public GameEntity createCastleBottom(Canvas defaultCanvas, Point position) {
+	public GameEntity createCastleBottom(Canvas defaultCanvas, Point position, int team) {
 		Rectangle boundingBox = new Rectangle(0, 0, 100, 30);
 		String imagePath = "images/Medieval/Structure/6.png";
-		return new Castle(defaultCanvas, position, imagePath, boundingBox, 1);
+		return new Castle(defaultCanvas, position, imagePath, boundingBox, team);
 	}
 
 	@Override

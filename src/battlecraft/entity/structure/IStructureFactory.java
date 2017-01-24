@@ -9,7 +9,7 @@ public interface IStructureFactory {
 	
 	GameEntity createHouseWorker(Canvas defaultCanvas, Point position);
 	GameEntity createCastleTop(Canvas defaultCanvas, Point position);
-	GameEntity createCastleBottom(Canvas defaultCanvas, Point position);
+	GameEntity createCastleBottom(Canvas defaultCanvas, Point position, int team);
 	GameEntity createHouseSoldier(Canvas defaultCanvas, Point position);
 
 }

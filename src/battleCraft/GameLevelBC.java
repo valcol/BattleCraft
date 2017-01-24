@@ -163,8 +163,15 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 				// Castle
 				if ((j == 4) && (i == 10))
 					universe.addGameEntity(
-							efactory.createCastleBottom(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+							efactory.createCastleBottom(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE), 0));
 				if ((j == 4) && (i == 9))
+					universe.addGameEntity(
+							efactory.createCastleTop(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+				
+				if ((j == 35) && (i == 10))
+					universe.addGameEntity(
+							efactory.createCastleBottom(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE),1));
+				if ((j == 35) && (i == 9))
 					universe.addGameEntity(
 							efactory.createCastleTop(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 			}

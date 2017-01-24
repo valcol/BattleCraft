@@ -60,9 +60,9 @@ public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFact
 	}
 
 	@Override
-	public GameEntity createCastleBottom(Canvas defaultCanvas, Point position) {
+	public GameEntity createCastleBottom(Canvas defaultCanvas, Point position, int team) {
 		// TODO Auto-generated method stub
-		return sfactory.createCastleBottom(defaultCanvas, position);
+		return sfactory.createCastleBottom(defaultCanvas, position, team);
 	}
 	
 	@Override
