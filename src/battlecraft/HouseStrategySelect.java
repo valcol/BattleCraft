@@ -12,8 +12,11 @@ import java.util.ArrayList;
 
 import battlecraft.entity.EntityFactory;
 import battlecraft.entity.SelectableHouse;
+import battlecraft.entity.structure.HouseSoldier;
+import battlecraft.entity.structure.HouseWorker;
 import battlecraft.soldier.builder.Builder;
 import battlecraft.soldier.builder.SoldierBuilder;
+import battlecraft.soldier.builder.WorkerBuilder;
 import gameframework.core.GameMovableDriverDefaultImpl;
 import gameframework.core.GameUniverse;
 import gameframework.moves_rules.MoveBlockerChecker;
@@ -31,6 +34,7 @@ public class HouseStrategySelect extends MouseAdapter implements MouseMotionList
 	private MoveStrategySelect selectStr;
 	private EntityFactory efactory;
 	private MoveBlockerChecker moveBlockerChecker;
+
 	public HouseStrategySelect() {
 		numberOfSelected = 0;
 		dragMouse = true;
@@ -79,19 +83,31 @@ public class HouseStrategySelect extends MouseAdapter implements MouseMotionList
 	private void selectUnits() {
 		Rectangle selection = new Rectangle();
 		selection.setFrameFromDiagonal(startPoint, endPoint);
-		if (selection.contains(((ObjectWithBoundedBox) house.get(0)).getBoundingBox())) {
-			house.get(0).selectH();
-			System.out.println("select " + house.get(0).hashCode());
-			b = new SoldierBuilder(efactory, moveBlockerChecker, new GameMovableDriverDefaultImpl(), selectStr, canvas,
-					new Point(10 * SPRITE_SIZE, 10 * SPRITE_SIZE));
-			universe.addGameEntity(b.getResult());
-			numberOfSelected++;
+		for (SelectableHouse sh : house) {
+			if (selection.contains(((ObjectWithBoundedBox) sh).getBoundingBox())) {
+				sh.selectH();
+				System.out.println("select " + sh.hashCode());
+				if (sh.getClass().equals(HouseSoldier.class)) {
+					b = new SoldierBuilder(efactory, moveBlockerChecker, new GameMovableDriverDefaultImpl(), selectStr,
+							canvas, new Point(5 * SPRITE_SIZE, 6 * SPRITE_SIZE));
+					universe.addGameEntity(b.getResult());
+					numberOfSelected++;
+				} else if (sh.getClass().equals(HouseWorker.class)) {
+					b = new WorkerBuilder(efactory, moveBlockerChecker, new GameMovableDriverDefaultImpl(),
+							canvas, new Point(8 * SPRITE_SIZE, 2 * SPRITE_SIZE));
+					universe.addGameEntity(b.getResult());
+					numberOfSelected++;
+				}
+
+			}
 		}
 	}
 
 	private void deselectUnits() {
-		house.get(0).deselectH();
-		numberOfSelected--;
+		for (SelectableHouse sh : house) {
+			sh.deselectH();
+			numberOfSelected--;
+		}
 
 	}
 
@@ -102,14 +118,17 @@ public class HouseStrategySelect extends MouseAdapter implements MouseMotionList
 	public void setUniverse(GameUniverse universe) {
 		this.universe = universe;
 	}
-	public void setEntityFactory(EntityFactory ef){
-		this.efactory=ef;
+
+	public void setEntityFactory(EntityFactory ef) {
+		this.efactory = ef;
 	}
-	public void setMoveBlockerChecker(MoveBlockerChecker mb){
-		this.moveBlockerChecker=mb;
+
+	public void setMoveBlockerChecker(MoveBlockerChecker mb) {
+		this.moveBlockerChecker = mb;
 	}
-	public void setMoveStrategySelect(MoveStrategySelect s){
-		this.selectStr=s;
+
+	public void setMoveStrategySelect(MoveStrategySelect s) {
+		this.selectStr = s;
 	}
 
 }
