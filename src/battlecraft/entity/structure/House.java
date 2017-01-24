@@ -33,7 +33,6 @@ public class House extends StructureAbstract implements SelectableHouse{
 
 	@Override
 	public GameEntity createSoldier(Canvas defaultCanvas) {
-		// TODO Auto-generated method stub
 		return unit.createSoldier(defaultCanvas);
 	}
 

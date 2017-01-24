@@ -11,6 +11,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import battlecraft.entity.SelectableHouse;
+import gameframework.core.GameUniverse;
 import gameframework.moves_rules.ObjectWithBoundedBox;
 
 public class HouseStrategySelect extends MouseAdapter implements MouseMotionListener {
@@ -19,7 +20,7 @@ public class HouseStrategySelect extends MouseAdapter implements MouseMotionList
 	private boolean dragMouse;
 	private ArrayList<SelectableHouse> house = new ArrayList<SelectableHouse>();
 	private int numberOfSelected;
-
+	private GameUniverse universe;
 	public HouseStrategySelect() {
 		numberOfSelected = 0;
 		dragMouse = true;
@@ -71,7 +72,7 @@ public class HouseStrategySelect extends MouseAdapter implements MouseMotionList
 		if (selection.contains(((ObjectWithBoundedBox) house.get(0)).getBoundingBox())) {
 			house.get(0).selectH();
 			System.out.println("select " + house.get(0).hashCode());
-			house.get(0).createSoldier(canvas);
+			universe.addGameEntity(house.get(0).createSoldier(canvas));
 			numberOfSelected++;
 		}
 	}
@@ -84,6 +85,10 @@ public class HouseStrategySelect extends MouseAdapter implements MouseMotionList
 
 	public void setCanvas(Canvas canvas) {
 		this.canvas = canvas;
+	}
+
+	public void setUniverse(GameUniverse universe) {
+		this.universe = universe;
 	}
 
 }

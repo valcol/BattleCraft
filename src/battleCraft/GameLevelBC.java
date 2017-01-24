@@ -73,6 +73,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		canvas.addMouseMotionListener(selectHouse);
 		selectStr.setCanvas(canvas);
 		selectHouse.setCanvas(canvas);
+		selectHouse.setUniverse(universe);
 
 		placeTiles();
 		placeStructures();
