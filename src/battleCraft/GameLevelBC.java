@@ -8,6 +8,8 @@ import battlecraft.entity.structure.House;
 import battlecraft.entity.unit.Soldier;
 import battlecraft.rule.MoveBlockers;
 import battlecraft.rule.OverlapRules;
+import battlecraft.soldier.builder.Builder;
+import battlecraft.soldier.builder.SoldierBuilder;
 import gameframework.core.CanvasDefaultImpl;
 import gameframework.core.Game;
 import gameframework.core.GameLevelDefaultImpl;
@@ -27,7 +29,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 	EntityFactory efactory;
 	MoveStrategySelect selectStr;
 	HouseStrategySelect selectHouse;
-
+	Builder b;
 	private int NB_ROWS;
 	private int NB_COLUMNS;
 	private int SPRITE_SIZE;
@@ -74,32 +76,43 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		selectStr.setCanvas(canvas);
 		selectHouse.setCanvas(canvas);
 		selectHouse.setUniverse(universe);
-
+		selectHouse.setEntityFactory(efactory);
+		selectHouse.setMoveBlockerChecker(moveBlockerChecker);
+		selectHouse.setMoveStrategySelect(selectStr);
+		
 		placeTiles();
 		placeStructures();
 		placeRessources();
 
 		// Pacman definition and inclusion in the universe
-		Soldier myPac = (Soldier) efactory.createSoldier(canvas);
-		GameMovableDriverDefaultImpl pacDriver = new GameMovableDriverDefaultImpl();
-		MoveStrategyStub stubStr = new MoveStrategyStub(myPac);
-		pacDriver.setStrategy(stubStr);
-		pacDriver.setmoveBlockerChecker(moveBlockerChecker);
-		myPac.setDriver(pacDriver);
-		selectStr.addUnit(myPac, stubStr);
-		myPac.setPosition(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
-		universe.addGameEntity(myPac);
-
-		Soldier myPac2 = (Soldier) efactory.createSoldier(canvas);
-		GameMovableDriverDefaultImpl pacDriver2 = new GameMovableDriverDefaultImpl();
-		MoveStrategyStub stubStr2 = new MoveStrategyStub(myPac2);
-		pacDriver2.setStrategy(stubStr2);
-		pacDriver2.setmoveBlockerChecker(moveBlockerChecker);
-		myPac2.setDriver(pacDriver2);
-		selectStr.addUnit(myPac2, stubStr2);
-		myPac2.setPosition(new Point(15 * SPRITE_SIZE, 10 * SPRITE_SIZE));
-		universe.addGameEntity(myPac2);
-
+		/*
+		 * Soldier myPac = (Soldier) efactory.createSoldier(canvas);
+		 * GameMovableDriverDefaultImpl pacDriver = new
+		 * GameMovableDriverDefaultImpl(); MoveStrategyStub stubStr = new
+		 * MoveStrategyStub(myPac); pacDriver.setStrategy(stubStr);
+		 * pacDriver.setmoveBlockerChecker(moveBlockerChecker);
+		 * myPac.setDriver(pacDriver); selectStr.addUnit(myPac, stubStr);
+		 * myPac.setPosition(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
+		 * universe.addGameEntity(myPac);
+		 * 
+		 * Soldier myPac2 = (Soldier) efactory.createSoldier(canvas);
+		 * GameMovableDriverDefaultImpl pacDriver2 = new
+		 * GameMovableDriverDefaultImpl(); MoveStrategyStub stubStr2 = new
+		 * MoveStrategyStub(myPac2); pacDriver2.setStrategy(stubStr2);
+		 * pacDriver2.setmoveBlockerChecker(moveBlockerChecker);
+		 * myPac2.setDriver(pacDriver2); selectStr.addUnit(myPac2, stubStr2);
+		 * myPac2.setPosition(new Point(15 * SPRITE_SIZE, 10 * SPRITE_SIZE));
+		 * universe.addGameEntity(myPac2);
+		 */
+		b = new SoldierBuilder(efactory, moveBlockerChecker, new GameMovableDriverDefaultImpl(), selectStr, canvas,
+				new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
+		universe.addGameEntity(b.getResult());
+		b = new SoldierBuilder(efactory, moveBlockerChecker, new GameMovableDriverDefaultImpl(), selectStr, canvas,
+				new Point(15 * SPRITE_SIZE, 10 * SPRITE_SIZE));
+		universe.addGameEntity(b.getResult());
+		b = new SoldierBuilder(efactory, moveBlockerChecker, new GameMovableDriverDefaultImpl(), selectStr, canvas,
+				new Point(14 * SPRITE_SIZE, 4 * SPRITE_SIZE));
+		universe.addGameEntity(b.getResult());
 		for (int t = 0; t < NUMBER_OF_GHOSTS; ++t) {
 			GameMovableDriverDefaultImpl ghostDriv = new GhostMovableDriver();
 			MoveStrategyRandom ranStr = new MoveStrategyRandom();
@@ -131,7 +144,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		for (int i = 0; i < NB_ROWS; ++i) {
 			for (int j = 0; j < NB_COLUMNS; ++j) {
 				// House
-				if ((j == 5) && (i == 5)){
+				if ((j == 5) && (i == 5)) {
 					House h = (House) efactory.createHouse(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					selectHouse.addUnit(h);
 					universe.addGameEntity(h);

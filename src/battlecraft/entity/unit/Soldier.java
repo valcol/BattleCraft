@@ -60,7 +60,6 @@ public class Soldier extends GameMovable implements Drawable, GameEntity,
 		
 		g.drawRect(x,y, totalLifeBarWidth, 3);
 		
-		
 		g.drawImage(image.getImage(), (int) getPosition().getX()-RENDERING_SIZE/4,
 				(int) getPosition().getY()-RENDERING_SIZE/4, RENDERING_SIZE, RENDERING_SIZE,
 				null);
