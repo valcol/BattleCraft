@@ -10,17 +10,27 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
+import battlecraft.entity.EntityFactory;
 import battlecraft.entity.SelectableHouse;
+import battlecraft.soldier.builder.Builder;
+import battlecraft.soldier.builder.SoldierBuilder;
+import gameframework.core.GameMovableDriverDefaultImpl;
 import gameframework.core.GameUniverse;
+import gameframework.moves_rules.MoveBlockerChecker;
 import gameframework.moves_rules.ObjectWithBoundedBox;
 
 public class HouseStrategySelect extends MouseAdapter implements MouseMotionListener {
+	private static final int SPRITE_SIZE = GameBC.SPRITE_SIZE;
 	private Point startPoint, endPoint;
 	private Canvas canvas;
 	private boolean dragMouse;
 	private ArrayList<SelectableHouse> house = new ArrayList<SelectableHouse>();
 	private int numberOfSelected;
 	private GameUniverse universe;
+	private Builder b;
+	private MoveStrategySelect selectStr;
+	private EntityFactory efactory;
+	private MoveBlockerChecker moveBlockerChecker;
 	public HouseStrategySelect() {
 		numberOfSelected = 0;
 		dragMouse = true;
@@ -72,7 +82,9 @@ public class HouseStrategySelect extends MouseAdapter implements MouseMotionList
 		if (selection.contains(((ObjectWithBoundedBox) house.get(0)).getBoundingBox())) {
 			house.get(0).selectH();
 			System.out.println("select " + house.get(0).hashCode());
-			universe.addGameEntity(house.get(0).createSoldier(canvas));
+			b = new SoldierBuilder(efactory, moveBlockerChecker, new GameMovableDriverDefaultImpl(), selectStr, canvas,
+					new Point(10 * SPRITE_SIZE, 10 * SPRITE_SIZE));
+			universe.addGameEntity(b.getResult());
 			numberOfSelected++;
 		}
 	}
@@ -89,6 +101,15 @@ public class HouseStrategySelect extends MouseAdapter implements MouseMotionList
 
 	public void setUniverse(GameUniverse universe) {
 		this.universe = universe;
+	}
+	public void setEntityFactory(EntityFactory ef){
+		this.efactory=ef;
+	}
+	public void setMoveBlockerChecker(MoveBlockerChecker mb){
+		this.moveBlockerChecker=mb;
+	}
+	public void setMoveStrategySelect(MoveStrategySelect s){
+		this.selectStr=s;
 	}
 
 }
