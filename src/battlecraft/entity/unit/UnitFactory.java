@@ -18,4 +18,11 @@ public class UnitFactory implements IUnitFactory {
 		return new Soldier(defaultCanvas, imagePath, boundingBox);
 	}
 
+	@Override
+	public GameEntity createWorker(Canvas defaultCanvas) {
+		String imagePath = "images/Medieval/Unit/19.png";
+		Rectangle boundingBox = new Rectangle(32,32,30,30);
+		return new Worker(defaultCanvas, imagePath, boundingBox);
+	}
+
 }

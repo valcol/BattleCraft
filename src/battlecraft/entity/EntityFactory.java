@@ -118,6 +118,12 @@ public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFact
 		// TODO Auto-generated method stub
 		return efactory.createBigMineral(defaultCanvas, position);
 	}
+
+	@Override
+	public GameEntity createWorker(Canvas defaultCanvas) {
+		// TODO Auto-generated method stub
+		return ufactory.createWorker(defaultCanvas);
+	}
 	
 
 }

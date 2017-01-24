@@ -8,5 +8,6 @@ import gameframework.core.GameEntity;
 public interface IUnitFactory {
 	
 	GameEntity createSoldier(Canvas defaultCanvas);
+	GameEntity createWorker(Canvas defaultCanvas);
 
 }
