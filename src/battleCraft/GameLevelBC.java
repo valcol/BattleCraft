@@ -188,9 +188,9 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 			for (int j = 0; j < NB_COLUMNS; ++j) {
 				if ((j == 10) && (i == 12))
 					universe.addGameEntity(
-							efactoryBlue.createBigMineral(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+							efactoryBlue.createCopperOre(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 				if ((j == 12) && (i == 12))
-					universe.addGameEntity(efactoryBlue.createBigRock(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+					universe.addGameEntity(efactoryBlue.createGreyRock(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 				if ((j == 12) && (i == 10))
 					universe.addGameEntity(
 							efactoryBlue.createNormalPineTree(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));

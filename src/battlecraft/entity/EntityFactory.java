@@ -103,39 +103,27 @@ public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFact
 	}
 
 	@Override
-	public GameEntity createSmallRock(Canvas defaultCanvas, Point position) {
+	public GameEntity createYellowRock(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
-		return efactory.createSmallRock(defaultCanvas, position);
+		return efactory.createYellowRock(defaultCanvas, position);
 	}
 
 	@Override
-	public GameEntity createNormalRock(Canvas defaultCanvas, Point position) {
+	public GameEntity createGreyRock(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
-		return efactory.createNormalRock(defaultCanvas, position);
+		return efactory.createGreyRock(defaultCanvas, position);
 	}
 
 	@Override
-	public GameEntity createBigRock(Canvas defaultCanvas, Point position) {
+	public GameEntity createCopperOre(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
-		return efactory.createBigRock(defaultCanvas, position);
+		return efactory.createCopperOre(defaultCanvas, position);
 	}
 
 	@Override
-	public GameEntity createSmallMineral(Canvas defaultCanvas, Point position) {
+	public GameEntity createGoldOre(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
-		return efactory.createSmallMineral(defaultCanvas, position);
-	}
-
-	@Override
-	public GameEntity createNormalMineral(Canvas defaultCanvas, Point position) {
-		// TODO Auto-generated method stub
-		return efactory.createNormalMineral(defaultCanvas, position);
-	}
-
-	@Override
-	public GameEntity createBigMineral(Canvas defaultCanvas, Point position) {
-		// TODO Auto-generated method stub
-		return efactory.createBigMineral(defaultCanvas, position);
+		return efactory.createGoldOre(defaultCanvas, position);
 	}
 
 

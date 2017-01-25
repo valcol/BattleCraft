@@ -12,11 +12,8 @@ public interface IEnvironmentFactory {
 	GameEntity createNormalTree(Canvas defaultCanvas, Point position);
 	GameEntity createSmallTree(Canvas defaultCanvas, Point position);
 	GameEntity createSmallPineTree(Canvas defaultCanvas, Point position);
-	GameEntity createSmallRock(Canvas defaultCanvas, Point position);
-	GameEntity createNormalRock(Canvas defaultCanvas, Point position);
-	GameEntity createBigRock(Canvas defaultCanvas, Point position);
-	GameEntity createSmallMineral(Canvas defaultCanvas, Point position);
-	GameEntity createNormalMineral(Canvas defaultCanvas, Point position);
-	GameEntity createBigMineral(Canvas defaultCanvas, Point position);
-
+	GameEntity createGreyRock(Canvas defaultCanvas, Point position);
+	GameEntity createYellowRock(Canvas defaultCanvas, Point position);
+	GameEntity createCopperOre(Canvas defaultCanvas, Point position);
+	GameEntity createGoldOre(Canvas defaultCanvas, Point position);
 }
