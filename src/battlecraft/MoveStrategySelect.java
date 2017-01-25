@@ -35,12 +35,14 @@ public class MoveStrategySelect extends MouseAdapter implements MouseMotionListe
 
 	public void setupVectorToGo(Point point) {
 		
+		int offset = numberOfSelected*3;
+		
 		strategies.forEach((unit,strategy)->{	
 			
 			Random rand = new Random();
 			
-			int y = rand.nextInt(41) - 20;
-			int x = rand.nextInt(41) - 20;
+			int y = rand.nextInt((offset*2)+1) - offset;
+			int x = rand.nextInt((offset*2)+1) - offset;
 			
 			Point newPoint = new Point((int)(point.getX()+x), (int)(point.getY()+y));
 			
@@ -76,6 +78,7 @@ public class MoveStrategySelect extends MouseAdapter implements MouseMotionListe
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			endPoint = e.getPoint();
 			if (numberOfSelected>0){
+				System.out.println(numberOfSelected);
 				deselectUnits();
 			}
 			System.out.println("select");
@@ -124,6 +127,7 @@ public class MoveStrategySelect extends MouseAdapter implements MouseMotionListe
 		strategies.forEach((unit,strategy)->{	
 			unit.deselect();
 		});
+		numberOfSelected = 0;
 	}
 
 	public void setCanvas(Canvas canvas) {
