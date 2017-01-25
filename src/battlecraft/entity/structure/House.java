@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import battlecraft.Teams;
 import battlecraft.entity.SelectableHouse;
 import battlecraft.entity.unit.IUnitFactory;
 import battlecraft.entity.unit.UnitFactory;
@@ -11,9 +12,10 @@ import gameframework.core.GameEntity;
 
 public abstract class House extends StructureAbstract implements SelectableHouse{
 	private boolean selected = false;
-	private IUnitFactory unit= new UnitFactory();
-	public House(Canvas defaultCanvas, Point position, String spritePath, Rectangle BOUNDING_BOX) {
+	protected IUnitFactory unit;
+	public House(Canvas defaultCanvas, Point position, String spritePath, Rectangle BOUNDING_BOX, Teams team) {
 		super(defaultCanvas, position, spritePath, BOUNDING_BOX);
+		unit = new UnitFactory(team);
 	}
 
 	@Override
@@ -29,13 +31,5 @@ public abstract class House extends StructureAbstract implements SelectableHouse
 	@Override
 	public boolean isSelectedH() {
 		return selected;
-	}
-
-	public GameEntity createSoldier(Canvas defaultCanvas) {
-		return unit.createSoldier(defaultCanvas);
-	}
-	
-	public GameEntity createWorker(Canvas defaultCanvas) {
-		return unit.createWorker(defaultCanvas);
 	}
 }

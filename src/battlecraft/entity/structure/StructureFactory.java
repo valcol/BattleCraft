@@ -4,15 +4,23 @@ import java.awt.Canvas;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import battlecraft.Teams;
 import gameframework.core.GameEntity;
 
 public class StructureFactory implements IStructureFactory {
+	
+	private Teams team;
+
+	public StructureFactory(Teams team) {
+		super();
+		this.team = team;
+	}
 
 	@Override
 	public GameEntity createHouseSoldier(Canvas defaultCanvas, Point position) {
 		Rectangle boundingBox = new Rectangle(0, 0, 100, 70);
 		String imagePath = "images/Medieval/Structure/19.png";
-		return new HouseSoldier(defaultCanvas, position, imagePath, boundingBox);
+		return new HouseSoldier(defaultCanvas, position, imagePath, boundingBox, team);
 	}
 
 	@Override
@@ -23,7 +31,7 @@ public class StructureFactory implements IStructureFactory {
 	}
 
 	@Override
-	public GameEntity createCastleBottom(Canvas defaultCanvas, Point position, int team) {
+	public GameEntity createCastleBottom(Canvas defaultCanvas, Point position) {
 		Rectangle boundingBox = new Rectangle(0, 0, 100, 30);
 		String imagePath = "images/Medieval/Structure/6.png";
 		return new Castle(defaultCanvas, position, imagePath, boundingBox, team);
@@ -34,7 +42,7 @@ public class StructureFactory implements IStructureFactory {
 		// TODO Auto-generated method stub
 		Rectangle boundingBox = new Rectangle(0, 0, 100, 70);
 		String imagePath = "images/Medieval/Structure/21.png";
-		return new HouseWorker(defaultCanvas, position, imagePath, boundingBox);
+		return new HouseWorker(defaultCanvas, position, imagePath, boundingBox, team);
 	}
 
 }

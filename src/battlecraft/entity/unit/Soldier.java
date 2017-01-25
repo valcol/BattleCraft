@@ -9,6 +9,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import battlecraft.Teams;
 import battlecraft.entity.Selectable;
 import battlecraft.entity.SpriteStore;
 import battlecraft.entity.Utils;
@@ -25,14 +27,15 @@ public class Soldier extends GameMovable implements Drawable, GameEntity,
 	public Rectangle BOUNDING_BOX;
 	private boolean selected = false;
 	private boolean combat = false;
-	private int team = 0;
+	private Teams team;
 	private int healPerSecond = 1;
 	private int cooldown = 2;
 	private Unit unit;
 
-	public Soldier(Canvas defaultCanvas, String imagePath, Rectangle BOUNDING_BOX) {
+	public Soldier(Canvas defaultCanvas, String imagePath, Rectangle BOUNDING_BOX, Teams team) {
 		this.image = SpriteStore.getInstance().getSprite(imagePath, defaultCanvas);
 		this.BOUNDING_BOX = BOUNDING_BOX;
+		this.team = team;
 		this.unit = new UnitCenturion("");
 	}
 
@@ -46,7 +49,7 @@ public class Soldier extends GameMovable implements Drawable, GameEntity,
 		g.setColor(new Color(0,0,0));
 		g.fillRect(x, y, totalLifeBarWidth, 3);
 		
-		if (team == 0)
+		if (team == Teams.BLUE)
 			g.setColor(new Color(0,250,100));
 		else
 			g.setColor(new Color(198,37,37));
@@ -96,11 +99,11 @@ public class Soldier extends GameMovable implements Drawable, GameEntity,
 		return selected;
 	}
 
-	public int getTeam() {
+	public Teams getTeam() {
 		return team;
 	}
 
-	public void setTeam(int team) {
+	public void setTeam(Teams team) {
 		this.team = team;
 	}
 
@@ -135,6 +138,8 @@ public class Soldier extends GameMovable implements Drawable, GameEntity,
 		else
 			return 0;
 	}
+	
+	
 
 	
 }

@@ -5,7 +5,9 @@ import java.util.Vector;
 
 import battlecraft.HouseStrategySelect;
 import battlecraft.MoveStrategySelect;
+import battlecraft.entity.environment.Environment;
 import battlecraft.entity.unit.Soldier;
+import battlecraft.entity.unit.Worker;
 import gameframework.core.GameUniverse;
 import gameframework.core.ObservableValue;
 import gameframework.moves_rules.OverlapRulesApplierDefaultImpl;
@@ -54,8 +56,22 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 				strategy.removeUnit(g2);
 				universe.removeGameEntity(g2);
 			}
-				
+		}
+	}
+	
+	public void overlapRule(Worker w, Environment e){
+		//TODO : random order
+		if (e.health>0){
+			float st1 = w.gather();
+			e.takeDamages(st1);
 		}
 	}
 
+	public void overlapRule (Soldier g, Environment e){
+		//TODO : random order
+		if (e.health>0){
+			float st1 = g.strike();
+			e.takeDamages(st1);
+		}
+	}
 }

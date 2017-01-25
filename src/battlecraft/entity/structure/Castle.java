@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import battlecraft.Teams;
 import battlecraft.entity.SpriteStore;
 import gameframework.core.DrawableImage;
 
@@ -14,11 +15,11 @@ public class Castle extends StructureAbstract {
 	protected Point position;
 	public int RENDERING_SIZE = 32;
 	public Rectangle BOUNDING_BOX;
-	private int team;
+	private Teams team;
 	private int initialHealth = 10000;
 	private int health = 10000;
 
-	public Castle(Canvas defaultCanvas, Point position, String spritePath, Rectangle BOUNDING_BOX, int team) {
+	public Castle(Canvas defaultCanvas, Point position, String spritePath, Rectangle BOUNDING_BOX, Teams team) {
 		super(defaultCanvas, position, spritePath, BOUNDING_BOX);
 		this.image = SpriteStore.getInstance().getSprite(spritePath, defaultCanvas);
 		this.position = position;
@@ -36,7 +37,7 @@ public class Castle extends StructureAbstract {
 		g.setColor(new Color(0, 0, 0));
 		g.fillRect(x, y, totalLifeBarWidth, 3);
 
-		if (team == 0)
+		if (team == Teams.BLUE)
 			g.setColor(new Color(0, 250, 100));
 		else
 			g.setColor(new Color(198, 37, 37));
@@ -55,7 +56,7 @@ public class Castle extends StructureAbstract {
 		this.health -= damages;
 	}
 
-	public int getTeam() {
+	public Teams getTeam() {
 		return team;
 	}
 }

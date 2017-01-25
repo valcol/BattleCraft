@@ -9,6 +9,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import battlecraft.Ressources;
 import battlecraft.entity.SpriteStore;
 import battlecraft.entity.Utils;
 import battleengine.soldier.core.Unit;
@@ -20,28 +22,25 @@ public class Worker extends GameMovable implements Drawable, GameEntity, Overlap
 	protected boolean movable = false;
 	protected int timerCooldown = 0;
 	public Rectangle BOUNDING_BOX;
-	private int team = 0;
-	private Unit unit;
+	private int cooldown = 2;
+	private int strenght = 3;
+	private Ressources type;
 
 	public Worker(Canvas defaultCanvas, String imagePath, Rectangle BOUNDING_BOX) {
 		this.image = SpriteStore.getInstance().getSprite(imagePath, defaultCanvas);
 		this.BOUNDING_BOX = BOUNDING_BOX;
-		this.unit = new UnitCenturion("");
 	}
 
 	public void draw(Graphics g) {
 		int totalLifeBarWidth = 5;
-		int lifeBarWidth = (int) ((unit.getHealthPoints()*totalLifeBarWidth)/unit.getInitialHealth());
+		int lifeBarWidth = (int) ((10*totalLifeBarWidth)/10);
 		int x = (int) getPosition().getX();
 		int y = (int) getPosition().getY()-7;
 		
 		g.setColor(new Color(0,0,0));
 		g.fillRect(x, y, totalLifeBarWidth, 3);
 		
-		if (team == 0)
-			g.setColor(new Color(0,250,100));
-		else
-			g.setColor(new Color(198,37,37));
+		g.setColor(new Color(198,37,37));
 		
 		g.fillRect(x,y, lifeBarWidth, 3);
 		g.drawRect(x,y, totalLifeBarWidth, 3);
@@ -52,19 +51,28 @@ public class Worker extends GameMovable implements Drawable, GameEntity, Overlap
 
 	@Override
 	public void oneStepMoveAddedBehavior() {
-
+		timerCooldown = (timerCooldown > 0) ? timerCooldown-1 : 0;
 	}
 
 	public Rectangle getBoundingBox() {
 		return Utils.computeBoundingBox(getPosition(), BOUNDING_BOX, 32);
 	}
-
-	public int getTeam() {
-		return team;
+	
+	public float gather() {
+		if (timerCooldown == 0){
+			timerCooldown = cooldown;
+			return strenght;
+		}
+		else
+			return 0;
 	}
 
-	public void setTeam(int team) {
-		this.team = team;
+	public Ressources getType() {
+		return type;
+	}
+
+	public void setType(Ressources type) {
+		this.type = type;
 	}
 
 }

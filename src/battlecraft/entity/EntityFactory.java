@@ -3,6 +3,7 @@ package battlecraft.entity;
 import java.awt.Canvas;
 import java.awt.Point;
 
+import battlecraft.Teams;
 import battlecraft.entity.environment.Environment;
 import battlecraft.entity.environment.EnvironmentFactory;
 import battlecraft.entity.environment.IEnvironmentFactory;
@@ -16,12 +17,18 @@ import gameframework.core.GameEntity;
 
 public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFactory, IEnvironmentFactory {
 	
-	TileFactory tfactory = new TileFactory();
-	StructureFactory sfactory = new StructureFactory();
-	UnitFactory ufactory = new UnitFactory();
-	EnvironmentFactory efactory = new EnvironmentFactory();
+	TileFactory tfactory;
+	StructureFactory sfactory;
+	UnitFactory ufactory;
+	EnvironmentFactory efactory;
 
-
+	public EntityFactory(Teams team) {
+		super();
+		tfactory = new TileFactory();
+		sfactory = new StructureFactory(team);
+		ufactory = new UnitFactory(team);
+		efactory = new EnvironmentFactory();
+	}
 
 	@Override
 	public GameEntity createForestTile(Canvas defaultCanvas, Point position) {
@@ -60,9 +67,9 @@ public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFact
 	}
 
 	@Override
-	public GameEntity createCastleBottom(Canvas defaultCanvas, Point position, int team) {
+	public GameEntity createCastleBottom(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
-		return sfactory.createCastleBottom(defaultCanvas, position, team);
+		return sfactory.createCastleBottom(defaultCanvas, position);
 	}
 	
 	@Override

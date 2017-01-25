@@ -1,6 +1,5 @@
 package battlecraft.rule;
 
-import battlecraft.entity.environment.MoveBlockerEnvironment;
 import battlecraft.entity.structure.Castle;
 import battlecraft.entity.structure.MoveBlockerStructure;
 import battlecraft.entity.tile.Tile;

@@ -124,7 +124,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 		
-		ITileFactory tfactory = new EntityFactory();
+		//ITileFactory tfactory = new EntityFactory();
 
 		int totalNbGums = 0;
 		// Filling up the universe with basic non movable entities and inclusion in the universe
