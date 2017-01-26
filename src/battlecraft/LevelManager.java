@@ -116,12 +116,12 @@ public class LevelManager {
 	}
 	
 	
-	public void addPlayerCastle(){
-		//TODO
+	public void addPlayerCastle(Castle c){
+		universe.addGameEntity(c);
 	}
 	
 	public void addIACastle(Castle c){
-		//TODO
+		universe.addGameEntity(c);
 	}
     
 	public void addBarracks(Barrack h){

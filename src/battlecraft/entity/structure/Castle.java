@@ -66,9 +66,13 @@ public class Castle extends StructureAbstract {
 
 	public void takeDamages(float damages) {
 		this.health -= damages;
+		
 	}
 
 	public Teams getTeam() {
 		return team;
+	}
+	public int getHealth(){
+		return this.health;
 	}
 }

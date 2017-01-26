@@ -6,6 +6,7 @@ import java.util.Vector;
 import battlecraft.HouseStrategySelect;
 import battlecraft.MoveStrategySelect;
 import battlecraft.entity.environment.Environment;
+import battlecraft.entity.structure.Castle;
 import battlecraft.entity.unit.Soldier;
 import battlecraft.entity.unit.Worker;
 import gameframework.core.GameUniverse;
@@ -16,11 +17,12 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 	protected GameUniverse universe;
 	protected MoveStrategySelect strategy;
 	protected Vector<Soldier> vSoldier = new Vector<Soldier>();
-	
-	//TODO: remplacer compteur vie etc par wood ore rock (montant récoltés recup st1 dans overlapRule(Worker w, Environment e)
 
-	public OverlapRules(Point pacPos, Point gPos,
-			ObservableValue<Integer> life, ObservableValue<Integer> score,
+
+	// TODO: remplacer compteur vie etc par wood ore rock (montant récoltés
+	// recup st1 dans overlapRule(Worker w, Environment e)
+
+	public OverlapRules(Point pacPos, Point gPos, ObservableValue<Integer> life, ObservableValue<Integer> score,
 			ObservableValue<Boolean> endOfGame) {
 	}
 
@@ -32,13 +34,12 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 		this.strategy = strategy;
 	}
 
-
 	public void addSoldier(Soldier g) {
 		vSoldier.addElement(g);
 	}
-	
-	public void overlapRule(Soldier g, Soldier g2){
-		if (g.getTeam() != g2.getTeam()){
+
+	public void overlapRule(Soldier g, Soldier g2) {
+		if (g.getTeam() != g2.getTeam()) {
 			g.setCombat(true);
 			g2.setCombat(true);
 			float st1 = g.strike();
@@ -47,29 +48,30 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 			float st2 = g2.strike();
 			System.out.println(g2.getTeam() + " attack with force : " + st2);
 			g.parry(st2);
-			
-			if (!g.alive()){
+
+			if (!g.alive()) {
 				strategy.removeUnit(g);
 				universe.removeGameEntity(g);
 			}
-			
-			if (!g2.alive()){
+
+			if (!g2.alive()) {
 				strategy.removeUnit(g2);
 				universe.removeGameEntity(g2);
 			}
 		}
 	}
-	
-	public void overlapRule(Worker w, Environment e){
-		if (e.getType() == w.getType()){
-			if (e.health > 0){
+
+	public void overlapRule(Worker w, Environment e) {
+		if (e.getType() == w.getType()) {
+			if (e.health > 0) {
 				w.setGathering(true);
 				float st1 = w.gather();
 				e.takeDamages(st1);
-			}
-			else
+			} else
 				w.setGathering(false);
 
 		}
 	}
+	
+
 }

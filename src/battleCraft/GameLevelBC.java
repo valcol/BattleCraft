@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import battlecraft.entity.EntityFactory;
 import battlecraft.entity.environment.Environment;
 import battlecraft.entity.structure.Barrack;
+import battlecraft.entity.structure.Castle;
 import battlecraft.entity.unit.Soldier;
 import battlecraft.entity.unit.Worker;
 import battlecraft.rule.MoveBlockers;
@@ -51,7 +52,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
-		moveBlockerChecker.setMoveBlockerRules(new MoveBlockers());
+		moveBlockerChecker.setMoveBlockerRules(new MoveBlockers(endOfGame,life[0]));
 
 		OverlapRules overlapRules = new OverlapRules(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE),
 				new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE), life[0], score[0], endOfGame);
@@ -113,6 +114,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 
 	public void placeStructures() {
 		Barrack h = null;
+		Castle c = null;
 		for (int i = 0; i < NB_ROWS; ++i) {
 			for (int j = 0; j < NB_COLUMNS; ++j) {
 				// House
@@ -132,17 +134,19 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 					LevelManager.getInstance().addBarracks(h);
 				}
 				// Castle
-				if ((j == 4) && (i == 10))
-					universe.addGameEntity(
-							efactoryBlue.createCastleBottom(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+				if ((j == 4) && (i == 10)) {
+					c = (Castle) efactoryBlue.createCastleBottom(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					LevelManager.getInstance().addPlayerCastle(c);
+				}
 				if ((j == 4) && (i == 9))
 					universe.addGameEntity(
 							efactoryBlue.createCastleTop(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 
 				if ((j == 35) && (i == 10)) {
-					universe.addGameEntity(
-							efactoryRed.createCastleBottom(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
-					Soldier myPac4 = (Soldier) efactoryRed.createSoldier(canvas, new Point(30 * SPRITE_SIZE, 10 * SPRITE_SIZE));
+					c = (Castle) efactoryRed.createCastleBottom(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					LevelManager.getInstance().addIACastle(c);
+					Soldier myPac4 = (Soldier) efactoryRed.createSoldier(canvas,
+							new Point(30 * SPRITE_SIZE, 10 * SPRITE_SIZE));
 					LevelManager.getInstance().addIADefensiveSoldier(myPac4);
 				}
 				if ((j == 35) && (i == 9))
