@@ -31,7 +31,7 @@ import gameframework.core.ObservableValue;
 
 /**
  * Create a basic game application with menus and displays of lives and score
- */	
+ */
 public class GameBC implements Game, Observer {
 	protected static final int NB_ROWS = 25;
 	protected static final int NB_COLUMNS = 41;
@@ -43,6 +43,10 @@ public class GameBC implements Game, Observer {
 	protected ObservableValue<Integer> score[] = new ObservableValue[MAX_NUMBER_OF_PLAYER];
 	protected ObservableValue<Integer> life[] = new ObservableValue[MAX_NUMBER_OF_PLAYER];
 
+	protected ObservableValue<Integer> wood[] = new ObservableValue[1];
+	protected ObservableValue<Integer> ore[] = new ObservableValue[1];
+	protected ObservableValue<Integer> rock[] = new ObservableValue[1];
+
 	// initialized before each level
 	protected ObservableValue<Boolean> endOfGame = null;
 
@@ -52,10 +56,12 @@ public class GameBC implements Game, Observer {
 	protected int levelNumber;
 	protected ArrayList<GameLevel> gameLevels;
 
-	protected Label lifeText, scoreText;
+	protected Label woodText, oreText, rockText;
+	protected Label woodValue, oreValue, rockValue;
+
 	protected Label information;
 	protected Label informationValue;
-	protected Label lifeValue, scoreValue;
+	protected Label lifeValue;
 	protected Label currentLevel;
 	protected Label currentLevelValue;
 
@@ -64,8 +70,13 @@ public class GameBC implements Game, Observer {
 			score[i] = new ObservableValue<Integer>(0);
 			life[i] = new ObservableValue<Integer>(0);
 		}
-		lifeText = new Label("Lives:");
-		scoreText = new Label("Score:");
+		wood[0] = new ObservableValue<Integer>(0);
+		ore[0] = new ObservableValue<Integer>(0);
+		rock[0] = new ObservableValue<Integer>(0);
+		woodText = new Label("Wood:");
+		oreText = new Label("Ore:");
+		rockText = new Label("Rock:");
+
 		information = new Label("State:");
 		informationValue = new Label("Playing");
 		currentLevel = new Label("Level:");
@@ -85,12 +96,11 @@ public class GameBC implements Game, Observer {
 		f.add(c, BorderLayout.NORTH);
 		f.pack();
 		f.setVisible(true);
-		
+
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Image image = toolkit.getImage("images/cursor.gif");
-		Cursor cu = toolkit.createCustomCursor(image , new Point(f.getX(), 
-				f.getY()), "img");
-		f.setCursor (cu);
+		Cursor cu = toolkit.createCustomCursor(image, new Point(f.getX(), f.getY()), "img");
+		f.setCursor(cu);
 
 		f.addWindowListener(new WindowAdapter() {
 			@Override
@@ -158,12 +168,16 @@ public class GameBC implements Game, Observer {
 		GridBagLayout layout = new GridBagLayout();
 		c.setLayout(layout);
 		lifeValue = new Label(Integer.toString(life[0].getValue()));
-		scoreValue = new Label(Integer.toString(score[0].getValue()));
 		currentLevelValue = new Label(Integer.toString(levelNumber));
-		c.add(lifeText);
-		c.add(lifeValue);
-		c.add(scoreText);
-		c.add(scoreValue);
+		woodValue = new Label(Integer.toString(wood[0].getValue()));
+		oreValue = new Label(Integer.toString(ore[0].getValue()));
+		rockValue = new Label(Integer.toString(rock[0].getValue()));
+		c.add(woodText);
+		c.add(woodValue);
+		c.add(oreText);
+		c.add(oreValue);
+		c.add(rockText);
+		c.add(rockValue);
 		c.add(currentLevel);
 		c.add(currentLevelValue);
 		c.add(information);
@@ -182,6 +196,9 @@ public class GameBC implements Game, Observer {
 			life[i].setValue(NUMBER_OF_LIVES);
 			score[i].setValue(0);
 		}
+		wood[0].addObserver(this);
+		ore[0].addObserver(this);
+		rock[0].addObserver(this);
 		levelNumber = 0;
 		for (GameLevel level : gameLevels) {
 			endOfGame = new ObservableValue<Boolean>(false);
@@ -232,6 +249,20 @@ public class GameBC implements Game, Observer {
 		return endOfGame;
 	}
 
+	public ObservableValue<Integer> wood() {
+		return wood[0];
+	}
+
+	public ObservableValue<Integer> ore() {
+		return ore[0];
+
+	}
+
+	public ObservableValue<Integer> rock() {
+		return rock[0];
+
+	}
+
 	public void setLevels(ArrayList<GameLevel> levels) {
 		gameLevels = levels;
 	}
@@ -267,14 +298,16 @@ public class GameBC implements Game, Observer {
 					}
 				}
 			}
-			for (ObservableValue<Integer> scoreObservable : score) {
-				if (o == scoreObservable) {
-					scoreValue
-							.setText(Integer
-									.toString(((ObservableValue<Integer>) o)
-											.getValue()));
-				}
+			if (o == wood()) {
+				woodValue.setText(Integer.toString(((ObservableValue<Integer>) o).getValue()));
 			}
+			if (o == rock()) {
+				rockValue.setText(Integer.toString(((ObservableValue<Integer>) o).getValue()));
+			}
+			if (o == ore()) {
+				oreValue.setText(Integer.toString(((ObservableValue<Integer>) o).getValue()));
+			}
+
 		}
 	}
 }
