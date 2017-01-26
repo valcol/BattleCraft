@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import battlecraft.entity.environment.Environment;
+import battlecraft.entity.structure.Barrack;
+import battlecraft.entity.structure.Castle;
 import battlecraft.entity.tile.Tile;
 import battlecraft.entity.unit.Soldier;
 import battlecraft.entity.unit.Worker;
@@ -88,7 +90,10 @@ public class LevelManager {
 	}
 	
 	public void addIADefensiveSoldier(Soldier s){
-		//TODO
+		GameMovableDriverDefaultImpl ghostDriv = new GameMovableDriverDefaultImpl();
+		ghostDriv.setmoveBlockerChecker(moveBlockerChecker);
+		s.setDriver(ghostDriv);
+		universe.addGameEntity(s);
 	}
 	
 	public void addPlayerSoldier(Soldier s){
@@ -115,12 +120,13 @@ public class LevelManager {
 		//TODO
 	}
 	
-	public void addIACastle(){
+	public void addIACastle(Castle c){
 		//TODO
 	}
     
-	public void addBarracks(){
-		//TODO
+	public void addBarracks(Barrack h){
+		barracksMenu.addUnit(h);
+		universe.addGameEntity(h);
 	}
 	
 	public void addEnvironment(Environment e){
