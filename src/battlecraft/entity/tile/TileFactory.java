@@ -3,7 +3,6 @@ package battlecraft.entity.tile;
 import java.awt.Canvas;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.Arrays;
 
 import gameframework.core.GameEntity;
 

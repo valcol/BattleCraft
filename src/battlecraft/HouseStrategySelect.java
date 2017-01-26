@@ -10,17 +10,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
-import battlecraft.entity.EntityFactory;
 import battlecraft.entity.SelectableHouse;
-import battlecraft.entity.structure.BarrackSoldier;
-import battlecraft.entity.structure.BarrackRockWorker;
-import gameframework.core.GameMovableDriverDefaultImpl;
-import gameframework.core.GameUniverse;
-import gameframework.moves_rules.MoveBlockerChecker;
 import gameframework.moves_rules.ObjectWithBoundedBox;
 
 public class HouseStrategySelect extends MouseAdapter implements MouseMotionListener {
-	private static final int SPRITE_SIZE = GameBC.SPRITE_SIZE;
 	private Point startPoint, endPoint;
 	private Canvas canvas;
 	private boolean dragMouse;

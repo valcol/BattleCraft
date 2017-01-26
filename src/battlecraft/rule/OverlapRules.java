@@ -1,12 +1,12 @@
 package battlecraft.rule;
 
+import java.awt.Canvas;
 import java.awt.Point;
 import java.util.Vector;
 
-import battlecraft.HouseStrategySelect;
 import battlecraft.MoveStrategySelect;
+import battlecraft.entity.EntityFactory;
 import battlecraft.entity.environment.Environment;
-import battlecraft.entity.structure.Castle;
 import battlecraft.entity.unit.Soldier;
 import battlecraft.entity.unit.Worker;
 import gameframework.core.GameUniverse;
@@ -17,7 +17,8 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 	protected GameUniverse universe;
 	protected MoveStrategySelect strategy;
 	protected Vector<Soldier> vSoldier = new Vector<Soldier>();
-
+	protected EntityFactory ef;
+	protected Canvas canvas;
 
 	// TODO: remplacer compteur vie etc par wood ore rock (montant récoltés
 	// recup st1 dans overlapRule(Worker w, Environment e)
@@ -30,8 +31,16 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 		this.universe = universe;
 	}
 
+	public void setEntityFactory(EntityFactory ef) {
+		this.ef = ef;
+	}
+
 	public void setStrategy(MoveStrategySelect strategy) {
 		this.strategy = strategy;
+	}
+
+	public void setCanvas(Canvas c) {
+		this.canvas = c;
 	}
 
 	public void addSoldier(Soldier g) {
@@ -72,6 +81,4 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 
 		}
 	}
-	
-
 }

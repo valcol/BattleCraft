@@ -1,10 +1,5 @@
 package battlecraft.entity.unit;
 
-import gameframework.core.Drawable;
-import gameframework.core.DrawableImage;
-import gameframework.core.GameEntity;
-import gameframework.core.GameMovable;
-import gameframework.core.Overlappable;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -20,7 +15,11 @@ import battleengine.soldier.ages.AgeFutureFactory;
 import battleengine.soldier.ages.AgeMiddleFactory;
 import battleengine.soldier.core.AgeAbstractFactory;
 import battleengine.soldier.core.Unit;
-import battleengine.soldier.units.UnitCenturion;
+import gameframework.core.Drawable;
+import gameframework.core.DrawableImage;
+import gameframework.core.GameEntity;
+import gameframework.core.GameMovable;
+import gameframework.core.Overlappable;
 
 public class Soldier extends GameMovable implements Drawable, GameEntity, Overlappable, Selectable {
 	protected DrawableImage imageMA, imageSF;

@@ -4,7 +4,6 @@ import java.awt.Canvas;
 import java.awt.Point;
 
 import battlecraft.Teams;
-import battlecraft.entity.environment.Environment;
 import battlecraft.entity.environment.EnvironmentFactory;
 import battlecraft.entity.environment.IEnvironmentFactory;
 import battlecraft.entity.structure.IStructureFactory;

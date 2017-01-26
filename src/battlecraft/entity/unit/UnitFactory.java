@@ -6,10 +6,7 @@ import java.awt.Rectangle;
 
 import battlecraft.Ressources;
 import battlecraft.Teams;
-import battlecraft.entity.tile.Tile;
 import gameframework.core.GameEntity;
-import gameframework.core.GameMovableDriverDefaultImpl;
-import gameframework.moves_rules.MoveStrategyKeyboard;
 
 public class UnitFactory implements IUnitFactory {
 

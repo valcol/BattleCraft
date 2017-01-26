@@ -1,24 +1,12 @@
 package battlecraft;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.Random;
 
-import battlecraft.entity.Selectable;
 import battlecraft.entity.environment.Environment;
 import battlecraft.entity.unit.Worker;
-import gameframework.core.Movable;
 import gameframework.moves_rules.MoveStrategy;
-import gameframework.moves_rules.ObjectWithBoundedBox;
 import gameframework.moves_rules.SpeedVector;
 import gameframework.moves_rules.SpeedVectorDefaultImpl;
 

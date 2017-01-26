@@ -2,8 +2,6 @@ package battlecraft;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import gameframework.core.GameMovable;
 import gameframework.core.Movable;
