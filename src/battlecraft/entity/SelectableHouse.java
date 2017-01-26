@@ -8,5 +8,5 @@ public interface SelectableHouse {
 	void selectH();
 	void deselectH();
 	boolean isSelectedH();
-	GameEntity createUnit(Canvas c);
+	void createUnit(Canvas c);
 }

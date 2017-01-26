@@ -8,6 +8,7 @@ import gameframework.core.Overlappable;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 
 import battlecraft.Ressources;
@@ -27,10 +28,11 @@ public class Worker extends GameMovable implements Drawable, GameEntity, Overlap
 	private Ressources type;
 	private boolean isGathering = false;
 
-	public Worker(Canvas defaultCanvas, String imagePath, Rectangle BOUNDING_BOX, Ressources type) {
+	public Worker(Canvas defaultCanvas, String imagePath, Rectangle BOUNDING_BOX, Ressources type, Point position) {
 		this.image = SpriteStore.getInstance().getSprite(imagePath, defaultCanvas);
 		this.BOUNDING_BOX = BOUNDING_BOX;
 		this.type = type;
+		this.setPosition(position);
 	}
 
 	public void draw(Graphics g) {

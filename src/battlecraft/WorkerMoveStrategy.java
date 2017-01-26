@@ -46,7 +46,7 @@ public class WorkerMoveStrategy implements MoveStrategy {
 			Point nearestRessource = worker.getPosition();
 			
 			for (Environment ressource : ressources) {
-				if (ressource.health>0 && worker.getType() == ressource.getType()){
+				if (ressource.health == 100 && worker.getType() == ressource.getType()){
 					Point rloc = ressource.getBoundingBox().getLocation();
 					double dist = Point.distance(rloc.getX(), rloc.getY(), wloc.getX(), wloc.getY());
 					

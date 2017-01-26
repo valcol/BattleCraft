@@ -20,7 +20,7 @@ public class StructureFactory implements IStructureFactory {
 	public GameEntity createHouseSoldier(Canvas defaultCanvas, Point position) {
 		Rectangle boundingBox = new Rectangle(0, 0, 100, 70);
 		String imagePath = "images/Medieval/Structure/19.png";
-		return new HouseSoldier(defaultCanvas, position, imagePath, boundingBox, team);
+		return new BarrackSoldier(defaultCanvas, position, imagePath, boundingBox, team);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class StructureFactory implements IStructureFactory {
 		// TODO Auto-generated method stub
 		Rectangle boundingBox = new Rectangle(0, 0, 100, 70);
 		String imagePath = "images/Medieval/Structure/21.png";
-		return new HouseWorker(defaultCanvas, position, imagePath, boundingBox, team);
+		return new BarrackRockWorker(defaultCanvas, position, imagePath, boundingBox, team);
 	}
 
 }

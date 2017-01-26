@@ -8,6 +8,7 @@ import gameframework.core.Overlappable;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 
 import battlecraft.Teams;
@@ -32,11 +33,12 @@ public class Soldier extends GameMovable implements Drawable, GameEntity,
 	private int cooldown = 2;
 	private Unit unit;
 
-	public Soldier(Canvas defaultCanvas, String imagePath, Rectangle BOUNDING_BOX, Teams team) {
+	public Soldier(Canvas defaultCanvas, String imagePath, Rectangle BOUNDING_BOX, Teams team, Point position) {
 		this.image = SpriteStore.getInstance().getSprite(imagePath, defaultCanvas);
 		this.BOUNDING_BOX = BOUNDING_BOX;
 		this.team = team;
 		this.unit = new UnitCenturion("");
+		this.setPosition(position);
 	}
 
 	public void draw(Graphics g) {

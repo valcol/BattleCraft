@@ -16,6 +16,8 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 	protected GameUniverse universe;
 	protected MoveStrategySelect strategy;
 	protected Vector<Soldier> vSoldier = new Vector<Soldier>();
+	
+	//TODO: remplacer compteur vie etc par wood ore rock (montant récoltés recup st1 dans overlapRule(Worker w, Environment e)
 
 	public OverlapRules(Point pacPos, Point gPos,
 			ObservableValue<Integer> life, ObservableValue<Integer> score,

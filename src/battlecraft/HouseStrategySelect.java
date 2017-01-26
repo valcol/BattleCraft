@@ -12,11 +12,8 @@ import java.util.ArrayList;
 
 import battlecraft.entity.EntityFactory;
 import battlecraft.entity.SelectableHouse;
-import battlecraft.entity.structure.HouseSoldier;
-import battlecraft.entity.structure.HouseWorker;
-import battlecraft.soldier.builder.Builder;
-import battlecraft.soldier.builder.SoldierBuilder;
-import battlecraft.soldier.builder.WorkerBuilder;
+import battlecraft.entity.structure.BarrackSoldier;
+import battlecraft.entity.structure.BarrackRockWorker;
 import gameframework.core.GameMovableDriverDefaultImpl;
 import gameframework.core.GameUniverse;
 import gameframework.moves_rules.MoveBlockerChecker;
@@ -29,11 +26,6 @@ public class HouseStrategySelect extends MouseAdapter implements MouseMotionList
 	private boolean dragMouse;
 	private ArrayList<SelectableHouse> house = new ArrayList<SelectableHouse>();
 	private int numberOfSelected;
-	private GameUniverse universe;
-	private Builder b;
-	private MoveStrategySelect selectStr;
-	private EntityFactory efactory;
-	private MoveBlockerChecker moveBlockerChecker;
 
 	public HouseStrategySelect() {
 		numberOfSelected = 0;
@@ -87,18 +79,7 @@ public class HouseStrategySelect extends MouseAdapter implements MouseMotionList
 			if (selection.contains(((ObjectWithBoundedBox) sh).getBoundingBox())) {
 				sh.selectH();
 				System.out.println("select " + sh.hashCode());
-				if (sh.getClass().equals(HouseSoldier.class)) {
-					b = new SoldierBuilder(efactory, moveBlockerChecker, new GameMovableDriverDefaultImpl(), selectStr,
-							canvas, new Point(5 * SPRITE_SIZE, 6 * SPRITE_SIZE));
-					universe.addGameEntity(b.getResult());
-					numberOfSelected++;
-				} else if (sh.getClass().equals(HouseWorker.class)) {
-					b = new WorkerBuilder(efactory, moveBlockerChecker, new GameMovableDriverDefaultImpl(),
-							canvas, new Point(8 * SPRITE_SIZE, 2 * SPRITE_SIZE));
-					universe.addGameEntity(b.getResult());
-					numberOfSelected++;
-				}
-
+				sh.createUnit(canvas);
 			}
 		}
 	}
@@ -113,22 +94,6 @@ public class HouseStrategySelect extends MouseAdapter implements MouseMotionList
 
 	public void setCanvas(Canvas canvas) {
 		this.canvas = canvas;
-	}
-
-	public void setUniverse(GameUniverse universe) {
-		this.universe = universe;
-	}
-
-	public void setEntityFactory(EntityFactory ef) {
-		this.efactory = ef;
-	}
-
-	public void setMoveBlockerChecker(MoveBlockerChecker mb) {
-		this.moveBlockerChecker = mb;
-	}
-
-	public void setMoveStrategySelect(MoveStrategySelect s) {
-		this.selectStr = s;
 	}
 
 }

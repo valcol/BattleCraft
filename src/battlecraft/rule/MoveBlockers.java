@@ -12,6 +12,8 @@ import pacman.entity.Ghost;
 public class MoveBlockers extends MoveBlockerRulesApplierDefaultImpl {
 
 	public void moveBlockerRule(Soldier g, Castle w) throws IllegalMoveException {
+		
+		//TODO: ajouter Player castle et IA castle, verif health pour condition victoire
 
 		if (g.getTeam() != w.getTeam()){
 			float st1 = g.strike();

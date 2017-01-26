@@ -4,15 +4,15 @@ import java.awt.Canvas;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import com.sun.glass.ui.Window.Level;
+
 import battlecraft.entity.EntityFactory;
 import battlecraft.entity.environment.Environment;
-import battlecraft.entity.structure.House;
+import battlecraft.entity.structure.Barrack;
 import battlecraft.entity.unit.Soldier;
 import battlecraft.entity.unit.Worker;
 import battlecraft.rule.MoveBlockers;
 import battlecraft.rule.OverlapRules;
-import battlecraft.soldier.builder.Builder;
-import battlecraft.soldier.builder.SoldierBuilder;
 import gameframework.core.CanvasDefaultImpl;
 import gameframework.core.Game;
 import gameframework.core.GameEntity;
@@ -38,7 +38,6 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 
 	MoveStrategySelect selectStr;
 	HouseStrategySelect selectHouse;
-	Builder b;
 	
 	private int NB_ROWS;
 	private int NB_COLUMNS;
@@ -84,77 +83,29 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		canvas.addMouseMotionListener(selectHouse);
 		selectStr.setCanvas(canvas);
 		selectHouse.setCanvas(canvas);
-		selectHouse.setUniverse(universe);
-		selectHouse.setEntityFactory(efactoryBlue);
-		selectHouse.setMoveBlockerChecker(moveBlockerChecker);
-		selectHouse.setMoveStrategySelect(selectStr);
+
+		
+		LevelManager.init();
+		LevelManager.getInstance().setBarracksMenu(selectHouse);
+		LevelManager.getInstance().setMoveBlockerChecker(moveBlockerChecker);
+		LevelManager.getInstance().setMoveStrat(selectStr);
+		LevelManager.getInstance().setUniverse(universe);
 
 		placeTiles();
 		placeStructures();
 		placeRessources();
 
-		// Pacman definition and inclusion in the universe
-		/*
-		 * Soldier myPac = (Soldier) efactory.createSoldier(canvas);
-		 * GameMovableDriverDefaultImpl pacDriver = new
-		 * GameMovableDriverDefaultImpl(); MoveStrategyStub stubStr = new
-		 * MoveStrategyStub(myPac); pacDriver.setStrategy(stubStr);
-		 * pacDriver.setmoveBlockerChecker(moveBlockerChecker);
-		 * myPac.setDriver(pacDriver); selectStr.addUnit(myPac, stubStr);
-		 * myPac.setPosition(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
-		 * universe.addGameEntity(myPac);
-		 * 
-		 * Soldier myPac2 = (Soldier) efactory.createSoldier(canvas);
-		 * GameMovableDriverDefaultImpl pacDriver2 = new
-		 * GameMovableDriverDefaultImpl(); MoveStrategyStub stubStr2 = new
-		 * MoveStrategyStub(myPac2); pacDriver2.setStrategy(stubStr2);
-		 * pacDriver2.setmoveBlockerChecker(moveBlockerChecker);
-		 * myPac2.setDriver(pacDriver2); selectStr.addUnit(myPac2, stubStr2);
-		 * myPac2.setPosition(new Point(15 * SPRITE_SIZE, 10 * SPRITE_SIZE));
-		 * universe.addGameEntity(myPac2);
-		 */
-		b = new SoldierBuilder(efactoryBlue, moveBlockerChecker, new GameMovableDriverDefaultImpl(), selectStr, canvas,
-				new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
-		universe.addGameEntity(b.getResult());
-		b = new SoldierBuilder(efactoryBlue, moveBlockerChecker, new GameMovableDriverDefaultImpl(), selectStr, canvas,
-				new Point(15 * SPRITE_SIZE, 10 * SPRITE_SIZE));
-		universe.addGameEntity(b.getResult());
-		b = new SoldierBuilder(efactoryRed, moveBlockerChecker, new GameMovableDriverDefaultImpl(), selectStr, canvas,
-				new Point(14 * SPRITE_SIZE, 4 * SPRITE_SIZE));
-		universe.addGameEntity(b.getResult());
-		//for (int t = 0; t < NUMBER_OF_GHOSTS; ++t) {
-			GameMovableDriverDefaultImpl ghostDriv = new GameMovableDriverDefaultImpl();
-			Soldier myPac3 = (Soldier) efactoryRed.createSoldier(canvas);
-		MoveStrategyStub ranStr = new MoveStrategyStub(myPac3);
-			ranStr.setDestionation(new Point(2 * SPRITE_SIZE, 10 * SPRITE_SIZE));
-			//MoveStrategyRandom ranStr = new MoveStrategyRandom();
-			ghostDriv.setStrategy(ranStr);
-			ghostDriv.setmoveBlockerChecker(moveBlockerChecker);
-			myPac3.setDriver(ghostDriv);
-			myPac3.setPosition(new Point(21 * SPRITE_SIZE, 5 * SPRITE_SIZE));
-			universe.addGameEntity(myPac3);
-			(overlapRules).addSoldier(myPac3);
-		//}
+		Soldier myPac3 = (Soldier) efactoryRed.createSoldier(canvas, new Point(21 * SPRITE_SIZE, 5 * SPRITE_SIZE));
+		LevelManager.getInstance().addIARandomSoldier(myPac3);
+
+		
+		Worker myPac31 = (Worker) efactoryBlue.createWoodWorker(canvas, new Point(21 * SPRITE_SIZE, 5 * SPRITE_SIZE));
+		LevelManager.getInstance().addWorker(myPac31);
+		
+		Soldier myPac311 = (Soldier) efactoryRed.createSoldier(canvas, new Point(21 * SPRITE_SIZE, 5 * SPRITE_SIZE));
+		LevelManager.getInstance().addIAToCastleSoldier(myPac311);
 			
-			GameMovableDriverDefaultImpl ghostDriv1 = new GameMovableDriverDefaultImpl();
-			Worker myPac31 = (Worker) efactoryRed.createWoodWorker(canvas);
-			WorkerMoveStrategy ranStr1 = new WorkerMoveStrategy(environmentList, myPac31);
-			//MoveStrategyRandom ranStr = new MoveStrategyRandom();
-			ghostDriv1.setStrategy(ranStr1);
-			ghostDriv1.setmoveBlockerChecker(moveBlockerChecker);
-			myPac31.setDriver(ghostDriv1);
-			myPac31.setPosition(new Point(21 * SPRITE_SIZE, 5 * SPRITE_SIZE));
-			universe.addGameEntity(myPac31);
-			
-			GameMovableDriverDefaultImpl ghostDriv11 = new GameMovableDriverDefaultImpl();
-			Worker myPac311 = (Worker) efactoryRed.createRockWorker(canvas);
-			WorkerMoveStrategy ranStr11 = new WorkerMoveStrategy(environmentList, myPac311);
-			//MoveStrategyRandom ranStr = new MoveStrategyRandom();
-			ghostDriv11.setStrategy(ranStr11);
-			ghostDriv11.setmoveBlockerChecker(moveBlockerChecker);
-			myPac311.setDriver(ghostDriv11);
-			myPac311.setPosition(new Point(21 * SPRITE_SIZE, 5 * SPRITE_SIZE));
-			universe.addGameEntity(myPac311);
+		
 	}
 
 	public void placeTiles() {
@@ -171,18 +122,18 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 	}
 
 	public void placeStructures() {
-		House h = null;
+		Barrack h = null;
 		for (int i = 0; i < NB_ROWS; ++i) {
 			for (int j = 0; j < NB_COLUMNS; ++j) {
 				// House
 
 				if ((j == 2) && (i == 5)) {
-					h = (House) efactoryBlue.createHouseSoldier(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					h = (Barrack) efactoryBlue.createHouseSoldier(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					selectHouse.addUnit(h);
 					universe.addGameEntity(h);
 				}
 				if ((j == 7) && (i == 2)) {
-					h = (House) efactoryBlue.createHouseWorker(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					h = (Barrack) efactoryBlue.createHouseWorker(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					selectHouse.addUnit(h);
 					universe.addGameEntity(h);
 				}
@@ -220,8 +171,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 				if ((j == 15) && (i == 12))
 					r = efactoryBlue.createYellowRock(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 				if (r != null){
-					environmentList.add((Environment) r);
-					universe.addGameEntity(r);
+					LevelManager.getInstance().addEnvironment((Environment) r);
 				}
 
 			}

@@ -10,10 +10,10 @@ import battlecraft.entity.unit.IUnitFactory;
 import battlecraft.entity.unit.UnitFactory;
 import gameframework.core.GameEntity;
 
-public abstract class House extends StructureAbstract implements SelectableHouse{
+public abstract class Barrack extends StructureAbstract implements SelectableHouse{
 	private boolean selected = false;
 	protected IUnitFactory unit;
-	public House(Canvas defaultCanvas, Point position, String spritePath, Rectangle BOUNDING_BOX, Teams team) {
+	public Barrack(Canvas defaultCanvas, Point position, String spritePath, Rectangle BOUNDING_BOX, Teams team) {
 		super(defaultCanvas, position, spritePath, BOUNDING_BOX);
 		unit = new UnitFactory(team);
 	}
