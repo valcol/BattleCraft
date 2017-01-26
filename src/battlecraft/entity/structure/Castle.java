@@ -6,12 +6,13 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import battlecraft.Age;
 import battlecraft.Teams;
 import battlecraft.entity.SpriteStore;
 import gameframework.core.DrawableImage;
 
 public class Castle extends StructureAbstract {
-	protected DrawableImage image;
+	protected DrawableImage imageMA, imageSF;
 	protected Point position;
 	public int RENDERING_SIZE = 32;
 	public Rectangle BOUNDING_BOX;
@@ -19,12 +20,19 @@ public class Castle extends StructureAbstract {
 	private int initialHealth = 10000;
 	private int health = 10000;
 
-	public Castle(Canvas defaultCanvas, Point position, String spritePath, Rectangle BOUNDING_BOX, Teams team) {
-		super(defaultCanvas, position, spritePath, BOUNDING_BOX);
-		this.image = SpriteStore.getInstance().getSprite(spritePath, defaultCanvas);
+	public Castle(Canvas defaultCanvas, Point position, String spritePathMiddleAge, Rectangle BOUNDING_BOX,
+			String spritePathScifi, Teams team) {
+		super(defaultCanvas, position, spritePathMiddleAge, spritePathScifi, BOUNDING_BOX);
+		this.imageMA = SpriteStore.getInstance().getSprite(spritePathMiddleAge, defaultCanvas);
+		this.imageSF = SpriteStore.getInstance().getSprite(spritePathScifi, defaultCanvas);
 		this.position = position;
 		this.BOUNDING_BOX = BOUNDING_BOX;
 		this.team = team;
+		if (Age.AGE == "Scifi"){
+			initialHealth*=10;
+			health*=10;
+		}
+
 	}
 
 	public void draw(Graphics g) {
@@ -48,8 +56,12 @@ public class Castle extends StructureAbstract {
 
 		g.drawRect(x, y, totalLifeBarWidth, 3);
 
-		g.drawImage(image.getImage(), (int) position.getX(), (int) position.getY(), RENDERING_SIZE, RENDERING_SIZE,
-				null);
+		if (Age.AGE == "MiddleAge")
+			g.drawImage(imageMA.getImage(), (int) position.getX(), (int) position.getY(), RENDERING_SIZE,
+					RENDERING_SIZE, null);
+		if (Age.AGE == "Scifi")
+			g.drawImage(imageSF.getImage(), (int) position.getX(), (int) position.getY(), RENDERING_SIZE,
+					RENDERING_SIZE, null);
 	}
 
 	public void takeDamages(float damages) {

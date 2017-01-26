@@ -12,9 +12,9 @@ import gameframework.core.GameMovableDriverDefaultImpl;
 import gameframework.moves_rules.MoveStrategyKeyboard;
 
 public class UnitFactory implements IUnitFactory {
-	
+
 	private Teams team;
-	Rectangle boundingBox = new Rectangle(32,32,30,30);
+	Rectangle boundingBox = new Rectangle(32, 32, 30, 30);
 
 	public UnitFactory(Teams team) {
 		super();
@@ -23,27 +23,30 @@ public class UnitFactory implements IUnitFactory {
 
 	@Override
 	public GameEntity createSoldier(Canvas defaultCanvas, Point position) {
-		String imagePath = "images/Medieval/Unit/"+team.toString()+"/4.png";
-		return new Soldier(defaultCanvas, imagePath, boundingBox, team,position);
+		String imagePathMiddleAge = "images/Medieval/Unit/" + team.toString() + "/4.png";
+		String imagePathScifi = "images/Scifi/Unit/" + team.toString() + "/4.png";
+		return new Soldier(defaultCanvas, imagePathMiddleAge, imagePathScifi, boundingBox, team, position);
 	}
 
 	@Override
 	public GameEntity createRockWorker(Canvas defaultCanvas, Point position) {
-		String imagePath = "images/Medieval/Unit/"+team.toString()+"/1.png";
-		return new Worker(defaultCanvas, imagePath, boundingBox, Ressources.ROCK,  position);
+		String imagePathMiddleAge = "images/Medieval/Unit/" + team.toString() + "/1.png";
+		String imagePathScifi = "images/Scifi/Unit/" + team.toString() + "/1.png";
+		return new Worker(defaultCanvas, imagePathMiddleAge, imagePathScifi, boundingBox, Ressources.ROCK, position);
 	}
 
 	@Override
 	public GameEntity createWoodWorker(Canvas defaultCanvas, Point position) {
-		String imagePath = "images/Medieval/Unit/"+team.toString()+"/1.png";
-		return new Worker(defaultCanvas, imagePath, boundingBox, Ressources.WOOD, position);
+		String imagePathMiddleAge = "images/Medieval/Unit/" + team.toString() + "/1.png";
+		String imagePathScifi = "images/Scifi/Unit/" + team.toString() + "/1.png";
+		return new Worker(defaultCanvas, imagePathMiddleAge, imagePathScifi, boundingBox, Ressources.WOOD, position);
 	}
 
 	@Override
 	public GameEntity createOreWorker(Canvas defaultCanvas, Point position) {
-		String imagePath = "images/Medieval/Unit/"+team.toString()+"/1.png";
-		return new Worker(defaultCanvas, imagePath, boundingBox, Ressources.ORE, position);
+		String imagePathMiddleAge = "images/Medieval/Unit/" + team.toString() + "/1.png";
+		String imagePathScifi = "images/Scifi/Unit/" + team.toString() + "/1.png";
+		return new Worker(defaultCanvas, imagePathMiddleAge, imagePathScifi, boundingBox, Ressources.ORE, position);
 	}
-
 
 }

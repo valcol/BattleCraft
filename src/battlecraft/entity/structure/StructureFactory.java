@@ -19,30 +19,43 @@ public class StructureFactory implements IStructureFactory {
 	@Override
 	public GameEntity createHouseSoldier(Canvas defaultCanvas, Point position) {
 		Rectangle boundingBox = new Rectangle(0, 0, 100, 70);
-		String imagePath = "images/Medieval/Structure/19.png";
-		return new BarrackSoldier(defaultCanvas, position, imagePath, boundingBox, team);
+		String imagePathMiddleAge = "images/Medieval/Structure/19.png";
+		String imagePathSciFi = "images/Scifi/Structure/4.png";
+		return new BarrackSoldier(defaultCanvas, position, imagePathMiddleAge,imagePathSciFi, boundingBox, team);
 	}
 
 	@Override
 	public GameEntity createCastleTop(Canvas defaultCanvas, Point position) {
 		Rectangle boundingBox = new Rectangle(0, 0, 0, 0);
-		String imagePath = "images/Medieval/Structure/2.png";
-		return new MoveBlockerStructure(defaultCanvas, position, imagePath, boundingBox);
+		String imagePathMiddleAge = "images/Medieval/Structure/2.png";
+		String imagePathSciFi = "";
+		return new MoveBlockerStructure(defaultCanvas, position, imagePathMiddleAge,imagePathSciFi, boundingBox);
 	}
 
 	@Override
 	public GameEntity createCastleBottom(Canvas defaultCanvas, Point position) {
 		Rectangle boundingBox = new Rectangle(0, -50, 100, 30);
-		String imagePath = "images/Medieval/Structure/6.png";
-		return new Castle(defaultCanvas, position, imagePath, boundingBox, team);
+		String imagePathMiddleAge = "images/Medieval/Structure/6.png";
+		String imagePathSciFi = "images/Scifi/Structure/10.png";
+		return new Castle(defaultCanvas, position, imagePathMiddleAge, boundingBox,imagePathSciFi, team);
 	}
 
 	@Override
-	public GameEntity createHouseWorker(Canvas defaultCanvas, Point position) {
+	public GameEntity createBarrackWoodWorker(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
 		Rectangle boundingBox = new Rectangle(0, 0, 100, 70);
-		String imagePath = "images/Medieval/Structure/21.png";
-		return new BarrackRockWorker(defaultCanvas, position, imagePath, boundingBox, team);
+		String imagePathMiddleAge = "images/Medieval/Structure/21.png";
+		String imagePathSciFi = "images/Scifi/Structure/8.png";
+		return new BarrackWoodWorker(defaultCanvas, position, imagePathMiddleAge,imagePathSciFi, boundingBox, team);
+	}
+	
+	@Override
+	public GameEntity createBarrackRockWorker(Canvas defaultCanvas, Point position) {
+		// TODO Auto-generated method stub
+		Rectangle boundingBox = new Rectangle(0, 0, 100, 70);
+		String imagePathMiddleAge = "images/Medieval/Structure/20.png";
+		String imagePathSciFi = "images/Scifi/Structure/9.png";
+		return new BarrackRockWorker(defaultCanvas, position, imagePathMiddleAge,imagePathSciFi, boundingBox, team);
 	}
 
 }

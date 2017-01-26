@@ -12,8 +12,8 @@ import gameframework.core.GameEntity;
 
 public class BarrackRockWorker extends Barrack{
 
-	public BarrackRockWorker(Canvas defaultCanvas, Point position, String spritePath, Rectangle BOUNDING_BOX, Teams team) {
-		super(defaultCanvas, position, spritePath, BOUNDING_BOX, team);
+	public BarrackRockWorker(Canvas defaultCanvas, Point position, String spritePathMiddleAge, String imagePathSciFi, Rectangle BOUNDING_BOX, Teams team) {
+		super(defaultCanvas, position, spritePathMiddleAge, imagePathSciFi, BOUNDING_BOX, team);
 	}
 	
 	@Override

@@ -16,7 +16,7 @@ import battlecraft.entity.unit.UnitFactory;
 import gameframework.core.GameEntity;
 
 public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFactory, IEnvironmentFactory {
-	
+
 	TileFactory tfactory;
 	StructureFactory sfactory;
 	UnitFactory ufactory;
@@ -53,29 +53,35 @@ public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFact
 		// TODO Auto-generated method stub
 		return ufactory.createWoodWorker(defaultCanvas, position);
 	}
-	
+
 	@Override
 	public GameEntity createOreWorker(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
 		return ufactory.createOreWorker(defaultCanvas, position);
 	}
-	
+
 	@Override
 	public GameEntity createRockWorker(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
 		return ufactory.createRockWorker(defaultCanvas, position);
 	}
-	
+
 	@Override
 	public GameEntity createHouseSoldier(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
 		return sfactory.createHouseSoldier(defaultCanvas, position);
 	}
-	
+
 	@Override
-	public GameEntity createHouseWorker(Canvas defaultCanvas, Point position) {
+	public GameEntity createBarrackWoodWorker(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
-		return sfactory.createHouseWorker(defaultCanvas, position);
+		return sfactory.createBarrackWoodWorker(defaultCanvas, position);
+	}
+
+	@Override
+	public GameEntity createBarrackRockWorker(Canvas defaultCanvas, Point position) {
+		// TODO Auto-generated method stub
+		return sfactory.createBarrackRockWorker(defaultCanvas, position);
 	}
 
 	@Override
@@ -83,7 +89,7 @@ public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFact
 		// TODO Auto-generated method stub
 		return sfactory.createCastleBottom(defaultCanvas, position);
 	}
-	
+
 	@Override
 	public GameEntity createCastleTop(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
@@ -137,8 +143,5 @@ public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFact
 		// TODO Auto-generated method stub
 		return efactory.createGoldOre(defaultCanvas, position);
 	}
-
-
-	
 
 }

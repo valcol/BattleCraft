@@ -7,12 +7,11 @@ import java.awt.Rectangle;
 import battlecraft.LevelManager;
 import battlecraft.Teams;
 import battlecraft.entity.unit.Soldier;
-import gameframework.core.GameEntity;
 
 public class BarrackSoldier extends Barrack {
 
-	public BarrackSoldier(Canvas defaultCanvas, Point position, String spritePath, Rectangle BOUNDING_BOX, Teams team) {
-		super(defaultCanvas, position, spritePath, BOUNDING_BOX, team);
+	public BarrackSoldier(Canvas defaultCanvas, Point position, String spritePathMiddleAge, String spritePathScifi, Rectangle BOUNDING_BOX, Teams team) {
+		super(defaultCanvas, position, spritePathMiddleAge, spritePathScifi, BOUNDING_BOX, team);
 	}
 
 	@Override
