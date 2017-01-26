@@ -14,7 +14,7 @@ public class HouseWorker extends House{
 	}
 	
 	@Override
-	public GameEntity createUnit(Canvas defaultCanvas) {
-		return unit.createWorker(defaultCanvas);
+	public GameEntity createUnit(Canvas c) {
+		return unit.createOreWorker(c);
 	}
 }

@@ -8,54 +8,77 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Random;
 
 import battlecraft.entity.Selectable;
+import battlecraft.entity.environment.Environment;
+import battlecraft.entity.unit.Worker;
 import gameframework.core.Movable;
+import gameframework.moves_rules.MoveStrategy;
 import gameframework.moves_rules.ObjectWithBoundedBox;
+import gameframework.moves_rules.SpeedVector;
+import gameframework.moves_rules.SpeedVectorDefaultImpl;
 
 
-public class WorkerMoveStrategy {
+public class WorkerMoveStrategy implements MoveStrategy {
 	
-	protected HashMap<Selectable, MoveStrategyStub> strategies = new HashMap<Selectable, MoveStrategyStub>();
-	protected HashMap<Selectable, MoveStrategyStub> selectedUnits = new HashMap<Selectable, MoveStrategyStub>();
+	protected SpeedVector speedVector = new SpeedVectorDefaultImpl(new Point(0, 0));
+	protected ArrayList<Environment> ressources;
+	private Worker worker = null;
+	private Rectangle boundingBox;
 
-	private Point startPoint;
-	private Point endPoint;
-	private Canvas canvas;
-	private int numberOfSelected;
-	private boolean dragMouse; 
-
-	public WorkerMoveStrategy() {
-		numberOfSelected = 0;
-		dragMouse = true;
+	public WorkerMoveStrategy(ArrayList<Environment> ressources, Worker w) {
+		 this.ressources = ressources;
+		 this.worker = w;
+		 this.boundingBox = w.getBoundingBox();
 	}
 
-	public void setupVectorToGo(Point point) {
+	public void setupVectorToGo() {
 		
-		int offset = numberOfSelected*3;
-		
-		strategies.forEach((unit,strategy)->{	
+		if (!worker.isGathering()){
 			
-			Random rand = new Random();
+			Point wloc = worker.getPosition();
 			
-			int y = rand.nextInt((offset*2)+1) - offset;
-			int x = rand.nextInt((offset*2)+1) - offset;
+			double min_dist = Double.MAX_VALUE;
+			Point nearestRessource = worker.getPosition();
 			
-			Point newPoint = new Point((int)(point.getX()+x), (int)(point.getY()+y));
+			for (Environment ressource : ressources) {
+				if (ressource.health>0 && worker.getType() == ressource.getType()){
+					Point rloc = ressource.getBoundingBox().getLocation();
+					double dist = Point.distance(rloc.getX(), rloc.getY(), wloc.getX(), wloc.getY());
+					
+					if (dist < min_dist){
+						min_dist = dist;
+						nearestRessource = rloc;
+					}
+				}
+			}
 			
-			if (unit.isSelected())
-				strategy.setDestionation(newPoint);
-		});
+			int x = 0, y = 0;
+			
+			if (nearestRessource.getX() > wloc.getX() + boundingBox.getWidth()) {
+				x = 1;
+			} else if (nearestRessource.getX() < wloc.getX()) {
+				x = -1;
+			}
+
+			if (nearestRessource.getY() > wloc.getY() + boundingBox.getHeight()) {
+				y = 1;
+			} else if (nearestRessource.getY() < wloc.getY()) {
+				y = -1;
+			}
+
+			speedVector.setDirection(new Point(x, y));
+		}
+		else 
+			speedVector.setDirection(new Point(0, 0));
 	}
 	
-	public void addUnit(Selectable unit, MoveStrategyStub strategy){
-		strategies.put(unit, strategy);
-	}
-	
-	public void removeUnit(Movable unit){
-		strategies.remove(unit);
+	public SpeedVector getSpeedVector() {
+		setupVectorToGo();
+		return speedVector;
 	}
 }

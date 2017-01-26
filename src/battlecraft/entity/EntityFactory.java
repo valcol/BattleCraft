@@ -49,9 +49,21 @@ public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFact
 	}
 
 	@Override
-	public GameEntity createWorker(Canvas defaultCanvas) {
+	public GameEntity createWoodWorker(Canvas defaultCanvas) {
 		// TODO Auto-generated method stub
-		return ufactory.createWorker(defaultCanvas);
+		return ufactory.createWoodWorker(defaultCanvas);
+	}
+	
+	@Override
+	public GameEntity createOreWorker(Canvas defaultCanvas) {
+		// TODO Auto-generated method stub
+		return ufactory.createOreWorker(defaultCanvas);
+	}
+	
+	@Override
+	public GameEntity createRockWorker(Canvas defaultCanvas) {
+		// TODO Auto-generated method stub
+		return ufactory.createRockWorker(defaultCanvas);
 	}
 	
 	@Override

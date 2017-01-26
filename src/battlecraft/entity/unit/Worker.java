@@ -25,10 +25,12 @@ public class Worker extends GameMovable implements Drawable, GameEntity, Overlap
 	private int cooldown = 2;
 	private int strenght = 3;
 	private Ressources type;
+	private boolean isGathering = false;
 
-	public Worker(Canvas defaultCanvas, String imagePath, Rectangle BOUNDING_BOX) {
+	public Worker(Canvas defaultCanvas, String imagePath, Rectangle BOUNDING_BOX, Ressources type) {
 		this.image = SpriteStore.getInstance().getSprite(imagePath, defaultCanvas);
 		this.BOUNDING_BOX = BOUNDING_BOX;
+		this.type = type;
 	}
 
 	public void draw(Graphics g) {
@@ -74,5 +76,14 @@ public class Worker extends GameMovable implements Drawable, GameEntity, Overlap
 	public void setType(Ressources type) {
 		this.type = type;
 	}
+
+	public boolean isGathering() {
+		return isGathering;
+	}
+
+	public void setGathering(boolean isGathering) {
+		this.isGathering = isGathering;
+	}
+	
 
 }

@@ -17,8 +17,11 @@ public class MoveStrategyStraightLine implements MoveStrategy {
 				/ dist);
 		int yDirection = (int) Math.rint((goal.getY() - currentPosition.getY())
 				/ dist);
+		
 		SpeedVector move = new SpeedVectorDefaultImpl(new Point(xDirection,
 				yDirection));
+		System.out.println(new Point(xDirection,
+				yDirection).toString());
 		return move;
 	}
 }

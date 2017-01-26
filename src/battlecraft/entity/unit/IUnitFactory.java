@@ -9,6 +9,7 @@ import gameframework.core.GameEntity;
 public interface IUnitFactory {
 	
 	GameEntity createSoldier(Canvas defaultCanvas);
-	GameEntity createWorker(Canvas defaultCanvas);
-
+	GameEntity createWoodWorker(Canvas defaultCanvas);
+	GameEntity createOreWorker(Canvas defaultCanvas);
+	GameEntity createRockWorker(Canvas defaultCanvas);
 }

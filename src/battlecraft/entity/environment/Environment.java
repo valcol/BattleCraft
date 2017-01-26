@@ -31,6 +31,7 @@ public class Environment extends GameMovable implements Drawable, GameEntity, Ov
 		this.imageEmpty = SpriteStore.getInstance().getSprite(spriteEmptyPath, defaultCanvas);
 		this.BOUNDING_BOX = BOUNDING_BOX;
 		this.position = position;
+		this.type = type;
 	}
 
 	public void draw(Graphics g) {
@@ -70,5 +71,23 @@ public class Environment extends GameMovable implements Drawable, GameEntity, Ov
 	public void takeDamages(float damages) {
 		this.health -= damages;
 	}
+
+	public Ressources getType() {
+		return type;
+	}
+
+	public void setType(Ressources type) {
+		this.type = type;
+	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+	
+	
 
 }

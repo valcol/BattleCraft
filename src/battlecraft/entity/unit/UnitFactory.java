@@ -28,9 +28,22 @@ public class UnitFactory implements IUnitFactory {
 	}
 
 	@Override
-	public GameEntity createWorker(Canvas defaultCanvas) {
+	public GameEntity createRockWorker(Canvas defaultCanvas) {
 		String imagePath = "images/Medieval/Unit/"+team.toString()+"/1.png";
-		return new Worker(defaultCanvas, imagePath, boundingBox);
+		return new Worker(defaultCanvas, imagePath, boundingBox, Ressources.ROCK);
 	}
+
+	@Override
+	public GameEntity createWoodWorker(Canvas defaultCanvas) {
+		String imagePath = "images/Medieval/Unit/"+team.toString()+"/1.png";
+		return new Worker(defaultCanvas, imagePath, boundingBox, Ressources.WOOD);
+	}
+
+	@Override
+	public GameEntity createOreWorker(Canvas defaultCanvas) {
+		String imagePath = "images/Medieval/Unit/"+team.toString()+"/1.png";
+		return new Worker(defaultCanvas, imagePath, boundingBox, Ressources.ORE);
+	}
+
 
 }

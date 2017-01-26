@@ -36,7 +36,6 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 	}
 	
 	public void overlapRule(Soldier g, Soldier g2){
-		//TODO : random order
 		if (g.getTeam() != g2.getTeam()){
 			g.setCombat(true);
 			g2.setCombat(true);
@@ -60,18 +59,15 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 	}
 	
 	public void overlapRule(Worker w, Environment e){
-		//TODO : random order
-		if (e.health>0){
-			float st1 = w.gather();
-			e.takeDamages(st1);
-		}
-	}
+		if (e.getType() == w.getType()){
+			if (e.health > 0){
+				w.setGathering(true);
+				float st1 = w.gather();
+				e.takeDamages(st1);
+			}
+			else
+				w.setGathering(false);
 
-	public void overlapRule (Soldier g, Environment e){
-		//TODO : random order
-		if (e.health>0){
-			float st1 = g.strike();
-			e.takeDamages(st1);
 		}
 	}
 }

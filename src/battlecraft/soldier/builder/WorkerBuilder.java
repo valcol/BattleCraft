@@ -30,7 +30,7 @@ public class WorkerBuilder implements Builder {
 
 	@Override
 	public void createUnit() {
-		s = (Worker) e.createWorker(c);
+		s = (Worker) e.createWoodWorker(c);
 		s.setDriver(driver);
 		s.setPosition(p);
 	}
