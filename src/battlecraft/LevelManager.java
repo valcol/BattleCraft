@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import battlecraft.entity.environment.Environment;
 import battlecraft.entity.structure.Barrack;
 import battlecraft.entity.structure.Castle;
-import battlecraft.entity.tile.Tile;
 import battlecraft.entity.unit.Soldier;
 import battlecraft.entity.unit.Worker;
 import gameframework.core.GameEntity;
@@ -73,7 +72,7 @@ public class LevelManager {
 	public void addIAToCastleSoldier(Soldier s){
 		GameMovableDriverDefaultImpl ghostDriv = new GameMovableDriverDefaultImpl();
 		MoveStrategyStub ranStr = new MoveStrategyStub(s);
-		ranStr.setDestionation(new Point(64, 320));
+		ranStr.setDestionation(new Point(155, 315));
 		ghostDriv.setStrategy(ranStr);
 		ghostDriv.setmoveBlockerChecker(moveBlockerChecker);
 		s.setDriver(ghostDriv);

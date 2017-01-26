@@ -52,7 +52,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
-		moveBlockerChecker.setMoveBlockerRules(new MoveBlockers(endOfGame,life[0]));
+		moveBlockerChecker.setMoveBlockerRules(new MoveBlockers(endOfGame, life[0]));
 
 		OverlapRules overlapRules = new OverlapRules(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE),
 				new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE), life[0], score[0], endOfGame);
@@ -64,6 +64,8 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 
 		overlapRules.setUniverse(universe);
 		overlapRules.setStrategy(selectStr);
+		overlapRules.setCanvas(canvas);
+		overlapRules.setEntityFactory(efactoryRed);
 
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
@@ -93,9 +95,13 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 
 		Worker myPac31 = (Worker) efactoryBlue.createWoodWorker(canvas, new Point(21 * SPRITE_SIZE, 5 * SPRITE_SIZE));
 		LevelManager.getInstance().addWorker(myPac31);
+		placeIAGardian();
 
-		Soldier myPac311 = (Soldier) efactoryRed.createSoldier(canvas, new Point(21 * SPRITE_SIZE, 5 * SPRITE_SIZE));
-		LevelManager.getInstance().addIAToCastleSoldier(myPac311);
+		/*
+		 * Soldier myPac311 = (Soldier) efactoryRed.createSoldier(canvas, new
+		 * Point(21 * SPRITE_SIZE, 5 * SPRITE_SIZE));
+		 * LevelManager.getInstance().addIAToCastleSoldier(myPac311);
+		 */
 
 	}
 
@@ -118,7 +124,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		for (int i = 0; i < NB_ROWS; ++i) {
 			for (int j = 0; j < NB_COLUMNS; ++j) {
 				// House
-
+				// BLUE
 				if ((j == 2) && (i == 5)) {
 					h = (Barrack) efactoryBlue.createHouseSoldier(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					LevelManager.getInstance().addBarracks(h);
@@ -130,6 +136,22 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 				}
 				if ((j == 2) && (i == 2)) {
 					h = (Barrack) efactoryBlue.createBarrackWoodWorker(canvas,
+							new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					LevelManager.getInstance().addBarracks(h);
+				}
+				// RED
+				if ((j == 37) && (i == 5)) {
+					h = (Barrack) efactoryRed.createHouseSoldier(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					LevelManager.getInstance().addBarracks(h);
+
+				}
+				if ((j == 32) && (i == 2)) {
+					h = (Barrack) efactoryRed.createBarrackRockWorker(canvas,
+							new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					LevelManager.getInstance().addBarracks(h);
+				}
+				if ((j == 37) && (i == 2)) {
+					h = (Barrack) efactoryRed.createBarrackWoodWorker(canvas,
 							new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					LevelManager.getInstance().addBarracks(h);
 				}
@@ -145,9 +167,6 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 				if ((j == 35) && (i == 10)) {
 					c = (Castle) efactoryRed.createCastleBottom(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					LevelManager.getInstance().addIACastle(c);
-					Soldier myPac4 = (Soldier) efactoryRed.createSoldier(canvas,
-							new Point(30 * SPRITE_SIZE, 10 * SPRITE_SIZE));
-					LevelManager.getInstance().addIADefensiveSoldier(myPac4);
 				}
 				if ((j == 35) && (i == 9))
 					universe.addGameEntity(
@@ -175,6 +194,21 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 					LevelManager.getInstance().addEnvironment((Environment) r);
 				}
 
+			}
+		}
+	}
+
+	public void placeIAGardian() {
+		for (int i = 0; i < 8; ++i) {
+			if (i >= 4) {
+				Soldier myPac4 = (Soldier) efactoryRed.createSoldier(canvas,
+						new Point(34 * SPRITE_SIZE, (7 * SPRITE_SIZE) + (i*16)));
+				LevelManager.getInstance().addIADefensiveSoldier(myPac4);
+			}
+			if (i < 4) {
+				Soldier myPac4 = (Soldier) efactoryRed.createSoldier(canvas,
+						new Point(33 * SPRITE_SIZE, (7 * SPRITE_SIZE) + ((i+4)*16)));
+				LevelManager.getInstance().addIADefensiveSoldier(myPac4);
 			}
 		}
 	}

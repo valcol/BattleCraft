@@ -6,19 +6,18 @@ import java.awt.Rectangle;
 
 import battlecraft.LevelManager;
 import battlecraft.Teams;
-import battlecraft.entity.unit.Soldier;
 import battlecraft.entity.unit.Worker;
-import gameframework.core.GameEntity;
 
-public class BarrackRockWorker extends Barrack{
+public class BarrackRockWorker extends Barrack {
 
-	public BarrackRockWorker(Canvas defaultCanvas, Point position, String spritePathMiddleAge, String imagePathSciFi, Rectangle BOUNDING_BOX, Teams team) {
+	public BarrackRockWorker(Canvas defaultCanvas, Point position, String spritePathMiddleAge, String imagePathSciFi,
+			Rectangle BOUNDING_BOX, Teams team) {
 		super(defaultCanvas, position, spritePathMiddleAge, imagePathSciFi, BOUNDING_BOX, team);
 	}
-	
+
 	@Override
 	public void createUnit(Canvas c) {
-		Point p = new Point(this.position.x+30, this.position.y+30);
+		Point p = new Point(this.position.x + 30, this.position.y + 30);
 		LevelManager.getInstance().addWorker((Worker) unit.createRockWorker(c, p));
 	}
 }
