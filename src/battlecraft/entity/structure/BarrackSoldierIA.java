@@ -31,7 +31,12 @@ public class BarrackSoldierIA extends Barrack implements ActionListener {
 	@Override
 	public void createUnit() {
 		Point p = new Point(this.position.x + 30, this.position.y + 30);
-		LevelManager.getInstance().addIAToCastleSoldier((Soldier) unit.createSoldier(defaultCanvas, p));
+		int random = (int)(Math.random() * (100));
+		
+		if (random > 80)
+			LevelManager.getInstance().addIARandomSoldier((Soldier) unit.createSoldier(defaultCanvas, p));
+		else
+			LevelManager.getInstance().addIAToCastleSoldier((Soldier) unit.createSoldier(defaultCanvas, p));
 	}
 
 	@Override

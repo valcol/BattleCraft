@@ -143,4 +143,10 @@ public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFact
 		return efactory.createGoldOre(defaultCanvas, position);
 	}
 
+	@Override
+	public GameEntity createBarrackSoldierIA(Canvas defaultCanvas, Point position) {
+		// TODO Auto-generated method stub
+		return sfactory.createBarrackSoldierIA(defaultCanvas, position);
+	}
+
 }
