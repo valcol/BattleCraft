@@ -67,8 +67,6 @@ public class MoveStrategySelect extends MouseAdapter implements MouseMotionListe
 		if (e.getButton() == MouseEvent.BUTTON3) {
 			dragMouse = false;
 		}
-
-		System.out.println("click pressed");
 	}
 
 	@Override
