@@ -1,4 +1,4 @@
-package battlecraft;
+package battlecraft.strategy;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -19,8 +19,8 @@ import gameframework.moves_rules.ObjectWithBoundedBox;
 
 public class MoveStrategySelect extends MouseAdapter implements MouseMotionListener {
 	
-	protected HashMap<Selectable, MoveStrategyStub> strategies = new HashMap<Selectable, MoveStrategyStub>();
-	protected HashMap<Selectable, MoveStrategyStub> selectedUnits = new HashMap<Selectable, MoveStrategyStub>();
+	protected HashMap<Selectable, MoveStrategyToPoint> strategies = new HashMap<Selectable, MoveStrategyToPoint>();
+	protected HashMap<Selectable, MoveStrategyToPoint> selectedUnits = new HashMap<Selectable, MoveStrategyToPoint>();
 
 	private Point startPoint;
 	private Point endPoint;
@@ -51,7 +51,7 @@ public class MoveStrategySelect extends MouseAdapter implements MouseMotionListe
 		});
 	}
 	
-	public void addUnit(Selectable unit, MoveStrategyStub strategy){
+	public void addUnit(Selectable unit, MoveStrategyToPoint strategy){
 		strategies.put(unit, strategy);
 	}
 	
@@ -112,7 +112,7 @@ public class MoveStrategySelect extends MouseAdapter implements MouseMotionListe
 		Rectangle selection = new Rectangle();
 		selection.setFrameFromDiagonal(startPoint, endPoint);
 		
-		for (Entry<Selectable, MoveStrategyStub> entry : strategies.entrySet()) {
+		for (Entry<Selectable, MoveStrategyToPoint> entry : strategies.entrySet()) {
 	        if (selection.contains(((ObjectWithBoundedBox) entry.getKey()).getBoundingBox())){
 	        	entry.getKey().select();
 	        	System.out.println("select "+entry.getKey().hashCode());

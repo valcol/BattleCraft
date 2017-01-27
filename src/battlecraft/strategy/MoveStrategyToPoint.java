@@ -1,4 +1,4 @@
-package battlecraft;
+package battlecraft.strategy;
 
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -9,14 +9,14 @@ import gameframework.moves_rules.MoveStrategy;
 import gameframework.moves_rules.SpeedVector;
 import gameframework.moves_rules.SpeedVectorDefaultImpl;
 
-public class MoveStrategyStub implements MoveStrategy {
+public class MoveStrategyToPoint implements MoveStrategy {
 
 	protected SpeedVector speedVector = new SpeedVectorDefaultImpl(new Point(0, 0));
 	private Rectangle boundingBox;
 	private Movable unit;
 	private Point destination;
 
-	public MoveStrategyStub(GameMovable m) {
+	public MoveStrategyToPoint(GameMovable m) {
 		unit = m;
 		boundingBox = unit.getBoundingBox();
 	}

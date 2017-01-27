@@ -1,8 +1,8 @@
 package battlecraft.rule;
 
-import battlecraft.Teams;
 import battlecraft.entity.structure.Castle;
 import battlecraft.entity.unit.Soldier;
+import battlecraft.enums.Teams;
 import gameframework.core.ObservableValue;
 import gameframework.moves_rules.IllegalMoveException;
 import gameframework.moves_rules.MoveBlockerRulesApplierDefaultImpl;
@@ -10,11 +10,9 @@ import gameframework.moves_rules.MoveBlockerRulesApplierDefaultImpl;
 public class MoveBlockers extends MoveBlockerRulesApplierDefaultImpl {
 
 	private final ObservableValue<Boolean> endOfGame;
-	private final ObservableValue<Integer> life;
 
-	public MoveBlockers(ObservableValue<Boolean> endOfGame, ObservableValue<Integer> life) {
+	public MoveBlockers(ObservableValue<Boolean> endOfGame) {
 		this.endOfGame=endOfGame;
-		this.life=life;
 	}
 
 	public void moveBlockerRule(Soldier g, Castle w) throws IllegalMoveException {
@@ -26,10 +24,8 @@ public class MoveBlockers extends MoveBlockerRulesApplierDefaultImpl {
 			float st1 = g.strike();
 			System.out.println(g.getTeam() + " attack with force : " + st1);
 			w.takeDamages(st1);
-			if(g.getTeam()==Teams.BLUE && w.getHealth()<=0)
+			if(w.getHealth()<=0)
 				endOfGame.setValue(true);
-			if(g.getTeam()==Teams.RED && w.getHealth()<=0)
-				life.setValue(0);
 		}
 		throw new IllegalMoveException();
 

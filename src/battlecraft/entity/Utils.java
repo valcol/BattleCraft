@@ -14,14 +14,5 @@ public class Utils {
 				);
 
 	}
-	
-	public static Rectangle computeBotundingBox(Point position, Rectangle BOUNDING_BOX, int RENDERING_SIZE){
-		return new Rectangle(
-				(int)(position.getX()+RENDERING_SIZE*0.2),
-				(int)(position.getY()+RENDERING_SIZE*0.2),
-				(int)(RENDERING_SIZE/2),
-				(int)(RENDERING_SIZE/2)
-				);
-	}
 
 }

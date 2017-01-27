@@ -7,10 +7,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import battlecraft.Age;
-import battlecraft.Teams;
 import battlecraft.entity.Selectable;
 import battlecraft.entity.SpriteStore;
 import battlecraft.entity.Utils;
+import battlecraft.enums.Teams;
 import battleengine.soldier.ages.AgeFutureFactory;
 import battleengine.soldier.ages.AgeMiddleFactory;
 import battleengine.soldier.core.AgeAbstractFactory;
@@ -32,7 +32,7 @@ public class Soldier extends GameMovable implements Drawable, GameEntity, Overla
 	private boolean combat = false;
 	private Teams team;
 	private int healPerSecond = 1;
-	private int cooldown = 2;
+	private int cooldown = 5;
 	private Unit unit;
 	private AgeAbstractFactory scifi;
 	private AgeAbstractFactory middleAge;

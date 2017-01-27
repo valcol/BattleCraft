@@ -3,7 +3,6 @@ package battlecraft.entity;
 import java.awt.Canvas;
 import java.awt.Point;
 
-import battlecraft.Teams;
 import battlecraft.entity.environment.EnvironmentFactory;
 import battlecraft.entity.environment.IEnvironmentFactory;
 import battlecraft.entity.structure.IStructureFactory;
@@ -11,21 +10,22 @@ import battlecraft.entity.structure.StructureFactory;
 import battlecraft.entity.tile.ITileFactory;
 import battlecraft.entity.tile.TileFactory;
 import battlecraft.entity.unit.IUnitFactory;
-import battlecraft.entity.unit.UnitFactory;
+import battlecraft.entity.unit.MiddleAgeUnitFactory;
+import battlecraft.enums.Teams;
 import gameframework.core.GameEntity;
 
 public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFactory, IEnvironmentFactory {
 
 	TileFactory tfactory;
 	StructureFactory sfactory;
-	UnitFactory ufactory;
+	MiddleAgeUnitFactory ufactory;
 	EnvironmentFactory efactory;
 
 	public EntityFactory(Teams team) {
 		super();
 		tfactory = new TileFactory();
 		sfactory = new StructureFactory(team);
-		ufactory = new UnitFactory(team);
+		ufactory = new MiddleAgeUnitFactory(team);
 		efactory = new EnvironmentFactory();
 	}
 
@@ -82,17 +82,17 @@ public class EntityFactory implements ITileFactory, IStructureFactory, IUnitFact
 		// TODO Auto-generated method stub
 		return sfactory.createBarrackRockWorker(defaultCanvas, position);
 	}
-
+	
 	@Override
-	public GameEntity createCastleBottom(Canvas defaultCanvas, Point position) {
+	public GameEntity createBarrackOreWorker(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
-		return sfactory.createCastleBottom(defaultCanvas, position);
+		return sfactory.createBarrackOreWorker(defaultCanvas, position);
 	}
 
 	@Override
-	public GameEntity createCastleTop(Canvas defaultCanvas, Point position) {
+	public GameEntity createCastle(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
-		return sfactory.createCastleTop(defaultCanvas, position);
+		return sfactory.createCastle(defaultCanvas, position);
 	}
 
 	@Override

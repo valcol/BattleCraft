@@ -4,11 +4,15 @@ import java.awt.Canvas;
 import java.awt.Point;
 import java.util.Vector;
 
-import battlecraft.MoveStrategySelect;
+import battlecraft.IA;
+import battlecraft.Player;
 import battlecraft.entity.EntityFactory;
 import battlecraft.entity.environment.Environment;
 import battlecraft.entity.unit.Soldier;
 import battlecraft.entity.unit.Worker;
+import battlecraft.enums.Ressources;
+import battlecraft.enums.Teams;
+import battlecraft.strategy.MoveStrategySelect;
 import gameframework.core.GameUniverse;
 import gameframework.core.ObservableValue;
 import gameframework.moves_rules.OverlapRulesApplierDefaultImpl;
@@ -17,22 +21,21 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 	protected GameUniverse universe;
 	protected MoveStrategySelect strategy;
 	protected Vector<Soldier> vSoldier = new Vector<Soldier>();
-	protected EntityFactory ef;
 	protected Canvas canvas;
+	protected Player player;
+	protected IA ia;
+	
+	protected ObservableValue<Integer> wood;
+	protected ObservableValue<Integer> ore;
+	protected ObservableValue<Integer> rock;
 
-	// TODO: remplacer compteur vie etc par wood ore rock (montant récoltés
-	// recup st1 dans overlapRule(Worker w, Environment e)
 
-	public OverlapRules(Point pacPos, Point gPos, ObservableValue<Integer> life, ObservableValue<Integer> score,
-			ObservableValue<Boolean> endOfGame) {
+	public OverlapRules() {
+	
 	}
 
 	public void setUniverse(GameUniverse universe) {
 		this.universe = universe;
-	}
-
-	public void setEntityFactory(EntityFactory ef) {
-		this.ef = ef;
 	}
 
 	public void setStrategy(MoveStrategySelect strategy) {
@@ -41,10 +44,6 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 
 	public void setCanvas(Canvas c) {
 		this.canvas = c;
-	}
-
-	public void addSoldier(Soldier g) {
-		vSoldier.addElement(g);
 	}
 
 	public void overlapRule(Soldier g, Soldier g2) {
@@ -76,9 +75,22 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 				w.setGathering(true);
 				float st1 = w.gather();
 				e.takeDamages(st1);
+				if (w.getTeam() == Teams.BLUE)
+					player.removeFromRessources(e.getType(), (int) -st1);
+				else
+					ia.removeFromRessources(e.getType(), (int) -st1);
 			} else
 				w.setGathering(false);
-
 		}
+	}
+
+	public void setPlayer(Player p) {
+		// TODO Auto-generated method stub
+		player = p;
+	}
+	
+	public void setIA(IA ia) {
+		// TODO Auto-generated method stub
+		ia = ia;
 	}
 }

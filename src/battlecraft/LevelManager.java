@@ -1,5 +1,6 @@
 package battlecraft;
 
+import java.awt.Canvas;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -8,6 +9,10 @@ import battlecraft.entity.structure.Barrack;
 import battlecraft.entity.structure.Castle;
 import battlecraft.entity.unit.Soldier;
 import battlecraft.entity.unit.Worker;
+import battlecraft.strategy.BarrackStrategy;
+import battlecraft.strategy.MoveStrategySelect;
+import battlecraft.strategy.MoveStrategyToPoint;
+import battlecraft.strategy.WorkerMoveStrategy;
 import gameframework.core.GameEntity;
 import gameframework.core.GameMovableDriverDefaultImpl;
 import gameframework.core.GameUniverse;
@@ -21,9 +26,11 @@ public class LevelManager {
 	ArrayList<Environment> environmentList = new ArrayList<Environment>();
 
 	MoveStrategySelect moveStrat;
-	HouseStrategySelect barracksMenu;
+	BarrackStrategy houseStrategySelect;
 	MoveBlockerChecker moveBlockerChecker;
 	GameUniverse universe;
+	Canvas canvas;
+	Player player;
 
     private LevelManager() {
 
@@ -45,12 +52,12 @@ public class LevelManager {
 		this.moveStrat = moveStrat;
 	}
 
-	public HouseStrategySelect getBarracksMenu() {
-		return barracksMenu;
+	public BarrackStrategy getBarracksMenu() {
+		return houseStrategySelect;
 	}
 
-	public void setBarracksMenu(HouseStrategySelect barracksMenu) {
-		this.barracksMenu = barracksMenu;
+	public void setBarracksMenu(BarrackStrategy barracksMenu) {
+		this.houseStrategySelect = barracksMenu;
 	}
 
 	public MoveBlockerChecker getMoveBlockerChecker() {
@@ -69,9 +76,17 @@ public class LevelManager {
 		this.universe = universe;
 	}
 	
+	public Canvas getCanvas() {
+		return canvas;
+	}
+
+	public void setCanvas(Canvas canvas) {
+		this.canvas = canvas;
+	}
+
 	public void addIAToCastleSoldier(Soldier s){
 		GameMovableDriverDefaultImpl ghostDriv = new GameMovableDriverDefaultImpl();
-		MoveStrategyStub ranStr = new MoveStrategyStub(s);
+		MoveStrategyToPoint ranStr = new MoveStrategyToPoint(s);
 		ranStr.setDestionation(new Point(155, 315));
 		ghostDriv.setStrategy(ranStr);
 		ghostDriv.setmoveBlockerChecker(moveBlockerChecker);
@@ -97,7 +112,7 @@ public class LevelManager {
 	
 	public void addPlayerSoldier(Soldier s){
 		GameMovableDriverDefaultImpl ghostDriv = new GameMovableDriverDefaultImpl();
-		MoveStrategyStub ranStr = new MoveStrategyStub(s);
+		MoveStrategyToPoint ranStr = new MoveStrategyToPoint(s);
 		ghostDriv.setStrategy(ranStr);
 		moveStrat.addUnit(s, ranStr);
 		ghostDriv.setmoveBlockerChecker(moveBlockerChecker);
@@ -124,7 +139,8 @@ public class LevelManager {
 	}
     
 	public void addBarracks(Barrack h){
-		barracksMenu.addUnit(h);
+		BarrackStrategy b = new BarrackStrategy(h, player);
+		canvas.addMouseListener(b);
 		universe.addGameEntity(h);
 	}
 	
@@ -135,6 +151,11 @@ public class LevelManager {
 	
 	public void addTile(GameEntity t){
 		universe.addGameEntity(t);
+	}
+
+	public void setPlayer(Player p) {
+		// TODO Auto-generated method stub
+		this.player = p;
 	}
     
 }

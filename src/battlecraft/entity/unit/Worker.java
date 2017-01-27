@@ -7,9 +7,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import battlecraft.Age;
-import battlecraft.Ressources;
 import battlecraft.entity.SpriteStore;
 import battlecraft.entity.Utils;
+import battlecraft.enums.Ressources;
+import battlecraft.enums.Teams;
 import gameframework.core.Drawable;
 import gameframework.core.DrawableImage;
 import gameframework.core.GameEntity;
@@ -22,13 +23,14 @@ public class Worker extends GameMovable implements Drawable, GameEntity, Overlap
 	protected boolean movable = false;
 	protected int timerCooldown = 0;
 	public Rectangle BOUNDING_BOX;
-	private int cooldown = 2;
+	private int cooldown = 5;
 	private int strenght = 3;
 	private Ressources type;
 	private boolean isGathering = false;
+	private Teams team;
 
 	public Worker(Canvas defaultCanvas, String imagePathMiddleAge, String imagePathScifi, Rectangle BOUNDING_BOX,
-			Ressources type, Point position) {
+			Ressources type, Point position, Teams team) {
 		this.imageMA = SpriteStore.getInstance().getSprite(imagePathMiddleAge, defaultCanvas);
 		this.imageSF = SpriteStore.getInstance().getSprite(imagePathScifi, defaultCanvas);
 		this.BOUNDING_BOX = BOUNDING_BOX;
@@ -91,5 +93,15 @@ public class Worker extends GameMovable implements Drawable, GameEntity, Overlap
 	public void setGathering(boolean isGathering) {
 		this.isGathering = isGathering;
 	}
+
+	public Teams getTeam() {
+		return team;
+	}
+
+	public void setTeam(Teams team) {
+		this.team = team;
+	}
+	
+	
 
 }

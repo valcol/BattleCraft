@@ -4,7 +4,7 @@ import java.awt.Canvas;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import battlecraft.Ressources;
+import battlecraft.enums.Ressources;
 import gameframework.core.GameEntity;
 
 public class EnvironmentFactory implements IEnvironmentFactory {

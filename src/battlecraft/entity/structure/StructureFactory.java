@@ -4,7 +4,7 @@ import java.awt.Canvas;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import battlecraft.Teams;
+import battlecraft.enums.Teams;
 import gameframework.core.GameEntity;
 
 public class StructureFactory implements IStructureFactory {
@@ -25,19 +25,11 @@ public class StructureFactory implements IStructureFactory {
 	}
 
 	@Override
-	public GameEntity createCastleTop(Canvas defaultCanvas, Point position) {
-		Rectangle boundingBox = new Rectangle(0, 0, 0, 0);
-		String imagePathMiddleAge = "images/Medieval/Structure/2.png";
-		String imagePathSciFi = "";
-		return new MoveBlockerStructure(defaultCanvas, position, imagePathMiddleAge,imagePathSciFi, boundingBox);
-	}
-
-	@Override
-	public GameEntity createCastleBottom(Canvas defaultCanvas, Point position) {
-		Rectangle boundingBox = new Rectangle(0, -50, 100, 30);
-		String imagePathMiddleAge = "images/Medieval/Structure/6.png";
-		String imagePathSciFi = "images/Scifi/Structure/10.png";
-		return new Castle(defaultCanvas, position, imagePathMiddleAge, boundingBox,imagePathSciFi, team);
+	public GameEntity createCastle(Canvas defaultCanvas, Point position) {
+		Rectangle boundingBox = new Rectangle(0, -50, 80, 80);
+		String imagePathTop = "images/Medieval/Structure/6.png";
+		String imagePathBottom = "images/Medieval/Structure/2.png";
+		return new Castle(defaultCanvas, position, imagePathBottom, imagePathTop, boundingBox, team);
 	}
 
 	@Override
@@ -56,6 +48,15 @@ public class StructureFactory implements IStructureFactory {
 		String imagePathMiddleAge = "images/Medieval/Structure/20.png";
 		String imagePathSciFi = "images/Scifi/Structure/9.png";
 		return new BarrackRockWorker(defaultCanvas, position, imagePathMiddleAge,imagePathSciFi, boundingBox, team);
+	}
+
+	@Override
+	public GameEntity createBarrackOreWorker(Canvas defaultCanvas, Point position) {
+		// TODO Auto-generated method stub
+		Rectangle boundingBox = new Rectangle(0, 0, 100, 70);
+		String imagePathMiddleAge = "images/Medieval/Structure/20.png";
+		String imagePathSciFi = "images/Scifi/Structure/9.png";
+		return new BarrackOreWorker(defaultCanvas, position, imagePathMiddleAge,imagePathSciFi, boundingBox, team);
 	}
 
 }

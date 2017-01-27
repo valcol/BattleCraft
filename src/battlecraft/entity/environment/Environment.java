@@ -5,9 +5,9 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import battlecraft.Ressources;
 import battlecraft.entity.SpriteStore;
 import battlecraft.entity.Utils;
+import battlecraft.enums.Ressources;
 import gameframework.core.Drawable;
 import gameframework.core.DrawableImage;
 import gameframework.core.GameEntity;

@@ -8,30 +8,29 @@ import java.awt.Rectangle;
 import battlecraft.Age;
 import battlecraft.entity.SpriteStore;
 import battlecraft.entity.Utils;
+import battlecraft.enums.Teams;
 import gameframework.core.Drawable;
 import gameframework.core.DrawableImage;
 import gameframework.core.GameEntity;
 import gameframework.moves_rules.MoveBlocker;
+import sun.security.x509.IssuingDistributionPointExtension;
 
 public abstract class StructureAbstract implements  Drawable, MoveBlocker, GameEntity  {
-	protected DrawableImage imageMA, imageSF;
+	protected DrawableImage image;
 	protected Point position;
 	public int RENDERING_SIZE = 32;
 	public Rectangle BOUNDING_BOX;
+	protected Teams team;
 
-	public StructureAbstract(Canvas defaultCanvas, Point position, String spritePathMiddleAge, String spritePathScifi, Rectangle BOUNDING_BOX) {
-		this.imageMA = SpriteStore.getInstance().getSprite(spritePathMiddleAge, defaultCanvas);
-		this.imageSF = SpriteStore.getInstance().getSprite(spritePathScifi, defaultCanvas);
+	public StructureAbstract(Canvas defaultCanvas, Point position, String spritePathMiddleAge, Rectangle BOUNDING_BOX, Teams team) {
+		this.image = SpriteStore.getInstance().getSprite(spritePathMiddleAge, defaultCanvas);
 		this.position = position;
 		this.BOUNDING_BOX = BOUNDING_BOX;
+		this.team = team;
 	}
 
 	public void draw(Graphics g) {
-		if (Age.AGE == "MiddleAge")
-		g.drawImage(imageMA.getImage(), (int)position.getX(), (int)position.getY(), RENDERING_SIZE, RENDERING_SIZE,
-				null);
-		if (Age.AGE == "Scifi")
-			g.drawImage(imageSF.getImage(), (int)position.getX(), (int)position.getY(), RENDERING_SIZE, RENDERING_SIZE,
+		g.drawImage(image.getImage(), (int)position.getX(), (int)position.getY(), RENDERING_SIZE, RENDERING_SIZE,
 					null);
 	}
 

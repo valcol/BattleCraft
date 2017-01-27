@@ -10,14 +10,18 @@ import battlecraft.entity.structure.Barrack;
 import battlecraft.entity.structure.Castle;
 import battlecraft.entity.unit.Soldier;
 import battlecraft.entity.unit.Worker;
+import battlecraft.enums.Teams;
 import battlecraft.rule.MoveBlockers;
 import battlecraft.rule.OverlapRules;
+import battlecraft.strategy.BarrackStrategy;
+import battlecraft.strategy.MoveStrategySelect;
 import gameframework.core.CanvasDefaultImpl;
 import gameframework.core.Game;
 import gameframework.core.GameEntity;
 import gameframework.core.GameLevelDefaultImpl;
 import gameframework.core.GameUniverseDefaultImpl;
 import gameframework.core.GameUniverseViewPortDefaultImpl;
+import gameframework.core.ObservableValue;
 import gameframework.moves_rules.MoveBlockerChecker;
 import gameframework.moves_rules.MoveBlockerCheckerDefaultImpl;
 import gameframework.moves_rules.OverlapProcessor;
@@ -31,19 +35,25 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 	ArrayList<Environment> environmentList = new ArrayList<Environment>();
 
 	MoveStrategySelect selectStr;
-	HouseStrategySelect selectHouse;
+	BarrackStrategy selectHouse;
 
 	private int NB_ROWS;
 	private int NB_COLUMNS;
 	private int SPRITE_SIZE;
 	public static final int NUMBER_OF_GHOSTS = 5;
+	private Player p;
 
-	public GameLevelBC(Game g) {
+	public GameLevelBC(GameBC g) {
 		super(g);
-		SPRITE_SIZE = GameBC.SPRITE_SIZE;
-		NB_COLUMNS = GameBC.NB_COLUMNS;
-		NB_ROWS = GameBC.NB_ROWS;
+		SPRITE_SIZE = g.SPRITE_SIZE;
+		NB_COLUMNS = g.NB_COLUMNS;
+		NB_ROWS = g.NB_ROWS;
 		canvas = g.getCanvas();
+		
+		p = new Player();
+		p.setOre(g.ore());
+		p.setRock(g.rock());
+		p.setWood(g.wood());
 	}
 
 	@Override
@@ -52,21 +62,19 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
-		moveBlockerChecker.setMoveBlockerRules(new MoveBlockers(endOfGame, life[0]));
+		moveBlockerChecker.setMoveBlockerRules(new MoveBlockers(endOfGame));
 
-		OverlapRules overlapRules = new OverlapRules(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE),
-				new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE), life[0], score[0], endOfGame);
+		OverlapRules overlapRules = new OverlapRules();
 		overlapProcessor.setOverlapRules(overlapRules);
 
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
 		selectStr = new MoveStrategySelect();
-		selectHouse = new HouseStrategySelect();
 
 		overlapRules.setUniverse(universe);
 		overlapRules.setStrategy(selectStr);
 		overlapRules.setCanvas(canvas);
-		overlapRules.setEntityFactory(efactoryRed);
-
+		overlapRules.setPlayer(p);
+		
 		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 
@@ -78,13 +86,14 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		canvas.addMouseListener(selectHouse);
 		canvas.addMouseMotionListener(selectHouse);
 		selectStr.setCanvas(canvas);
-		selectHouse.setCanvas(canvas);
 
 		LevelManager.init();
 		LevelManager.getInstance().setBarracksMenu(selectHouse);
 		LevelManager.getInstance().setMoveBlockerChecker(moveBlockerChecker);
 		LevelManager.getInstance().setMoveStrat(selectStr);
 		LevelManager.getInstance().setUniverse(universe);
+		LevelManager.getInstance().setCanvas(canvas);
+		LevelManager.getInstance().setPlayer(p);
 
 		placeTiles();
 		placeStructures();
@@ -157,20 +166,13 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 				}
 				// Castle
 				if ((j == 4) && (i == 10)) {
-					c = (Castle) efactoryBlue.createCastleBottom(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					c = (Castle) efactoryBlue.createCastle(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					LevelManager.getInstance().addPlayerCastle(c);
 				}
-				if ((j == 4) && (i == 9))
-					universe.addGameEntity(
-							efactoryBlue.createCastleTop(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
-
 				if ((j == 35) && (i == 10)) {
-					c = (Castle) efactoryRed.createCastleBottom(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					c = (Castle) efactoryRed.createCastle(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					LevelManager.getInstance().addIACastle(c);
 				}
-				if ((j == 35) && (i == 9))
-					universe.addGameEntity(
-							efactoryBlue.createCastleTop(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 			}
 		}
 	}

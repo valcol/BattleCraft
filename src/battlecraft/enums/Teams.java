@@ -1,4 +1,4 @@
-package battlecraft;
+package battlecraft.enums;
 
 public enum Teams {
   RED ("RED"),
