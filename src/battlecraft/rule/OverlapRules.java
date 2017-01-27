@@ -48,10 +48,8 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 			g.setCombat(true);
 			g2.setCombat(true);
 			float st1 = g.strike();
-			System.out.println(g.getTeam() + " attack with force : " + st1);
 			g2.parry(st1);
 			float st2 = g2.strike();
-			System.out.println(g2.getTeam() + " attack with force : " + st2);
 			g.parry(st2);
 
 			if (!g.alive()) {

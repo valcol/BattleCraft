@@ -16,12 +16,9 @@ public class MoveBlockers extends MoveBlockerRulesApplierDefaultImpl {
 
 	public void moveBlockerRule(Soldier g, Castle w) throws IllegalMoveException {
 
-		// TODO: ajouter Player castle et IA castle, verif health pour condition
-		// victoire
 
 		if (g.getTeam() != w.getTeam()) {
 			float st1 = g.strike();
-			System.out.println(g.getTeam() + " attack with force : " + st1);
 			w.takeDamages(st1);
 			if(w.getHealth()<=0)
 				endOfGame.setValue(true);
