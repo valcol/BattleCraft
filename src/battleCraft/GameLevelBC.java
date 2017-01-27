@@ -179,11 +179,11 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 					LevelManager.getInstance().addIABarrack(h);
 				}
 				// Castle
-				if ((j == 4) && (i == 10)) {
+				if ((j == 3) && (i == 10)) {
 					c = (Castle) efactoryBlue.createCastle(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					LevelManager.getInstance().addPlayerCastle(c);
 				}
-				if ((j == 35) && (i == 10)) {
+				if ((j == 36) && (i == 10)) {
 					c = (Castle) efactoryRed.createCastle(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					LevelManager.getInstance().addIACastle(c);
 				}
