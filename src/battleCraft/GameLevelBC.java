@@ -151,6 +151,11 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 							new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					LevelManager.getInstance().addPlayerBarrack(h);
 				}
+				if ((j == 5) && (i == 4)) {
+					h = (Barrack) efactoryBlue.createBarrackOreWorker(canvas,
+							new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					LevelManager.getInstance().addPlayerBarrack(h);
+				}
 				// RED
 				if ((j == 37) && (i == 5)) {
 					h = (Barrack) efactoryRed.createBarrackSoldierIA(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
@@ -164,6 +169,12 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 				}
 				if ((j == 37) && (i == 2)) {
 					h = (Barrack) efactoryRed.createBarrackWoodWorker(canvas,
+							new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					LevelManager.getInstance().addIABarrack(h);
+				}
+				
+				if ((j == 34) && (i == 4)) {
+					h = (Barrack) efactoryRed.createBarrackOreWorker(canvas,
 							new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					LevelManager.getInstance().addIABarrack(h);
 				}

@@ -22,7 +22,7 @@ public class BarrackSoldierIA extends Barrack implements ActionListener {
 
 	public BarrackSoldierIA(Canvas defaultCanvas, Point position, String spritePathMiddleAge, String spritePathScifi,
 			Rectangle BOUNDING_BOX, Teams team) {
-		super(defaultCanvas, position, spritePathMiddleAge, spritePathScifi, BOUNDING_BOX, team, new BarrackCosts(Ressources.ORE, 1000, Ressources.ROCK, 100));
+		super(defaultCanvas, position, spritePathMiddleAge, spritePathScifi, BOUNDING_BOX, team, new BarrackCosts(Ressources.ORE, 1000, Ressources.ROCK, 200));
 		this.team = team;
 		this.c = defaultCanvas;
 		timer = new Timer(SECOND, this);

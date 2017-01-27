@@ -62,7 +62,7 @@ public class StructureFactory implements IStructureFactory {
 	public GameEntity createBarrackOreWorker(Canvas defaultCanvas, Point position) {
 		// TODO Auto-generated method stub
 		Rectangle boundingBox = new Rectangle(0, 0, 100, 70);
-		String imagePathMiddleAge = "images/Medieval/Structure/20.png";
+		String imagePathMiddleAge = "images/Medieval/Structure/9.png";
 		String imagePathSciFi = "images/Scifi/Structure/9.png";
 		return new BarrackOreWorker(defaultCanvas, position, imagePathMiddleAge,imagePathSciFi, boundingBox, team);
 	}
