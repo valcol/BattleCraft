@@ -33,6 +33,8 @@ public class LevelManager {
 	Player player;
 	IA ia;
 
+	Castle playerCastle;
+
     private LevelManager() {
 
     }
@@ -88,7 +90,7 @@ public class LevelManager {
 	public void addIAToCastleSoldier(Soldier s){
 		GameMovableDriverDefaultImpl ghostDriv = new GameMovableDriverDefaultImpl();
 		MoveStrategyToPoint ranStr = new MoveStrategyToPoint(s);
-		ranStr.setDestionation(new Point(155, 315));
+		ranStr.setDestionation(new Point(playerCastle.getPos()));
 		ghostDriv.setStrategy(ranStr);
 		ghostDriv.setmoveBlockerChecker(moveBlockerChecker);
 		s.setDriver(ghostDriv);
@@ -132,6 +134,7 @@ public class LevelManager {
 	
 	
 	public void addPlayerCastle(Castle c){
+		this.playerCastle = c;
 		universe.addGameEntity(c);
 	}
 	

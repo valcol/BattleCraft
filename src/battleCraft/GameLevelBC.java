@@ -2,6 +2,7 @@ package battlecraft;
 
 import java.awt.Canvas;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import battlecraft.entity.EntityFactory;
@@ -136,8 +137,6 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 		Castle c = null;
 		for (int i = 0; i < NB_ROWS; ++i) {
 			for (int j = 0; j < NB_COLUMNS; ++j) {
-				// House
-				// BLUE
 				if ((j == 2) && (i == 5)) {
 					h = (Barrack) efactoryBlue.createHouseSoldier(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					LevelManager.getInstance().addPlayerBarrack(h);
@@ -154,7 +153,7 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 				}
 				// RED
 				if ((j == 37) && (i == 5)) {
-					h = (Barrack) efactoryRed.createHouseSoldier(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
+					h = (Barrack) efactoryRed.createBarrackSoldierIA(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
 					LevelManager.getInstance().addIABarrack(h);
 
 				}
@@ -182,25 +181,38 @@ public class GameLevelBC extends GameLevelDefaultImpl {
 	}
 
 	public void placeRessources() {
-
-		for (int i = 0; i < NB_ROWS; ++i) {
-			for (int j = 0; j < NB_COLUMNS; ++j) {
-				GameEntity r = null;
-				if ((j == 10) && (i == 12))
-					r = efactoryBlue.createCopperOre(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
-				if ((j == 12) && (i == 12))
-					r = efactoryBlue.createGreyRock(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
-				if ((j == 12) && (i == 10))
-					r = efactoryBlue.createNormalPineTree(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
-				if ((j == 10) && (i == 10))
-					r = efactoryBlue.createNormalTree(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
-				if ((j == 15) && (i == 12))
-					r = efactoryBlue.createYellowRock(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE));
-				if (r != null) {
-					LevelManager.getInstance().addEnvironment((Environment) r);
-				}
-
-			}
+		
+		Rectangle r1 = new Rectangle(SPRITE_SIZE*NB_COLUMNS/3, SPRITE_SIZE*NB_ROWS/3, SPRITE_SIZE*NB_COLUMNS/3, SPRITE_SIZE*NB_ROWS/3);
+		
+		for (int i = 0;i<100;i++){
+			GameEntity r = null;
+			
+			int random = (int)(Math.random() * (100));
+			
+			double randomx = (int)(Math.random() * (r1.width*2)) - r1.width;
+			double randomy = (int)(Math.random() * (r1.height));
+			
+			Point p = new Point((int)(r1.getCenterX()+randomx), (int)(r1.getCenterY()+randomy));
+			
+			if (random > 95)
+				r = efactoryBlue.createCopperOre(canvas, p);
+			else if (random > 90)
+				r = efactoryBlue.createGoldOre(canvas, p);
+			else if (random > 70)
+				r = efactoryBlue.createGreyRock(canvas, p);
+			else if (random > 80)
+				r = efactoryBlue.createYellowRock(canvas, p);
+			else if (random > 60)
+				r = efactoryBlue.createNormalPineTree(canvas, p);
+			else if (random > 40)
+				r = efactoryBlue.createNormalTree(canvas, p);
+			else if (random > 20)
+				r = efactoryBlue.createSmallTree(canvas, p);
+			else
+				r = efactoryBlue.createSmallPineTree(canvas, p);
+			
+			LevelManager.getInstance().addEnvironment((Environment) r);
+			
 		}
 	}
 

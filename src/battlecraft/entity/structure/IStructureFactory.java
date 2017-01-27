@@ -12,5 +12,6 @@ public interface IStructureFactory {
 	GameEntity createHouseSoldier(Canvas defaultCanvas, Point position);
 	GameEntity createBarrackWoodWorker(Canvas defaultCanvas, Point position);
 	GameEntity createBarrackOreWorker(Canvas defaultCanvas, Point position);
+	GameEntity createBarrackSoldierIA(Canvas defaultCanvas, Point position);
 
 }

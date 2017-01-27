@@ -23,6 +23,14 @@ public class StructureFactory implements IStructureFactory {
 		String imagePathSciFi = "images/Scifi/Structure/4.png";
 		return new BarrackSoldier(defaultCanvas, position, imagePathMiddleAge,imagePathSciFi, boundingBox, team);
 	}
+	
+	@Override
+	public GameEntity createBarrackSoldierIA(Canvas defaultCanvas, Point position) {
+		Rectangle boundingBox = new Rectangle(0, 0, 100, 70);
+		String imagePathMiddleAge = "images/Medieval/Structure/19.png";
+		String imagePathSciFi = "images/Scifi/Structure/4.png";
+		return new BarrackSoldierIA(defaultCanvas, position, imagePathMiddleAge,imagePathSciFi, boundingBox, team);
+	}
 
 	@Override
 	public GameEntity createCastle(Canvas defaultCanvas, Point position) {
