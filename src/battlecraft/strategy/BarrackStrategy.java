@@ -42,9 +42,7 @@ public class BarrackStrategy extends MouseAdapter implements MouseMotionListener
 	    @Override
 	    public void mouseClicked(MouseEvent e) {
 	        if (e.getButton() == MouseEvent.BUTTON1){
-	        	System.out.println("clikkkkk");
 		        if (isOnBoundingBox(e.getPoint(), boundingBox)) {
-		        	System.out.println("ok");
 		        	refreshBouttons();
 		            barrack.select();
 		        } else if (barrack.isSelected() && isOnBoundingBox(e.getPoint(), boundingBoxBtnUpdate) && barrack.isShowUpgardeBtn()) {
