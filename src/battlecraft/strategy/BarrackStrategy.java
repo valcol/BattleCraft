@@ -1,19 +1,13 @@
 package battlecraft.strategy;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
 
 import battlecraft.Player;
-import battlecraft.entity.Selectable;
 import battlecraft.entity.structure.Barrack;
-import gameframework.moves_rules.ObjectWithBoundedBox;
 
 public class BarrackStrategy extends MouseAdapter implements MouseMotionListener {
 	

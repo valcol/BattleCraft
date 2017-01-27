@@ -1,8 +1,6 @@
 package battlecraft;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 import battlecraft.entity.structure.Barrack;
 import battlecraft.entity.structure.BarrackOreWorker;

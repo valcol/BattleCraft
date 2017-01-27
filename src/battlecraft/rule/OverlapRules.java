@@ -1,16 +1,13 @@
 package battlecraft.rule;
 
 import java.awt.Canvas;
-import java.awt.Point;
 import java.util.Vector;
 
 import battlecraft.IA;
 import battlecraft.Player;
-import battlecraft.entity.EntityFactory;
 import battlecraft.entity.environment.Environment;
 import battlecraft.entity.unit.Soldier;
 import battlecraft.entity.unit.Worker;
-import battlecraft.enums.Ressources;
 import battlecraft.enums.Teams;
 import battlecraft.strategy.MoveStrategySelect;
 import gameframework.core.GameUniverse;

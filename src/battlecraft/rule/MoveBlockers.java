@@ -2,7 +2,6 @@ package battlecraft.rule;
 
 import battlecraft.entity.structure.Castle;
 import battlecraft.entity.unit.Soldier;
-import battlecraft.enums.Teams;
 import gameframework.core.ObservableValue;
 import gameframework.moves_rules.IllegalMoveException;
 import gameframework.moves_rules.MoveBlockerRulesApplierDefaultImpl;

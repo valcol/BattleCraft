@@ -12,7 +12,6 @@ import gameframework.core.Drawable;
 import gameframework.core.DrawableImage;
 import gameframework.core.GameEntity;
 import gameframework.moves_rules.MoveBlocker;
-import sun.security.x509.IssuingDistributionPointExtension;
 
 public abstract class StructureAbstract implements  Drawable, MoveBlocker, GameEntity  {
 	protected DrawableImage image;

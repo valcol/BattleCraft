@@ -13,7 +13,6 @@ import battlecraft.entity.Utils;
 import battlecraft.enums.Teams;
 import battleengine.soldier.ages.AgeFutureFactory;
 import battleengine.soldier.ages.AgeMiddleFactory;
-import battleengine.soldier.core.AgeAbstractFactory;
 import battleengine.soldier.core.Unit;
 import gameframework.core.Drawable;
 import gameframework.core.DrawableImage;
