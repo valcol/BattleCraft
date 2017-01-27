@@ -4,10 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Container;
 import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Frame;
-import java.awt.GraphicsEnvironment;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Label;
@@ -20,8 +17,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -177,9 +172,10 @@ public class GameBC implements Game, Observer {
 		c.setLayout(layout);
 		lifeValue = new Label(Integer.toString(life[0].getValue()));
 		currentLevelValue = new Label(Integer.toString(levelNumber));
-		woodValue = new Label(Integer.toString(wood[0].getValue()));
-		oreValue = new Label(Integer.toString(ore[0].getValue()));
-		rockValue = new Label(Integer.toString(rock[0].getValue()));
+		woodValue = new Label(Integer.toString(wood[0].getValue())+ "     ");
+		oreValue = new Label(Integer.toString(ore[0].getValue())+ "     ");
+		rockValue = new Label(Integer.toString(rock[0].getValue())+ "     ");
+
 		c.add(woodText);
 		c.add(woodValue);
 		c.add(oreText);
@@ -190,6 +186,7 @@ public class GameBC implements Game, Observer {
 		c.add(currentLevelValue);
 		c.add(information);
 		c.add(informationValue);
+		c.repaint();
 		return c;
 	}
 
