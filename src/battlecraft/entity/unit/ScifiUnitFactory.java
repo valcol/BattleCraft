@@ -29,8 +29,8 @@ public class ScifiUnitFactory implements IUnitFactory {
 
 	@Override
 	public GameEntity createRockWorker(Canvas defaultCanvas, Point position) {
-		String imagePathMiddleAge = "images/Scifi/Unit/" + team.toString() + "/1.png";
-		String imagePathScifi = "images/Scifi/Unit/" + team.toString() + "/1.png";
+		String imagePathMiddleAge = "images/Scifi/Unit/" + team.toString() + "/2.png";
+		String imagePathScifi = "images/Scifi/Unit/" + team.toString() + "/2.png";
 		Worker w = new Worker(defaultCanvas, imagePathMiddleAge, imagePathScifi, boundingBox, Ressources.ROCK, position, team);
 		w.upgrade();
 		return w;
@@ -47,8 +47,8 @@ public class ScifiUnitFactory implements IUnitFactory {
 
 	@Override
 	public GameEntity createOreWorker(Canvas defaultCanvas, Point position) {
-		String imagePathMiddleAge = "images/Scifi/Unit/" + team.toString() + "/1.png";
-		String imagePathScifi = "images/Scifi/Unit/" + team.toString() + "/1.png";
+		String imagePathMiddleAge = "images/Scifi/Unit/" + team.toString() + "/2.png";
+		String imagePathScifi = "images/Scifi/Unit/" + team.toString() + "/2.png";
 		Worker w = new Worker(defaultCanvas, imagePathMiddleAge, imagePathScifi, boundingBox, Ressources.ORE, position, team);
 		w.upgrade();
 		return w;

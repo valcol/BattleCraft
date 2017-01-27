@@ -30,7 +30,7 @@ public class BarrackSoldierIA extends Barrack implements ActionListener {
 
 	@Override
 	public void createUnit() {
-		Point p = new Point(this.position.x + 30, this.position.y + 30);
+		Point p = new Point((int) (this.position.x+(Math.random() * (10))+30), (int) (this.position.y+(Math.random() * (10))+30));
 		int random = (int)(Math.random() * (100));
 		
 		if (random > 80)

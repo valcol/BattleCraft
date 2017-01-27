@@ -18,7 +18,7 @@ public class BarrackRockWorker extends Barrack {
 
 	@Override
 	public void createUnit() {
-		Point p = new Point(this.position.x + 30, this.position.y + 30);
+		Point p = new Point((int) (this.position.x+(Math.random() * (10))+30), (int) (this.position.y+(Math.random() * (10))+30));
 		LevelManager.getInstance().addWorker((Worker) unit.createRockWorker(defaultCanvas, p));
 	}
 }
