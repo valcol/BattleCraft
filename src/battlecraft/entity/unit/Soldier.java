@@ -6,9 +6,9 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import battlecraft.Age;
 import battlecraft.entity.Selectable;
 import battlecraft.entity.SpriteStore;
+import battlecraft.entity.Upgradable;
 import battlecraft.entity.Utils;
 import battlecraft.enums.Teams;
 import battleengine.soldier.ages.AgeFutureFactory;
@@ -21,7 +21,7 @@ import gameframework.core.GameEntity;
 import gameframework.core.GameMovable;
 import gameframework.core.Overlappable;
 
-public class Soldier extends GameMovable implements Drawable, GameEntity, Overlappable, Selectable {
+public class Soldier extends GameMovable implements Drawable, GameEntity, Overlappable, Selectable, Upgradable {
 	protected DrawableImage imageMA, imageSF;
 	public static final int RENDERING_SIZE = 32;
 	protected boolean movable = false;
@@ -34,8 +34,7 @@ public class Soldier extends GameMovable implements Drawable, GameEntity, Overla
 	private int healPerSecond = 1;
 	private int cooldown = 5;
 	private Unit unit;
-	private AgeAbstractFactory scifi;
-	private AgeAbstractFactory middleAge;
+	private boolean isUpgraded = false;
 
 	public Soldier(Canvas defaultCanvas, String imagePathMiddleAge, String imagePathScifi, Rectangle BOUNDING_BOX,
 			Teams team, Point position) {
@@ -43,12 +42,7 @@ public class Soldier extends GameMovable implements Drawable, GameEntity, Overla
 		this.imageSF = SpriteStore.getInstance().getSprite(imagePathScifi, defaultCanvas);
 		this.BOUNDING_BOX = BOUNDING_BOX;
 		this.team = team;
-		this.scifi = new AgeFutureFactory();
-		this.middleAge = new AgeMiddleFactory();
-		if (Age.AGE == "MiddleAge")
-			this.unit = middleAge.infantryUnit("");
-		if (Age.AGE == "Scifi")
-			this.unit = scifi.infantryUnit("");
+		this.unit = new AgeMiddleFactory().infantryUnit("");
 		this.setPosition(position);
 	}
 
@@ -76,13 +70,12 @@ public class Soldier extends GameMovable implements Drawable, GameEntity, Overla
 
 		g.drawRect(x, y, totalLifeBarWidth, 3);
 
-		if (Age.AGE == "MiddleAge")
+		if (!isUpgraded)
 			g.drawImage(imageMA.getImage(), (int) getPosition().getX() - RENDERING_SIZE / 4,
 					(int) getPosition().getY() - RENDERING_SIZE / 4, RENDERING_SIZE, RENDERING_SIZE, null);
-		if (Age.AGE == "Scifi") {
+		else 
 			g.drawImage(imageSF.getImage(), (int) getPosition().getX() - RENDERING_SIZE / 4,
 					(int) getPosition().getY() - RENDERING_SIZE / 4, RENDERING_SIZE, RENDERING_SIZE, null);
-		}
 	}
 
 	@Override
@@ -153,6 +146,19 @@ public class Soldier extends GameMovable implements Drawable, GameEntity, Overla
 			return unit.strike();
 		} else
 			return 0;
+	}
+
+	@Override
+	public void upgrade() {
+		this.unit = new AgeFutureFactory().infantryUnit("");
+		healPerSecond = 2;
+		cooldown = 7;
+		isUpgraded = true;
+	}
+
+	@Override
+	public boolean isUpgraded() {
+		return isUpgraded;
 	}
 
 }

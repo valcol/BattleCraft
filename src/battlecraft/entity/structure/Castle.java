@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-
-import battlecraft.Age;
 import battlecraft.entity.SpriteStore;
 import battlecraft.enums.Teams;
 import gameframework.core.DrawableImage;

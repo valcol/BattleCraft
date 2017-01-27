@@ -76,21 +76,19 @@ public class OverlapRules extends OverlapRulesApplierDefaultImpl {
 				float st1 = w.gather();
 				e.takeDamages(st1);
 				if (w.getTeam() == Teams.BLUE)
-					player.removeFromRessources(e.getType(), (int) -st1);
+					player.addToRessources(e.getType(), (int) st1);
 				else
-					ia.removeFromRessources(e.getType(), (int) -st1);
+					ia.addToRessources(e.getType(), (int) st1);
 			} else
 				w.setGathering(false);
 		}
 	}
 
 	public void setPlayer(Player p) {
-		// TODO Auto-generated method stub
 		player = p;
 	}
 	
 	public void setIA(IA ia) {
-		// TODO Auto-generated method stub
-		ia = ia;
+		this.ia = ia;
 	}
 }

@@ -31,6 +31,7 @@ public class LevelManager {
 	GameUniverse universe;
 	Canvas canvas;
 	Player player;
+	IA ia;
 
     private LevelManager() {
 
@@ -138,7 +139,12 @@ public class LevelManager {
 		universe.addGameEntity(c);
 	}
     
-	public void addBarracks(Barrack h){
+	public void addIABarrack(Barrack h){
+		ia.addBarrack(h);
+		universe.addGameEntity(h);
+	}
+	
+	public void addPlayerBarrack(Barrack h){
 		BarrackStrategy b = new BarrackStrategy(h, player);
 		canvas.addMouseListener(b);
 		universe.addGameEntity(h);
@@ -154,8 +160,11 @@ public class LevelManager {
 	}
 
 	public void setPlayer(Player p) {
-		// TODO Auto-generated method stub
 		this.player = p;
+	}
+
+	public void setIa(IA ia) {
+		this.ia = ia;
 	}
     
 }

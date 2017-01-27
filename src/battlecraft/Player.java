@@ -53,4 +53,8 @@ public class Player {
 		else 
 			wood.setValue(wood.getValue()-cost);
 	}
+	
+	public void addToRessources(Ressources r, int cost) {
+		removeFromRessources(r, -cost);
+	}
 }

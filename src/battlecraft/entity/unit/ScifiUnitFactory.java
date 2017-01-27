@@ -22,28 +22,36 @@ public class ScifiUnitFactory implements IUnitFactory {
 	public GameEntity createSoldier(Canvas defaultCanvas, Point position) {
 		String imagePathMiddleAge = "images/Scifi/Unit/" + team.toString() + "/4.png";
 		String imagePathScifi = "images/Scifi/Unit/" + team.toString() + "/4.png";
-		return new Soldier(defaultCanvas, imagePathMiddleAge, imagePathScifi, boundingBox, team, position);
+		Soldier s = new Soldier(defaultCanvas, imagePathMiddleAge, imagePathScifi, boundingBox, team, position);
+		s.upgrade();
+		return s;
 	}
 
 	@Override
 	public GameEntity createRockWorker(Canvas defaultCanvas, Point position) {
 		String imagePathMiddleAge = "images/Scifi/Unit/" + team.toString() + "/1.png";
 		String imagePathScifi = "images/Scifi/Unit/" + team.toString() + "/1.png";
-		return new Worker(defaultCanvas, imagePathMiddleAge, imagePathScifi, boundingBox, Ressources.ROCK, position, team);
+		Worker w = new Worker(defaultCanvas, imagePathMiddleAge, imagePathScifi, boundingBox, Ressources.ROCK, position, team);
+		w.upgrade();
+		return w;
 	}
 
 	@Override
 	public GameEntity createWoodWorker(Canvas defaultCanvas, Point position) {
 		String imagePathMiddleAge = "images/Scifi/Unit/" + team.toString() + "/1.png";
 		String imagePathScifi = "images/Scifi/Unit/" + team.toString() + "/1.png";
-		return new Worker(defaultCanvas, imagePathMiddleAge, imagePathScifi, boundingBox, Ressources.WOOD, position, team);
+		Worker w = new Worker(defaultCanvas, imagePathMiddleAge, imagePathScifi, boundingBox, Ressources.WOOD, position, team);
+		w.upgrade();
+		return w;
 	}
 
 	@Override
 	public GameEntity createOreWorker(Canvas defaultCanvas, Point position) {
 		String imagePathMiddleAge = "images/Scifi/Unit/" + team.toString() + "/1.png";
 		String imagePathScifi = "images/Scifi/Unit/" + team.toString() + "/1.png";
-		return new Worker(defaultCanvas, imagePathMiddleAge, imagePathScifi, boundingBox, Ressources.ORE, position, team);
+		Worker w = new Worker(defaultCanvas, imagePathMiddleAge, imagePathScifi, boundingBox, Ressources.ORE, position, team);
+		w.upgrade();
+		return w;
 	}
 
 }

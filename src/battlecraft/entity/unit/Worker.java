@@ -6,8 +6,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import battlecraft.Age;
 import battlecraft.entity.SpriteStore;
+import battlecraft.entity.Upgradable;
 import battlecraft.entity.Utils;
 import battlecraft.enums.Ressources;
 import battlecraft.enums.Teams;
@@ -17,7 +17,7 @@ import gameframework.core.GameEntity;
 import gameframework.core.GameMovable;
 import gameframework.core.Overlappable;
 
-public class Worker extends GameMovable implements Drawable, GameEntity, Overlappable {
+public class Worker extends GameMovable implements Drawable, GameEntity, Overlappable, Upgradable {
 	protected DrawableImage imageMA, imageSF;
 	public static final int RENDERING_SIZE = 32;
 	protected boolean movable = false;
@@ -28,6 +28,7 @@ public class Worker extends GameMovable implements Drawable, GameEntity, Overlap
 	private Ressources type;
 	private boolean isGathering = false;
 	private Teams team;
+	private boolean isUpgraded = false;
 
 	public Worker(Canvas defaultCanvas, String imagePathMiddleAge, String imagePathScifi, Rectangle BOUNDING_BOX,
 			Ressources type, Point position, Teams team) {
@@ -36,6 +37,7 @@ public class Worker extends GameMovable implements Drawable, GameEntity, Overlap
 		this.BOUNDING_BOX = BOUNDING_BOX;
 		this.type = type;
 		this.setPosition(position);
+		this.team = team;
 	}
 
 	public void draw(Graphics g) {
@@ -52,13 +54,12 @@ public class Worker extends GameMovable implements Drawable, GameEntity, Overlap
 		g.fillRect(x, y, lifeBarWidth, 3);
 		g.drawRect(x, y, totalLifeBarWidth, 3);
 
-		if (Age.AGE == "MiddleAge")
+		if (!isUpgraded)
 			g.drawImage(imageMA.getImage(), (int) getPosition().getX() - RENDERING_SIZE / 4,
 					(int) getPosition().getY() - RENDERING_SIZE / 4, RENDERING_SIZE, RENDERING_SIZE, null);
-		if (Age.AGE == "Scifi")
+		else
 			g.drawImage(imageSF.getImage(), (int) getPosition().getX() - RENDERING_SIZE / 4,
 					(int) getPosition().getY() - RENDERING_SIZE / 4, RENDERING_SIZE, RENDERING_SIZE, null);
-
 	}
 
 	@Override
@@ -100,6 +101,17 @@ public class Worker extends GameMovable implements Drawable, GameEntity, Overlap
 
 	public void setTeam(Teams team) {
 		this.team = team;
+	}
+
+	@Override
+	public void upgrade() {
+		cooldown = 7;
+		strenght = 10;
+	}
+
+	@Override
+	public boolean isUpgraded() {
+		return isUpgraded;
 	}
 	
 	

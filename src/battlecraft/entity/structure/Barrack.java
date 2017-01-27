@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import battlecraft.Age;
 import battlecraft.entity.Selectable;
 import battlecraft.entity.SpriteStore;
 import battlecraft.entity.Upgradable;

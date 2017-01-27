@@ -1,15 +1,25 @@
 package battlecraft;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
+import battlecraft.entity.structure.Barrack;
+import battlecraft.entity.structure.BarrackOreWorker;
+import battlecraft.entity.structure.BarrackRockWorker;
+import battlecraft.entity.structure.BarrackWoodWorker;
 import battlecraft.enums.Ressources;
-import gameframework.core.ObservableValue;
 
 public class IA {
-	
-	//TODO: ajouter les barraks de l'ia dans liste et dès qu'il y a ajout de ressources, generer des soldats/workers}
-	
+		
 	protected int wood;
 	protected int ore;
 	protected int rock;
+	protected ArrayList<Barrack> barracks = new ArrayList<Barrack>();
+	protected int numberOfWoodWorkers = 0;
+	protected int numberOfRockWorkers = 0;
+	protected int numberOfOreWorkers = 0;
+	protected int numberOfWorkersMax = 5;
 
 	public IA()
 	{}
@@ -55,5 +65,57 @@ public class IA {
 			rock-=cost;
 		else 
 			wood-=cost;
+	}
+	
+	public void addToRessources(Ressources r, int cost) {
+		this.removeFromRessources(r, -cost);
+		this.behavior();
+	}
+	
+	private void behavior() {
+		for (Barrack barrack: barracks){
+
+			if (barrack instanceof BarrackWoodWorker){
+				if (numberOfWoodWorkers < numberOfWorkersMax)
+					if (tryToBuildAndUpdate(barrack))
+						numberOfWoodWorkers++;
+			}
+			else if (barrack instanceof BarrackRockWorker){
+				if (numberOfRockWorkers < numberOfWorkersMax)
+					if (tryToBuildAndUpdate(barrack))
+						numberOfRockWorkers++;
+			}
+			else if (barrack instanceof BarrackOreWorker){
+				if (numberOfOreWorkers < numberOfWorkersMax)
+					if (tryToBuildAndUpdate(barrack))
+						numberOfOreWorkers++;
+			}
+			else
+				tryToBuildAndUpdate(barrack);
+		}
+	}
+
+	public void addBarrack(Barrack b){
+		barracks.add(b);
+	}
+	
+	public boolean tryToBuildAndUpdate(Barrack barrack){
+		barrack.setShowUpgardeBtn(this.getQuantityFromRessource(barrack.getCost().getUpgradeRessource()) 
+    			>= barrack.getCost().getUpgradeCost());
+    	barrack.setShowAddBtn(this.getQuantityFromRessource(barrack.getCost().getAddRessource())
+    			>= barrack.getCost().getAddCost());
+    	
+    	if (barrack.isShowUpgardeBtn()) {
+            barrack.upgrade();
+            this.removeFromRessources(barrack.getCost().getUpgradeRessource(), barrack.getCost().getUpgradeCost());
+        }
+    	
+    	if (barrack.isShowAddBtn()) {
+            barrack.createUnit();
+            this.removeFromRessources(barrack.getCost().getAddRessource(), barrack.getCost().getAddCost());
+            return true;
+    	}
+    	
+    	return false;
 	}
 }
