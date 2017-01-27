@@ -68,6 +68,19 @@ public class Soldier extends GameMovable implements Drawable, GameEntity, Overla
 			g.setColor(new Color(17, 95, 50));
 
 		g.drawRect(x, y, totalLifeBarWidth, 3);
+		
+		
+		int totalCDBarWidth = 15;
+		int CDBarWidth = (int) ((timerCooldown * totalCDBarWidth) / cooldown);
+		int x2 = (int) getPosition().getX();
+		int y2 = (int) getPosition().getY() - 5;
+
+		g.setColor(new Color(0, 0, 0));
+		g.fillRect(x2, y2, totalCDBarWidth, 1);
+
+		g.setColor(new Color(50, 237, 237));
+
+		g.fillRect(x2, y2, CDBarWidth, 1);
 
 		if (!isUpgraded)
 			g.drawImage(imageMA.getImage(), (int) getPosition().getX() - RENDERING_SIZE / 4,

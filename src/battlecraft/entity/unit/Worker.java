@@ -41,18 +41,17 @@ public class Worker extends GameMovable implements Drawable, GameEntity, Overlap
 	}
 
 	public void draw(Graphics g) {
-		int totalLifeBarWidth = 5;
-		int lifeBarWidth = (int) ((10 * totalLifeBarWidth) / 10);
+		int totalCDBarWidth = 15;
+		int lifeBarWidth = (int) ((timerCooldown * totalCDBarWidth) / cooldown);
 		int x = (int) getPosition().getX();
 		int y = (int) getPosition().getY() - 7;
 
 		g.setColor(new Color(0, 0, 0));
-		g.fillRect(x, y, totalLifeBarWidth, 3);
+		g.fillRect(x, y, totalCDBarWidth, 1);
 
-		g.setColor(new Color(198, 37, 37));
+		g.setColor(new Color(50, 237, 237));
 
-		g.fillRect(x, y, lifeBarWidth, 3);
-		g.drawRect(x, y, totalLifeBarWidth, 3);
+		g.fillRect(x, y, lifeBarWidth, 1);
 
 		if (!isUpgraded)
 			g.drawImage(imageMA.getImage(), (int) getPosition().getX() - RENDERING_SIZE / 4,
